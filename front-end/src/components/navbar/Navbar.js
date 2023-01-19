@@ -27,7 +27,10 @@ function navbar() {
             <label for="checkbox_toggle" class="hamburger">&#9776;</label>
             <div class="menu">
             <li><Link to="/">Home</Link></li>
-              <li><Link to ="/dashboard">Dashboard</Link></li>
+            <li><Link to="/stdprofile">Profile</Link></li>
+            <li><Link to="/stdaddress">Address</Link></li>
+            <li><Link to="/stdqualify">Qualification</Link></li>
+            <li><Link to="/uploaddoc">Documents</Link></li>
               <li><Link onClick={logout} to="/register">Logout</Link></li>
               </div>
           </ul>
