@@ -19,7 +19,7 @@ function profile() {
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Deatils</th>
+                                <th>Details</th>
                                 <th>Values</th>
                             </tr>
                         </thead>

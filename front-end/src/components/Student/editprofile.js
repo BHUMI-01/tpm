@@ -1,4 +1,5 @@
-import React from 'react'
+import React , {useState}from 'react'
+
 import {
     MDBBtn,
     MDBContainer,
@@ -11,7 +12,39 @@ import {
     from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
 
-function editprofile() {
+
+const Editprofile = () => {
+    const [fatherName, setfatherName]= useState("");
+    const [motherName, setmotherName]= useState("");
+    const [gender, setgender]= useState("");
+    const [dob,setdob]= useState("");
+    const [enrollNum, setenrollNum]= useState("");
+    const [mobNum,setmobNum]= useState("");
+    const [alternateNum, setalternateNum]= useState("");
+    const [disability, setDisability]= useState("");
+    const [aadharNum,setaadharNum]= useState("");
+    const [bloodGroup,setbloodGroup]= useState("");
+    const [caste,setcaste]= useState("");
+    const [religion,setreligion]= useState("");
+    const [nationality,setnationality]= useState("");
+    const [state,setstate]= useState("");
+
+    const add_student_profile = async () => {
+        console.warn(fatherName, motherName, gender,dob, enrollNum, mobNum, alternateNum, disability,aadharNum
+            ,bloodGroup, caste, religion, nationality, state);
+        const studentId = JSON.parse(localStorage.getItem("student"))._id;
+        let result = await fetch("http://localhost:5000/add-student-prof",{
+            method : 'post',
+            body : JSON.stringify({fatherName, motherName, gender,dob, enrollNum, mobNum, alternateNum, disability,aadharNum
+                ,bloodGroup, caste, religion, nationality, state, studentId}),
+            headers : {
+                'Content-Type' : 'application/json'
+            }
+        });
+        result = await result.json();
+        console.warn(result);
+    }
+
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5' style={{ borderRadius: '25px' }}>
@@ -33,19 +66,28 @@ function editprofile() {
                         <MDBRow style={{ height: "20px" }}></MDBRow>
 
                         <MDBRow>
-                            <MDBCol><label>Father's Name: </label><MDBInput id='fname' label='Father Name' type='text' required></MDBInput></MDBCol>
-                            <MDBCol><label>Mother's Name: </label><MDBInput id='mname' label='Mother Name' type='text' required></MDBInput></MDBCol>
-                            <MDBCol><label>Blood Group: </label><MDBInput id='enumber' label='Blood Group' type='text' required></MDBInput></MDBCol>
+                            <MDBCol><label>Father's Name: </label><MDBInput id='fname' label='Father Name' type='text' value={fatherName}
+                    onChange={(e)=> setfatherName(e.target.value)} required></MDBInput></MDBCol>
+                            <MDBCol><label>Mother's Name: </label><MDBInput id='mname' label='Mother Name' type='text' 
+                            value={motherName}
+                            onChange={(e)=> setmotherName(e.target.value)}required></MDBInput></MDBCol>
+                            <MDBCol><label>Blood Group: </label><MDBInput id='enumber' label='Blood Group' type='text' value={bloodGroup}
+                    onChange={(e)=> setbloodGroup(e.target.value)} required></MDBInput></MDBCol>
 
                         </MDBRow>
 
                         <MDBRow style={{ height: "20px" }}></MDBRow>
 
                         <MDBRow>
-                            <MDBCol><MDBInput id='dob' label='D.O.B' type='date' required></MDBInput></MDBCol>
-                            <MDBCol><MDBInput id='enumber' label='Enrollment No.' type='text' required></MDBInput></MDBCol>
-                            <MDBCol><MDBInput id='mnumber' label='Mobile No.' type='tel' required></MDBInput></MDBCol>
-                            <MDBCol><MDBInput id='mnumber' label='Alternate No.' type='tel' required></MDBInput></MDBCol>
+                            <MDBCol><MDBInput id='dob' label='D.O.B' type='date' value={dob}
+                    onChange={(e)=> setdob(e.target.value)} required></MDBInput></MDBCol>
+                            <MDBCol><MDBInput id='enumber' label='Enrollment No.' type='text' value={enrollNum}
+                    onChange={(e)=> setenrollNum(e.target.value)}
+                    required></MDBInput></MDBCol>
+                            <MDBCol><MDBInput id='mnumber' label='Mobile No.' type='tel'  value={mobNum}
+                    onChange={(e)=> setmobNum(e.target.value)} required></MDBInput></MDBCol>
+                            <MDBCol><MDBInput id='mnumber' label='Alternate No.' type='tel' value={alternateNum}
+                    onChange={(e)=> setalternateNum(e.target.value)} required></MDBInput></MDBCol>
                         </MDBRow>
 
                         <MDBRow style={{ height: "20px" }}></MDBRow>
@@ -53,14 +95,17 @@ function editprofile() {
                         <MDBRow>
                             <MDBCol>
                                 <label class="required" for="disability">Disability: </label>
-                                <select class="form-control select2" name="disability" id="disability" required="" aria-hidden="true">
+                                <select class="form-control select2" name="disability" id="disability" required="" aria-hidden="true"
+                                value={disability}
+                                onChange={(e)=> setDisability(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="1">Yes</option>
                                     <option value="2">No</option>
                                 </select>
                             </MDBCol>
                             <MDBCol><label>Religion: </label>
-                                <select class="form-control select2" name="religion" id="religion" required="" aria-hidden="true">
+                                <select class="form-control select2" name="religion" id="religion" required="" aria-hidden="true" value={religion}
+                                onChange={(e)=> setreligion(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="1">Hindu</option>
                                     <option value="2">Muslim</option>
@@ -71,7 +116,8 @@ function editprofile() {
                                 </select>
                             </MDBCol>
                             <MDBCol><label>Caste: </label>
-                                <select class="form-control select2" name="caste" id="caste" required="" aria-hidden="true">
+                                <select class="form-control select2" name="caste" id="caste" required="" aria-hidden="true" value={caste}
+                                onChange={(e)=> setcaste(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="1">GEN</option>
                                     <option value="2">SC</option>
@@ -85,10 +131,12 @@ function editprofile() {
                         <MDBRow style={{ height: "20px" }}></MDBRow>
 
                         <MDBRow>
-                            <MDBCol><label>Addhaar No.: </label><MDBInput id='enumber' label='Adhaar No.' type='text' required></MDBInput></MDBCol>
+                            <MDBCol><label>Addhaar No.: </label><MDBInput id='enumber' label='Adhaar No.' type='text' value={aadharNum}
+                                onChange={(e)=> setaadharNum(e.target.value)} required></MDBInput></MDBCol>
                             <MDBCol>
                                 <label class="required" for="country_id">Nationality: </label>
-                                <select class="form-control select2" name="country_id" id="country_id" required="" aria-hidden="true">
+                                <select class="form-control select2" name="country_id" id="country_id" required="" aria-hidden="true" value={nationality}
+                                onChange={(e)=> setnationality(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="1">Afghanistan</option>
                                     <option value="2">Albania</option>
@@ -340,7 +388,8 @@ function editprofile() {
                             </MDBCol>
                             <MDBCol>
                                 <label class="required" for="gender">Gender: </label>
-                                <select class="form-control select2" name="gender" id="gender" required="" aria-hidden="true">
+                                <select class="form-control select2" name="gender" id="gender" required="" aria-hidden="true" value={gender}
+                                onChange={(e)=> setgender(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="1">MALE</option>
                                     <option value="2">FEMALE</option>
@@ -353,7 +402,8 @@ function editprofile() {
 
                         <MDBRow>
                             <MDBCol><label for="province_id">Domicile Province:</label>
-                                <select class="form-control" name="province_id" id="province_id">
+                                <select class="form-control" name="province_id" id="province_id" value={state}
+                                onChange={(e)=> setstate(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="1">Andhra Pradesh</option>
                                     <option value="2">Arunachal Pradesh</option>
@@ -401,7 +451,7 @@ function editprofile() {
 
                         <MDBRow>
                             <MDBCol>
-                                <MDBBtn type='submit'>Save</MDBBtn>
+                                <MDBBtn type='submit' onClick={add_student_profile}>Save</MDBBtn>
                             </MDBCol>
                             <MDBCol>
                                 <Link to='/'><MDBBtn>Back</MDBBtn></Link>
@@ -416,4 +466,4 @@ function editprofile() {
     )
 }
 
-export default editprofile
+export default Editprofile

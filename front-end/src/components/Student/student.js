@@ -1,5 +1,5 @@
 import Table from 'react-bootstrap/Table';
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {
     MDBBtn,
     MDBContainer,
@@ -11,6 +11,18 @@ import {
     from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
 function student() {
+    const [profiles, setProfiles]= useState("");
+    useEffect(() =>{
+        getProfiles();
+    }, []);
+
+    const getProfiles = async () =>{
+        let result = await fetch("http://localhost:5000/profiles");
+        result = await result.json();
+        setProfiles(result);
+    }
+    console.warn(profiles);
+
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>
@@ -23,12 +35,13 @@ function student() {
                                 <th>Values</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody key = {item}>
+                            <tr >
                                 <td>1</td>
                                 <td>First Name</td>
                                 <td>#</td>
                             </tr>
+                            
                             <tr>
                                 <td>2</td>
                                 <td>Middle Name</td>
@@ -42,7 +55,12 @@ function student() {
                             <tr>
                                 <td>4</td>
                                 <td>Father's Name</td>
-                                <td>#</td>
+                                {
+                                 profiles.map((item, index)=>
+                                    <td>{item.fatherName}</td>
+                                    )
+                                }
+                                
                             </tr>
                             <tr>
                                 <td>5</td>
@@ -110,6 +128,7 @@ function student() {
                                 <td>#</td>
                             </tr>
                         </tbody>
+                        
                     </Table>
                     <MDBRow style={{ height: "20px" }}></MDBRow>
                     <MDBRow>
