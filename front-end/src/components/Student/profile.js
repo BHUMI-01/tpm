@@ -1,5 +1,5 @@
 import Table from 'react-bootstrap/Table';
-import React from 'react';
+import React from 'react'
 import {
     MDBBtn,
     MDBContainer,
@@ -11,25 +11,7 @@ import {
     from 'mdb-react-ui-kit';
     import {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-const Profile = () => {
-    const idd = JSON.parse(localStorage.getItem("student"))._id;
-    // console.warn(idd);
-    const firstN = JSON.parse(localStorage.getItem("student")).firstName;
-    const middleN = JSON.parse(localStorage.getItem("student")).middleName;
-    const lastN = JSON.parse(localStorage.getItem("student")).lastName;
-    const [profiles, setProfiles]= useState([]);
-    useEffect(() =>{
-        getProfiles();
-    }, []);
-
-    const getProfiles = async () =>{
-        let result = await fetch(`http://localhost:5000/profiles/${idd}`);
-        result = await result.json();
-        console.warn(result);
-        setProfiles(result);
-    }
-    // console.warn(profiles);
-
+function profile() {
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>

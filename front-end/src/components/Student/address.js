@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useState, useEffect} from 'react'
 import {
     MDBBtn,
     MDBContainer,
@@ -9,16 +9,34 @@ import {
 }
     from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
-function address() {
+function Address() {
+    const [addresses, setaddress]= useState([]);
+    const idd = JSON.parse(localStorage.getItem("student"))._id;
+    useEffect(() =>{
+        getAddress();
+    }, []);
+
+    const getAddress = async () =>{
+        let result = await fetch(`http://localhost:5000/addresses/${idd}`);
+        result = await result.json();
+        setaddress(result);
+    }
+    console.warn(addresses);
+    
     return (
         <MDBContainer fluid>
             <MDBRow>
                 <MDBCol>
+                   
                     <MDBCard className='text-black m-5'>
                         <MDBCardBody>
                             <h5>Permanent Address</h5>
                             <hr />
-                            <MDBRow style={{ height: "20px" }}></MDBRow>
+                            {
+                                 addresses.map((item)=>
+                                 <MDBRow style={{ height: "30px", paddingLeft:"20px" }}>{item.type}</MDBRow>
+                                    )
+                            }
                             <MDBRow>
                                 <MDBCol>
                                     <Link to='/editstdaddress'><MDBBtn>Edit</MDBBtn></Link>
@@ -47,4 +65,4 @@ function address() {
     )
 }
 
-export default address
+export default Address

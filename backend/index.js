@@ -5,6 +5,7 @@ const cors = require("cors");
 require("./db/config");
 const Student = require("./models/Student");
 const Student_prof = require("./models/Student_profile");
+const Student_Address = require("./models/Student_Address");
 
 // middlewares
 app.use(express.json());
@@ -42,19 +43,34 @@ app.post("/add-student-prof",async (req, resp)=> {
     resp.send(result);
 })
 
-app.post("/:id", (req, resp)=> {
-    console.log(req.params.id);
-    // let student_prof = new Student_prof(req.body);
-    //     if(req.params.id == student_prof.studentId)
-    //     {        const data = await Student_prof.findById(req.params.id);
-    //     if(data)
-    //     {
-    //         resp.send(data)
-    //     }
-    //     else{
-    //         resp.send({result:"No User Found"})
-    //     }
-    // }
+app.get("/profiles/:id", async(req, resp)=> {
+         const data = await Student_prof.find({studentId:req.params.id});
+        if(data)
+        {
+            resp.send(data)
+        }
+        else{
+            resp.send({result:"No User Found"})
+        }
+
+})
+
+app.post("/add-address",async (req, resp)=> {
+    let student_address = new Student_Address(req.body);
+    let result = await student_address.save();
+    resp.send(result);
+})
+
+app.get("/addresses/:id", async(req, resp)=> {
+    const data = await Student_Address.find({studentId:req.params.id});
+   if(data)
+   {
+       resp.send(data)
+   }
+   else{
+       resp.send({result:"No User Found"})
+   }
+
 })
 
 app.listen(5000)
