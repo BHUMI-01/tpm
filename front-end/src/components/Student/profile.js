@@ -1,5 +1,5 @@
 import Table from 'react-bootstrap/Table';
-import React from 'react'
+import React from 'react';
 import {
     MDBBtn,
     MDBContainer,
@@ -9,8 +9,27 @@ import {
     MDBCol
 }
     from 'mdb-react-ui-kit';
+    import {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-function profile() {
+const Profile = () => {
+    const idd = JSON.parse(localStorage.getItem("student"))._id;
+    // console.warn(idd);
+    const firstN = JSON.parse(localStorage.getItem("student")).firstName;
+    const middleN = JSON.parse(localStorage.getItem("student")).middleName;
+    const lastN = JSON.parse(localStorage.getItem("student")).lastName;
+    const [profiles, setProfiles]= useState([]);
+    useEffect(() =>{
+        getProfiles();
+    }, []);
+
+    const getProfiles = async () =>{
+        let result = await fetch(`http://localhost:5000/profiles/${idd}`);
+        result = await result.json();
+        console.warn(result);
+        setProfiles(result);
+    }
+    // console.warn(profiles);
+
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>
@@ -27,37 +46,53 @@ function profile() {
                             <tr>
                                 <td>1</td>
                                 <td>First Name</td>
-                                <td>#</td>
+                                <td>{firstN}</td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Middle Name</td>
-                                <td>#</td>
+                                <td>{middleN}</td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td>Last Name</td>
-                                <td>#</td>
+                                <td>{lastN}</td>
                             </tr>
                             <tr>
                                 <td>4</td>
                                 <td>Father's Name</td>
-                                <td>#</td>
+                                {
+                                 profiles.map((item, index)=>
+                                    <td>{item.fatherName}</td>
+                                    )
+                                }
                             </tr>
                             <tr>
                                 <td>5</td>
                                 <td>Mother's Name</td>
-                                <td>#</td>
+                                {
+                                 profiles.map((item, index)=>
+                                    <td>{item.motherName}</td>
+                                    )
+                                }
                             </tr>
                             <tr>
                                 <td>6</td>
                                 <td>Date of Birth</td>
-                                <td>#</td>
+                                {
+                                 profiles.map((item, index)=>
+                                    <td>{item.dob}</td>
+                                    )
+                                }
                             </tr>
                             <tr>
                                 <td>7</td>
                                 <td>Gender</td>
-                                <td>#</td>
+                                {
+                                 profiles.map((item, index)=>
+                                    <td>{item.gender}</td>
+                                    )
+                                }
                             </tr>
                             <tr>
                                 <td>8</td>
@@ -92,7 +127,11 @@ function profile() {
                             <tr>
                                 <td>14</td>
                                 <td>Caste</td>
-                                <td>#</td>
+                                {
+                                 profiles.map((item, index)=>
+                                    <td>{item.caste}</td>
+                                    )
+                                }
                             </tr>
                             <tr>
                                 <td>15</td>
@@ -124,4 +163,4 @@ function profile() {
     );
 }
 
-export default profile;
+export default Profile;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -10,33 +10,33 @@ import {
   MDBCardImage,
 } from "mdb-react-ui-kit";
 
-const SignUp = () =>  {
-    const [firstName, setFirstName]= useState("");
-    const [lastName, setLastName]= useState("");
-    const [email, setEmail]= useState("");
-    const [password,setPassword]= useState("");
-    const navigate = useNavigate();
-    useEffect(()=>{
-      const auth = localStorage.getItem("student");
-        if(auth)
-        {
-          navigate('/')
-        }
-    })
-    const collectData = async ()=>{
-      console.warn(firstName, lastName, email, password);
-      let result = await fetch("http://localhost:5000/register",{
-          method : 'post',
-          body : JSON.stringify({firstName, lastName, email, password}),
-          headers : {
-              'Content-Type' : 'application/json'
-          }
-      });
-      result = await result.json();
-      console.warn(result);
-      localStorage.setItem("student",JSON.stringify(result));
-      navigate('/');
+const SignUp = () => {
+  const [firstName, setFirstName] = useState("");
+  const [middleName, setMiddleName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  useEffect(() => {
+    const auth = localStorage.getItem("student");
+    if (auth) {
+      navigate('/')
     }
+  })
+  const collectData = async () => {
+    console.warn(firstName, middleName, lastName, email, password);
+    let result = await fetch("http://localhost:5000/register", {
+      method: 'post',
+      body: JSON.stringify({ firstName, middleName, lastName, email, password }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    result = await result.json();
+    console.warn(result);
+    localStorage.setItem("student", JSON.stringify(result));
+    navigate('/');
+  }
 
   return (
     <MDBContainer fluid>
@@ -58,7 +58,18 @@ const SignUp = () =>  {
                     className="form-control"
                     placeholder="First name"
                     value={firstName}
-                    onChange={(e)=> setFirstName(e.target.value)}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label>Middle name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Last name"
+                    value={middleName}
+                    onChange={(e) => setMiddleName(e.target.value)}
                     required
                   />
                 </div>
@@ -70,7 +81,7 @@ const SignUp = () =>  {
                     className="form-control"
                     placeholder="Last name"
                     value={lastName}
-                    onChange={(e)=> setLastName(e.target.value)}
+                    onChange={(e) => setLastName(e.target.value)}
                     required
                   />
                 </div>
@@ -82,7 +93,7 @@ const SignUp = () =>  {
                     className="form-control"
                     placeholder="Enter email"
                     value={email}
-                    onChange={(e)=> setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -94,14 +105,14 @@ const SignUp = () =>  {
                     className="form-control"
                     placeholder="Enter password"
                     value={password}
-                    onChange={(e)=> setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
 
                 <div className="d-grid">
                   <button type="submit" className="btn btn-primary"
-                  onClick={collectData}>
+                    onClick={collectData}>
                     Sign Up
                   </button>
                 </div>

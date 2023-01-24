@@ -29,6 +29,11 @@ const Editprofile = () => {
     const [nationality,setnationality]= useState("");
     const [state,setstate]= useState("");
 
+    
+    const firstN = JSON.parse(localStorage.getItem("student")).firstName;
+    const middleN = JSON.parse(localStorage.getItem("student")).middleName;
+    const lastN = JSON.parse(localStorage.getItem("student")).lastName;
+
     const add_student_profile = async () => {
         console.warn(fatherName, motherName, gender,dob, enrollNum, mobNum, alternateNum, disability,aadharNum
             ,bloodGroup, caste, religion, nationality, state);
@@ -58,9 +63,9 @@ const Editprofile = () => {
                         <MDBRow>
                             <MDBCol>
                                 <label>First Name: </label>
-                                <MDBInput id='firstname' required type='text'></MDBInput></MDBCol>
-                            <MDBCol><label>Middle Name: </label><MDBInput id='middlename' type='text'></MDBInput></MDBCol>
-                            <MDBCol><label>Last Name: </label><MDBInput id='lastname' required type='text'></MDBInput></MDBCol>
+                                <MDBInput id='firstname' required type='text' value={firstN} disabled></MDBInput></MDBCol>
+                            <MDBCol><label>Middle Name: </label><MDBInput id='middlename' value={middleN}  type='text' disabled></MDBInput></MDBCol>
+                            <MDBCol><label>Last Name: </label><MDBInput id='lastname' value={lastN} required type='text' disabled></MDBInput></MDBCol>
                         </MDBRow>
 
                         <MDBRow style={{ height: "20px" }}></MDBRow>
@@ -99,8 +104,8 @@ const Editprofile = () => {
                                 value={disability}
                                 onChange={(e)=> setDisability(e.target.value)}>
                                     <option value="">Please select</option>
-                                    <option value="1">Yes</option>
-                                    <option value="2">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
                                 </select>
                             </MDBCol>
                             <MDBCol><label>Religion: </label>
@@ -391,9 +396,9 @@ const Editprofile = () => {
                                 <select class="form-control select2" name="gender" id="gender" required="" aria-hidden="true" value={gender}
                                 onChange={(e)=> setgender(e.target.value)}>
                                     <option value="">Please select</option>
-                                    <option value="1">MALE</option>
-                                    <option value="2">FEMALE</option>
-                                    <option value="2">Other</option>
+                                    <option value="Male">MALE</option>
+                                    <option value="Female">FEMALE</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </MDBCol>
                         </MDBRow>
