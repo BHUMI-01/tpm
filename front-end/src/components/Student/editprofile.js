@@ -1,4 +1,4 @@
-import React , {useState}from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
     MDBBtn,
@@ -14,38 +14,60 @@ import { Link } from 'react-router-dom';
 
 
 const Editprofile = () => {
-    const [fatherName, setfatherName]= useState("");
-    const [motherName, setmotherName]= useState("");
-    const [gender, setgender]= useState("");
-    const [dob,setdob]= useState("");
-    const [enrollNum, setenrollNum]= useState("");
-    const [mobNum,setmobNum]= useState("");
-    const [alternateNum, setalternateNum]= useState("");
-    const [disability, setDisability]= useState("");
-    const [aadharNum,setaadharNum]= useState("");
-    const [bloodGroup,setbloodGroup]= useState("");
-    const [caste,setcaste]= useState("");
-    const [religion,setreligion]= useState("");
-    const [nationality,setnationality]= useState("");
-    const [state,setstate]= useState("");
+    const [fatherName, setfatherName] = useState("");
+    const [motherName, setmotherName] = useState("");
+    const [gender, setgender] = useState("");
+    const [dob, setdob] = useState("");
+    const [enrollNum, setenrollNum] = useState("");
+    const [mobNum, setmobNum] = useState("");
+    const [alternateNum, setalternateNum] = useState("");
+    const [disability, setDisability] = useState("");
+    const [aadharNum, setaadharNum] = useState("");
+    const [bloodGroup, setbloodGroup] = useState("");
+    const [caste, setcaste] = useState("");
+    const [religion, setreligion] = useState("");
+    const [nationality, setnationality] = useState("");
+    const [state, setstate] = useState("");
+    useEffect(()=>{
+        getProductDetails();
+    }, [])
+    const idd = JSON.parse(localStorage.getItem("student"))._id;
+    const getProductDetails = async()=>{
+        let result = await fetch(`http://localhost:5000/prof/${idd}`);
+        result = await result.json();
+        setfatherName(result.fatherName);
+        setmotherName(result.motherName);
+        setDisability(result.disability);
+        setaadharNum(result.aadharNum);
+        setalternateNum(result.alternateNum);
+        setmobNum(result.mobNum);
+        setenrollNum(result.enrollNum);
+        setbloodGroup(result.bloodGroup);
+        setcaste(result.caste);
+        setdob(result.dob);
+        setgender(result.gender);
+        setnationality(result.nationality);
+        setreligion(result.religion);
+        setstate(result.state);
+    }
 
-    
     const firstN = JSON.parse(localStorage.getItem("student")).firstName;
     const middleN = JSON.parse(localStorage.getItem("student")).middleName;
     const lastN = JSON.parse(localStorage.getItem("student")).lastName;
 
     const add_student_profile = async () => {
-        console.warn(fatherName, motherName, gender,dob, enrollNum, mobNum, alternateNum, disability,aadharNum
-            ,bloodGroup, caste, religion, nationality, state);
-        const studentId = JSON.parse(localStorage.getItem("student"))._id;
-        let result = await fetch("http://localhost:5000/add-student-prof",{
-            method : 'post',
-            body : JSON.stringify({fatherName, motherName, gender,dob, enrollNum, mobNum, alternateNum, disability,aadharNum
-                ,bloodGroup, caste, religion, nationality, state, studentId}),
-            headers : {
-                'Content-Type' : 'application/json'
+        console.warn(fatherName, motherName, gender, dob, enrollNum, mobNum, alternateNum, disability, aadharNum
+            , bloodGroup, caste, religion, nationality, state);
+        let result = await fetch(`http://localhost:5000/add-student-prof${idd}`, {
+            method: 'post',
+            body: JSON.stringify({
+                fatherName, motherName, gender, dob, enrollNum, mobNum, alternateNum, disability, aadharNum
+                , bloodGroup, caste, religion, nationality, state, idd }),
+            headers: {
+                'Content-Type': 'application/json'
             }
         });
+        // setfatherName(result.fatherName);
         result = await result.json();
         console.warn(result);
     }
@@ -61,38 +83,47 @@ const Editprofile = () => {
                     <MDBRow style={{ height: "20px" }}></MDBRow>
                     <form>
                         <MDBRow>
-                            <MDBCol>
-                                <label>First Name: </label>
-                                <MDBInput id='firstname' required type='text' value={firstN} disabled></MDBInput></MDBCol>
-                            <MDBCol><label>Middle Name: </label><MDBInput id='middlename' value={middleN}  type='text' disabled></MDBInput></MDBCol>
+                            <MDBCol><label>First Name: </label><MDBInput id='firstname' required type='text' value={firstN} disabled></MDBInput></MDBCol>
+                            <MDBCol><label>Middle Name: </label><MDBInput id='middlename' value={middleN} type='text' disabled></MDBInput></MDBCol>
                             <MDBCol><label>Last Name: </label><MDBInput id='lastname' value={lastN} required type='text' disabled></MDBInput></MDBCol>
                         </MDBRow>
 
                         <MDBRow style={{ height: "20px" }}></MDBRow>
 
                         <MDBRow>
-                            <MDBCol><label>Father's Name: </label><MDBInput id='fname' label='Father Name' type='text' value={fatherName}
-                    onChange={(e)=> setfatherName(e.target.value)} required></MDBInput></MDBCol>
-                            <MDBCol><label>Mother's Name: </label><MDBInput id='mname' label='Mother Name' type='text' 
-                            value={motherName}
-                            onChange={(e)=> setmotherName(e.target.value)}required></MDBInput></MDBCol>
-                            <MDBCol><label>Blood Group: </label><MDBInput id='enumber' label='Blood Group' type='text' value={bloodGroup}
-                    onChange={(e)=> setbloodGroup(e.target.value)} required></MDBInput></MDBCol>
-
+                            <MDBCol><label>Father's Name: </label>
+                                <MDBInput id='fname' type='text' value={fatherName}
+                                    onChange={(e) => setfatherName(e.target.value)} required></MDBInput>
+                            </MDBCol>
+                            <MDBCol><label>Mother's Name: </label>
+                                <MDBInput id='mname' type='text' value={motherName}
+                                    onChange={(e) => setmotherName(e.target.value)} required></MDBInput>
+                            </MDBCol>
+                            <MDBCol><label>Blood Group: </label>
+                                <MDBInput id='enumber' type='text' value={bloodGroup}
+                                    onChange={(e) => setbloodGroup(e.target.value)} required></MDBInput>
+                            </MDBCol>
                         </MDBRow>
 
                         <MDBRow style={{ height: "20px" }}></MDBRow>
 
                         <MDBRow>
-                            <MDBCol><MDBInput id='dob' label='D.O.B' type='date' value={dob}
-                    onChange={(e)=> setdob(e.target.value)} required></MDBInput></MDBCol>
-                            <MDBCol><MDBInput id='enumber' label='Enrollment No.' type='text' value={enrollNum}
-                    onChange={(e)=> setenrollNum(e.target.value)}
-                    required></MDBInput></MDBCol>
-                            <MDBCol><MDBInput id='mnumber' label='Mobile No.' type='tel'  value={mobNum}
-                    onChange={(e)=> setmobNum(e.target.value)} required></MDBInput></MDBCol>
-                            <MDBCol><MDBInput id='mnumber' label='Alternate No.' type='tel' value={alternateNum}
-                    onChange={(e)=> setalternateNum(e.target.value)} required></MDBInput></MDBCol>
+                            <MDBCol>
+                                <MDBInput id='dob' type='date' value={dob}
+                                    onChange={(e) => setdob(e.target.value)} required></MDBInput>
+                            </MDBCol>
+                            <MDBCol>
+                                <MDBInput id='enumber' type='text' value={enrollNum}
+                                    onChange={(e) => setenrollNum(e.target.value)} required></MDBInput>
+                            </MDBCol>
+                            <MDBCol>
+                                <MDBInput id='mnumber' type='tel' value={mobNum}
+                                    onChange={(e) => setmobNum(e.target.value)} required></MDBInput>
+                            </MDBCol>
+                            <MDBCol>
+                                <MDBInput id='mnumber' type='tel' value={alternateNum}
+                                    onChange={(e) => setalternateNum(e.target.value)} required></MDBInput>
+                            </MDBCol>
                         </MDBRow>
 
                         <MDBRow style={{ height: "20px" }}></MDBRow>
@@ -101,8 +132,8 @@ const Editprofile = () => {
                             <MDBCol>
                                 <label class="required" for="disability">Disability: </label>
                                 <select class="form-control select2" name="disability" id="disability" required="" aria-hidden="true"
-                                value={disability}
-                                onChange={(e)=> setDisability(e.target.value)}>
+                                    value={disability}
+                                    onChange={(e) => setDisability(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -110,38 +141,40 @@ const Editprofile = () => {
                             </MDBCol>
                             <MDBCol><label>Religion: </label>
                                 <select class="form-control select2" name="religion" id="religion" required="" aria-hidden="true" value={religion}
-                                onChange={(e)=> setreligion(e.target.value)}>
+                                    onChange={(e) => setreligion(e.target.value)}>
                                     <option value="">Please select</option>
-                                    <option value="1">Hindu</option>
-                                    <option value="2">Muslim</option>
-                                    <option value="1">Christian</option>
-                                    <option value="2">Sikh</option>
-                                    <option value="1">Budhist</option>
-                                    <option value="2">other</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Muslim">Muslim</option>
+                                    <option value="Christian">Christian</option>
+                                    <option value="Sikh">Sikh</option>
+                                    <option value="Budhist">Budhist</option>
+                                    <option value="other2">other</option>
                                 </select>
                             </MDBCol>
                             <MDBCol><label>Caste: </label>
                                 <select class="form-control select2" name="caste" id="caste" required="" aria-hidden="true" value={caste}
-                                onChange={(e)=> setcaste(e.target.value)}>
+                                    onChange={(e) => setcaste(e.target.value)}>
                                     <option value="">Please select</option>
-                                    <option value="1">GEN</option>
-                                    <option value="2">SC</option>
-                                    <option value="1">ST</option>
-                                    <option value="2">GEN-EWS</option>
-                                    <option value="1">OBC</option>
-                                    <option value="2">other</option>
+                                    <option value="GEN">GEN</option>
+                                    <option value="SC">SC</option>
+                                    <option value="ST">ST</option>
+                                    <option value="GEN-EWS">GEN-EWS</option>
+                                    <option value="OBC">OBC</option>
+                                    <option value="other">other</option>
                                 </select></MDBCol>
                         </MDBRow>
 
                         <MDBRow style={{ height: "20px" }}></MDBRow>
 
                         <MDBRow>
-                            <MDBCol><label>Addhaar No.: </label><MDBInput id='enumber' label='Adhaar No.' type='text' value={aadharNum}
-                                onChange={(e)=> setaadharNum(e.target.value)} required></MDBInput></MDBCol>
+                            <MDBCol><label>Addhaar No.: </label>
+                                <MDBInput id='mnumber' type='tel' value={aadharNum}
+                                    onChange={(e) => setaadharNum(e.target.value)} required></MDBInput>
+                            </MDBCol>
                             <MDBCol>
                                 <label class="required" for="country_id">Nationality: </label>
                                 <select class="form-control select2" name="country_id" id="country_id" required="" aria-hidden="true" value={nationality}
-                                onChange={(e)=> setnationality(e.target.value)}>
+                                    onChange={(e) => setnationality(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="1">Afghanistan</option>
                                     <option value="2">Albania</option>
@@ -394,7 +427,7 @@ const Editprofile = () => {
                             <MDBCol>
                                 <label class="required" for="gender">Gender: </label>
                                 <select class="form-control select2" name="gender" id="gender" required="" aria-hidden="true" value={gender}
-                                onChange={(e)=> setgender(e.target.value)}>
+                                    onChange={(e) => setgender(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="Male">MALE</option>
                                     <option value="Female">FEMALE</option>
@@ -408,45 +441,45 @@ const Editprofile = () => {
                         <MDBRow>
                             <MDBCol><label for="province_id">Domicile Province:</label>
                                 <select class="form-control" name="province_id" id="province_id" value={state}
-                                onChange={(e)=> setstate(e.target.value)}>
+                                    onChange={(e) => setstate(e.target.value)}>
                                     <option value="">Please select</option>
-                                    <option value="1">Andhra Pradesh</option>
-                                    <option value="2">Arunachal Pradesh</option>
-                                    <option value="3">Assam</option>
-                                    <option value="4">Bihar</option>
-                                    <option value="5">Chhattisgarh</option>
-                                    <option value="6">Goa</option>
-                                    <option value="7">Gujarat</option>
-                                    <option value="8">Haryana</option>
-                                    <option value="9">Himachal Pradesh</option>
-                                    <option value="10">Jharkhand</option>
-                                    <option value="11">Karnataka</option>
-                                    <option value="12">Kerala</option>
-                                    <option value="13">Madhya Pradesh</option>
-                                    <option value="14">Maharashtra</option>
-                                    <option value="15">Manipur</option>
-                                    <option value="16">Meghalaya</option>
-                                    <option value="17">Mizoram</option>
-                                    <option value="18">Nagaland</option>
-                                    <option value="19">Odisha</option>
-                                    <option value="20">Punjab</option>
-                                    <option value="21">Rajasthan</option>
-                                    <option value="22">Sikkim</option>
-                                    <option value="23">Tamil Nadu</option>
-                                    <option value="24">Telangana</option>
-                                    <option value="25">Tripura</option>
-                                    <option value="26" >Uttar Pradesh</option>
-                                    <option value="27">Uttarakhand</option>
-                                    <option value="28">West Bengal</option>
-                                    <option value="29">Andaman and Nicobar Islands</option>
-                                    <option value="30">Chandigarh</option>
-                                    <option value="31">Dadra and Nagar Haveli and Daman and Diu</option>
-                                    <option value="32">Delhi</option>
-                                    <option value="33">Jammu and Kashmir</option>
-                                    <option value="34">Ladakh</option>
-                                    <option value="35">Lakshadweep</option>
-                                    <option value="36">Puducherry</option>
-                                    <option value="37">Other</option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Goa">Goa</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    <option value="Jharkhand">Jharkhand</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Manipur">Manipur</option>
+                                    <option value="Meghalaya">Meghalaya</option>
+                                    <option value="Mizoram">Mizoram</option>
+                                    <option value="Nagaland">Nagaland</option>
+                                    <option value="Odisha">Odisha</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Sikkim">Sikkim</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Tripura">Tripura</option>
+                                    <option value="Uttar Pradesh" >Uttar Pradesh</option>
+                                    <option value="Uttarakhand">Uttarakhand</option>
+                                    <option value="West Bengal">West Bengal</option>
+                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                    <option value="Chandigarh">Chandigarh</option>
+                                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                    <option value="Ladakh">Ladakh</option>
+                                    <option value="Lakshadweep">Lakshadweep</option>
+                                    <option value="Puducherry">Puducherry</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </MDBCol>
                             <MDBCol></MDBCol>
@@ -459,7 +492,7 @@ const Editprofile = () => {
                                 <MDBBtn type='submit' onClick={add_student_profile}>Save</MDBBtn>
                             </MDBCol>
                             <MDBCol>
-                                <Link to='/'><MDBBtn>Back</MDBBtn></Link>
+                                <Link to='/stdprofile'><MDBBtn>Back</MDBBtn></Link>
                             </MDBCol>
                         </MDBRow>
                     </form>

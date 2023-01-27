@@ -4,11 +4,10 @@ import {
     MDBCardBody,
     MDBContainer,
     MDBCol,
-    MDBRow,
-    MDBBtn
+    MDBRow
 } from 'mdb-react-ui-kit';
 import Table from 'react-bootstrap/Table';
-import "./about.css";
+
 function About() {
     return (
         <MDBContainer fluid>
@@ -45,7 +44,7 @@ function About() {
 
                         <MDBCol md='4'>
                             <MDBRow>
-                                <img alt="ph" src="front-end/public/saeed.jpg" class='user-img-head' style={{ width: '400px', height: '400px' }} />
+                                <img alt="ph" src="./saeed.jpg" class='user-img-head' style={{ width: '400px', height: '400px' }} />
                             </MDBRow>
                             <MDBRow>
                                 <Table striped>

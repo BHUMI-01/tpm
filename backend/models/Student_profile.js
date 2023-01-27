@@ -9,7 +9,7 @@ const studentProfileSchema = new mongoose.Schema({
 	enrollNum: { type: String, required: true },
 	mobNum:  { type: String, required: true },
     alternateNum:  { type: String, required: true },
-    alternateNum:  { type: String, required: true },
+    aadharNum:  { type: String, required: true },
     disability:  { type: String, required: true },
     bloodGroup:  { type: String, required: true },
     caste:  { type: String, required: true },

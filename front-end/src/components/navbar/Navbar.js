@@ -51,20 +51,7 @@ function navbar() {
           </ul>
         </Container>
       </nav>
-      }
-      
-              
-              {/* <li class="services">
-              <Link to="/login">Login</Link>
-                 <ul class="dropdown">
-                  <li><a href="/">LogIn Student </a></li>
-                  <li><a href="/">LogIn Admin</a></li>
-                  <li><a href="/">LogIn Recruiter</a></li>
-                </ul> 
-              </li> */}
-      
-              {/* <li><a href="/">Contact</a></li> */}
-            
+      }        
     </div>
     
   )

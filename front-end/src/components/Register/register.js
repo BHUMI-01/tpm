@@ -70,7 +70,6 @@ const SignUp = () => {
                     placeholder="Last name"
                     value={middleName}
                     onChange={(e) => setMiddleName(e.target.value)}
-                    required
                   />
                 </div>
 
