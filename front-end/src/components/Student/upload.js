@@ -8,7 +8,7 @@ import {
 }
     from 'mdb-react-ui-kit';
 
-function student() {
+function Student() {
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5' style={{ borderRadius: '25px' }}>
@@ -38,4 +38,4 @@ function student() {
   )
 }
 
-export default student
+export default Student

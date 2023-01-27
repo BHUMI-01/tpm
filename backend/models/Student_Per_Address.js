@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
-const studentAddressSchema = new mongoose.Schema({
+const studentPerAddressSchema = new mongoose.Schema({
 	studentId:  { type: String, required: true },
-    type: { type: String, required: true },
-    mobNo: { type: String, required: true },
 	flatNo:  { type: String, required: true },
     area:  { type: String, required: true },
 	landmark: { type: String, required: true },
@@ -15,4 +13,4 @@ const studentAddressSchema = new mongoose.Schema({
 });
 
 
-module.exports = mongoose.model("student_address", studentAddressSchema);
+module.exports = mongoose.model("student_per_address", studentPerAddressSchema);

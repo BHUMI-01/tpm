@@ -10,18 +10,26 @@ import {
     from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
 function Address() {
-    const [addresses, setaddress]= useState([]);
+    const [peraddresses, setPeraddress]= useState([]);
+    const [tempaddresses, setTempaddress]= useState([]);
     const idd = JSON.parse(localStorage.getItem("student"))._id;
     useEffect(() =>{
-        getAddress();
-    }, []);
+        getPerAddress();
+        getTempAddress();
+    });
 
-    const getAddress = async () =>{
-        let result = await fetch(`http://localhost:5000/addresses/${idd}`);
+    const getPerAddress = async () =>{
+        let result = await fetch(`http://localhost:5000/peraddresses/${idd}`);
         result = await result.json();
-        setaddress(result);
+        setPeraddress(result);
     }
-    console.warn(addresses);
+    const getTempAddress = async () =>{
+        let result = await fetch(`http://localhost:5000/tempaddresses/${idd}`);
+        result = await result.json();
+        setTempaddress(result);
+    }
+    console.warn(peraddresses);
+    console.warn(tempaddresses);
     
     return (
         <MDBContainer fluid>
@@ -33,13 +41,17 @@ function Address() {
                             <h5>Permanent Address</h5>
                             <hr />
                             {
-                                 addresses.map((item)=>
-                                 <MDBRow style={{ height: "30px", paddingLeft:"20px" }}>{item.type}</MDBRow>
+                                 peraddresses.map((item)=>
+                                 <>
+                                 <MDBRow style={{ height: "30px", paddingLeft:"20px" }}>{item.flatNo}, {item.area}, {item.landmark}, {item.locality}</MDBRow>
+                                 <MDBRow style={{ height: "30px", paddingLeft:"20px" }}>{item.city}, {item.postalCode}</MDBRow>
+                                 <MDBRow style={{ height: "30px", paddingLeft:"20px" }}>{item.country}, {item.province}</MDBRow>
+                                   </> 
                                     )
                             }
                             <MDBRow>
                                 <MDBCol>
-                                    <Link to='/editstdaddress'><MDBBtn>Edit</MDBBtn></Link>
+                                    <Link to='/editstdperaddress'><MDBBtn>Edit</MDBBtn></Link>
                                 </MDBCol>
                             </MDBRow>
                         </MDBCardBody>
@@ -51,10 +63,18 @@ function Address() {
                         <MDBCardBody>
                             <h5>Temporary Address</h5>
                             <hr />
-                            <MDBRow style={{ height: "20px" }}></MDBRow>
+                            {
+                                 tempaddresses.map((item)=>
+                                 <>
+                                 <MDBRow style={{ height: "30px", paddingLeft:"20px" }}>{item.flatNo}, {item.area}, {item.landmark}, {item.locality}</MDBRow>
+                                 <MDBRow style={{ height: "30px", paddingLeft:"20px" }}>{item.city}, {item.postalCode}</MDBRow>
+                                 <MDBRow style={{ height: "30px", paddingLeft:"20px" }}>{item.country}, {item.province}</MDBRow>
+                                   </> 
+                                    )
+                            }
                             <MDBRow>
                                 <MDBCol>
-                                    <Link to='/editstdaddress'><MDBBtn>Edit</MDBBtn></Link>
+                                    <Link to='/editstdtempaddress'><MDBBtn>Edit</MDBBtn></Link>
                                 </MDBCol>
                             </MDBRow>
                         </MDBCardBody>

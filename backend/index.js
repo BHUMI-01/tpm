@@ -5,7 +5,8 @@ const cors = require("cors");
 require("./db/config");
 const Student = require("./models/Student");
 const Student_prof = require("./models/Student_profile");
-const Student_Address = require("./models/Student_Address");
+const Student_Per_Address = require("./models/Student_Per_Address");
+const Student_Temp_Address = require("./models/Student_Temp_Address");
 
 // middlewares
 app.use(express.json());
@@ -83,21 +84,39 @@ app.get("/prof/:id",async (req, resp)=> {
         }
 })
 
-app.post("/add-address", async (req, resp) => {
-    let student_address = new Student_Address(req.body);
+app.post("/add-per-address",async (req, resp)=> {
+    let student_address = new Student_Per_Address(req.body);
     let result = await student_address.save();
     resp.send(result);
 })
 
-app.get("/addresses/:id", async (req, resp) => {
-    const data = await Student_Address.find({ studentId: req.params.id });
-    if (data) {
-        resp.send(data)
-    }
-    else {
-        resp.send({ result: "No User Found" })
-    }
+app.get("/peraddresses/:id", async(req, resp)=> {
+    const data = await Student_Per_Address.find({studentId:req.params.id});
+   if(data)
+   {
+       resp.send(data)
+   }
+   else{
+       resp.send({result:"No User Found"})
+   }
 
+})
+app.get("/tempaddresses/:id", async(req, resp)=> {
+    const data = await Student_Temp_Address.find({studentId:req.params.id});
+   if(data)
+   {
+       resp.send(data)
+   }
+   else{
+       resp.send({result:"No User Found"})
+   }
+
+})
+
+app.post("/add-temp-address",async (req, resp)=> {
+    let student_address = new Student_Temp_Address(req.body);
+    let result = await student_address.save();
+    resp.send(result);
 })
 
 app.listen(5000)
