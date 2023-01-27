@@ -28,28 +28,28 @@ const Editprofile = () => {
     const [religion, setreligion] = useState("");
     const [nationality, setnationality] = useState("");
     const [state, setstate] = useState("");
-    useEffect(()=>{
-        getProductDetails();
-    }, [])
-    const idd = JSON.parse(localStorage.getItem("student"))._id;
-    const getProductDetails = async()=>{
-        let result = await fetch(`http://localhost:5000/prof/${idd}`);
-        result = await result.json();
-        setfatherName(result.fatherName);
-        setmotherName(result.motherName);
-        setDisability(result.disability);
-        setaadharNum(result.aadharNum);
-        setalternateNum(result.alternateNum);
-        setmobNum(result.mobNum);
-        setenrollNum(result.enrollNum);
-        setbloodGroup(result.bloodGroup);
-        setcaste(result.caste);
-        setdob(result.dob);
-        setgender(result.gender);
-        setnationality(result.nationality);
-        setreligion(result.religion);
-        setstate(result.state);
-    }
+    // useEffect(()=>{
+    //     getProductDetails();
+    // }, [])
+    // const idd = JSON.parse(localStorage.getItem("student"))._id;
+    // const getProductDetails = async()=>{
+    //     let result = await fetch(`http://localhost:5000/prof/${idd}`);
+    //     result = await result.json();
+    //     setfatherName(result.fatherName);
+    //     setmotherName(result.motherName);
+    //     setDisability(result.disability);
+    //     setaadharNum(result.aadharNum);
+    //     setalternateNum(result.alternateNum);
+    //     setmobNum(result.mobNum);
+    //     setenrollNum(result.enrollNum);
+    //     setbloodGroup(result.bloodGroup);
+    //     setcaste(result.caste);
+    //     setdob(result.dob);
+    //     setgender(result.gender);
+    //     setnationality(result.nationality);
+    //     setreligion(result.religion);
+    //     setstate(result.state);
+    // }
 
     const firstN = JSON.parse(localStorage.getItem("student")).firstName;
     const middleN = JSON.parse(localStorage.getItem("student")).middleName;
@@ -58,6 +58,7 @@ const Editprofile = () => {
     const add_student_profile = async () => {
         console.warn(fatherName, motherName, gender, dob, enrollNum, mobNum, alternateNum, disability, aadharNum
             , bloodGroup, caste, religion, nationality, state);
+        const idd = JSON.parse(localStorage.getItem("student"))._id;
         let result = await fetch(`http://localhost:5000/add-student-prof${idd}`, {
             method: 'post',
             body: JSON.stringify({
