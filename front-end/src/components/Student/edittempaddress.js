@@ -8,9 +8,7 @@ import {
   MDBCardBody,
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
-function Editaddress() {
-  const [type, settype] = useState("");
-  const [mobNo, setmobno] = useState("");
+function EditTempaddress() {
   const [flatNo, setflatNo] = useState("");
   const [area, setarea] = useState("");
   const [landmark, setlandmark] = useState("");
@@ -20,10 +18,8 @@ function Editaddress() {
   const [country, setcountry] = useState("");
   const [province, setprovince] = useState("");
 
-  const add_student_address = async () => {
+  const add_studenttemp_address = async () => {
     console.warn(
-      type,
-      mobNo,
       flatNo,
       area,
       landmark,
@@ -34,11 +30,9 @@ function Editaddress() {
       province
     );
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    let result = await fetch("http://localhost:5000/add-address", {
+    let result = await fetch("http://localhost:5000/add-temp-address", {
       method: "post",
       body: JSON.stringify({
-        type,
-        mobNo,
         flatNo,
         area,
         landmark,
@@ -60,42 +54,11 @@ function Editaddress() {
     <MDBContainer fluid>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
         <MDBCardBody>
-          <MDBRow>Edit Address</MDBRow>
+          <MDBRow>Edit Temporary Address</MDBRow>
           <MDBRow style={{ height: "20px" }}></MDBRow>
           <MDBRow>
             <form>
-              <MDBRow>
-                <MDBCol>
-                  <label class="required">Type</label>
-                  <select
-                    class="form-control"
-                    name="type"
-                    id="type"
-                    required
-                    value={type}
-                    onChange={(e) => settype(e.target.value)}
-                  >
-                    <option value="" disabled="" selected="">
-                      Please select
-                    </option>
-                    <option value="Correspondence Address" selected="">
-                      Correspondence Address
-                    </option>
-                    <option value="Permanent Address">Permanent Address</option>
-                  </select>
-                </MDBCol>
-                <MDBCol>
-                  <label for="mobile">Mobile Number</label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="mobile"
-                    id="mobile"
-                    value={mobNo}
-                    onChange={(e) => setmobno(e.target.value)}
-                  />
-                </MDBCol>
-              </MDBRow>
+        
 
               <MDBRow>
                 <MDBCol>
@@ -510,7 +473,7 @@ function Editaddress() {
               <MDBRow style={{ height: "20px" }}></MDBRow>
               <MDBRow>
                 <MDBCol>
-                  <MDBBtn type="submit" onClick={add_student_address}>
+                  <MDBBtn type="submit" onClick={add_studenttemp_address}>
                     Save
                   </MDBBtn>
                 </MDBCol>
@@ -528,4 +491,4 @@ function Editaddress() {
   );
 }
 
-export default Editaddress;
+export default EditTempaddress;

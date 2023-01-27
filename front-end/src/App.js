@@ -11,9 +11,10 @@ import Uploaddoc from './containers/Upload';
 import StudentProfile from './containers/Profile';
 import EditStudentProfile from './containers/EditProfile';
 import StudentAddress from './containers/Address';
-import EditStudentAddress from './containers/EditAddress';
+import EditPerStudentAddress from './containers/EditPerAddress';
 import StudentQualify from './containers/Qualification';
 import EditStudentQualify from './containers/EditQualify';
+import EditTempAddress from './containers/EditTempAddress';
 function App() {
   return (
     <BrowserRouter>
@@ -26,7 +27,8 @@ function App() {
           <Route path="/stdprofile" element={<StudentProfile />} />
           <Route path="/editstdprofile" element={<EditStudentProfile />} />
           <Route path="/stdaddress" element={<StudentAddress />} />
-          <Route path="/editstdaddress" element={<EditStudentAddress />} />
+          <Route path="/editstdperaddress" element={<EditPerStudentAddress />} />
+          <Route path="/editstdtempaddress" element={<EditTempAddress/>} />
           <Route path="/stdqualify" element={<StudentQualify />} />
           <Route path="/editstdqualify" element={<EditStudentQualify />} />
           </Route>
