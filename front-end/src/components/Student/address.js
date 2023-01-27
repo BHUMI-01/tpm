@@ -16,7 +16,7 @@ function Address() {
     useEffect(() =>{
         getPerAddress();
         getTempAddress();
-    });
+    }, []);
 
     const getPerAddress = async () =>{
         let result = await fetch(`http://localhost:5000/peraddresses/${idd}`);

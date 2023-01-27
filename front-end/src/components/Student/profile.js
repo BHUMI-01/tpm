@@ -63,156 +63,157 @@ const Profile = () => {
                             <tr>
                                 <td>4</td>
                                 <td>Father's Name</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.fatherName}</td>
                                         )[len - 1]
-                                }
+                                } */}
+                                <td>{profiles.fatherName}</td>
                             </tr>
                             <tr>
                                 <td>5</td>
                                 <td>Mother's Name</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.motherName}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                             <tr>
                                 <td>6</td>
                                 <td>Date of Birth</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.dob}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                             <tr>
                                 <td>7</td>
                                 <td>Gender</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.gender}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                             <tr>
                                 <td>8</td>
                                 <td>Enrollment Number</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.enrollNum}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                             <tr>
                                 <td>9</td>
                                 <td>Mobile No.</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.mobNum}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                             <tr>
                                 <td>10</td>
                                 <td>Alternate No.</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.alternateNum}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                             <tr>
                                 <td>11</td>
                                 <td>Disability</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.disability}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                             <tr>
                                 <td>12</td>
                                 <td>Aadhaar Number</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.aadharNum}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                             <tr>
                                 <td>13</td>
                                 <td>Blood Group</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.bloodGroup}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                             <tr>
                                 <td>14</td>
                                 <td>Caste</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.caste}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                             <tr>
                                 <td>15</td>
                                 <td>Religion</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.religion}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                             <tr>
                                 <td>16</td>
                                 <td>Nationality</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.nationality}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                             <tr>
                                 <td>17</td>
                                 <td>Province</td>
-                                {
+                                {/* {
                                     len <= 0 ?
                                         <td>#</td> :
                                         profiles.map((item, index) =>
                                             <td>{item.state}</td>
                                         )[len - 1]
-                                }
+                                } */}
                             </tr>
                         </tbody>
                     </Table>

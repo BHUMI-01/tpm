@@ -12,10 +12,10 @@ const Student_Temp_Address = require("./models/Student_Temp_Address");
 app.use(express.json());
 app.use(cors());
 
-app.post("/register", async (req, resp) => {
-
+app.post("/register",async (req, resp)=> { 
     if (req.body.password && req.body.email) {
         let student = await Student.findOne(req.body);
+        
         if (student) {
             resp.send("user already enrolled")
         }
@@ -27,14 +27,16 @@ app.post("/register", async (req, resp) => {
             resp.send(result);
         }
     }
-    else {
+    else 
+    {
         let student = new Student(req.body);
-        let result = await student.save();
-        result = result.toObject();
-        delete result.password
-        resp.send(result);
+            let result = await student.save();
+            result = result.toObject();
+            delete result.password
+            resp.send(result);
     }
 })
+ 
 
 app.post("/login", async (req, resp) => {
     if (req.body.password && req.body.email) {
@@ -51,44 +53,41 @@ app.post("/login", async (req, resp) => {
     }
 })
 
-app.post("/add-student-prof/:id", async (req, resp) => {
-    const data = await Student_prof.find({ studentId: req.params.id });
-    if (data) {
+app.post("/add-prof", async (req, resp) => {
+        let student_prof = new Student_prof(req.body);
+        let result = await student_prof.save();
+        resp.send(result);   
+ 
+})
+
+app.put("/add-student-prof/:id", async (req, resp) => {
         let result = await Student_prof.updateOne(
             {studentId:req.params.id},
             {
                 $set:req.body
             }
         )
-        resp.send(result);
-    }
-    else {
-        let student_prof = new Student_prof(req.body);
-        let result = await student_prof.save();
-        resp.send(result);
-    }
-
+        resp.send(result);  
 })
-
-app.get("/profiles/:id", async (req, resp) => {
-    const data = await Student_prof.find({ studentId: req.params.id });
-    if (data) {
-        resp.send(data)
-    }
-    else {
-        resp.send({ result: "No User Found" })
-    }
-
+app.get("/profiles/:id", async(req, resp)=> {
+        const data = await Student_prof.findOne({studentId:req.params.id});
+        if(data)
+        {
+            resp.send(data)
+        }
+        else{
+            resp.send({result:"No User Found"})
+        }
 })
-
-app.get("/prof/:id", async (req, resp) => {
-    const data = await Student_prof.findOne({ studentId: req.params.id });
-    if (data) {
-        resp.send(data)
-    }
-    else {
-        resp.send({ result: "No User Found" })
-    }
+app.get("/prof/:id",async (req, resp)=> {
+    const data = await Student_prof.findOne({studentId:req.params.id});
+        if(data)
+        {
+            resp.send(data)
+        }
+        else{
+            resp.send({result:"No User Found"})
+        }
 })
 
 app.post("/add-per-address", async (req, resp) => {
