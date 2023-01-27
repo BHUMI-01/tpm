@@ -10,7 +10,9 @@ import {
     MDBInput,
 }
     from 'mdb-react-ui-kit';
-import { Link } from 'react-router-dom';
+    import {
+        Link, useNavigate
+      } from 'react-router-dom';
 
 
 const Editprofile = () => {
@@ -28,10 +30,15 @@ const Editprofile = () => {
     const [religion, setreligion] = useState("");
     const [nationality, setnationality] = useState("");
     const [state, setstate] = useState("");
+    const navigate= useNavigate;
+    const firstN = JSON.parse(localStorage.getItem("student")).firstName;
+    const middleN = JSON.parse(localStorage.getItem("student")).middleName;
+    const lastN = JSON.parse(localStorage.getItem("student")).lastName;
+    const idd = JSON.parse(localStorage.getItem("student"))._id;
     useEffect(()=>{
         getProductDetails();
     }, [])
-    const idd = JSON.parse(localStorage.getItem("student"))._id;
+   
     const getProductDetails = async()=>{
         let result = await fetch(`http://localhost:5000/prof/${idd}`);
         result = await result.json();
@@ -51,25 +58,53 @@ const Editprofile = () => {
         setstate(result.state);
     }
 
-    const firstN = JSON.parse(localStorage.getItem("student")).firstName;
-    const middleN = JSON.parse(localStorage.getItem("student")).middleName;
-    const lastN = JSON.parse(localStorage.getItem("student")).lastName;
 
-    const add_student_profile = async () => {
-        console.warn(fatherName, motherName, gender, dob, enrollNum, mobNum, alternateNum, disability, aadharNum
-            , bloodGroup, caste, religion, nationality, state);
-        let result = await fetch(`http://localhost:5000/add-student-prof${idd}`, {
-            method: 'post',
-            body: JSON.stringify({
-                fatherName, motherName, gender, dob, enrollNum, mobNum, alternateNum, disability, aadharNum
-                , bloodGroup, caste, religion, nationality, state, idd }),
-            headers: {
-                'Content-Type': 'application/json'
+    const update_profile = async () => {
+        const studentId = JSON.parse(localStorage.getItem("student"))._id;
+        let result = await fetch(`http://localhost:5000/add-student-prof/${idd}`,{
+            method : 'put',
+            body : JSON.stringify({fatherName, motherName, gender,dob, enrollNum, mobNum, alternateNum, disability,aadharNum
+                ,bloodGroup, caste, religion, nationality, state, studentId}),
+            headers : {
+                'Content-Type' : 'application/json'
             }
         });
         // setfatherName(result.fatherName);
         result = await result.json();
+        if(result){
+            navigate('/stdprofile')
+        }
         console.warn(result);
+    }
+    
+    const add_student_profile = async () => {
+        const studentId = JSON.parse(localStorage.getItem("student"))._id;
+        let result = await fetch("http://localhost:5000/add-prof",{
+            method : 'post',
+            body : JSON.stringify({fatherName, motherName, gender,dob, enrollNum, mobNum, alternateNum, disability,aadharNum
+                ,bloodGroup, caste, religion, nationality, state, studentId}),
+            headers : {
+                'Content-Type' : 'application/json'
+            }
+        });
+        // setfatherName(result.fatherName);
+        result = await result.json();
+
+        console.warn(result);
+    }
+
+    const save_update=()=>{
+        const auth = JSON.parse(localStorage.getItem("profile"))._id;
+        const authh = JSON.parse(localStorage.getItem("profile")).result;
+        if(auth)
+        {
+            return <Link to='/stdprofile'><MDBBtn type='submit' onClick={update_profile}>Update</MDBBtn></Link>
+            
+        } 
+        else if(authh){
+
+            return <Link to='/stdprofile'><MDBBtn type='submit'  onClick={add_student_profile}>Save</MDBBtn></Link>
+        }
     }
 
     return (
@@ -488,9 +523,9 @@ const Editprofile = () => {
                         <MDBRow style={{ height: "20px" }}></MDBRow>
 
                         <MDBRow>
-                            <MDBCol>
-                                <MDBBtn type='submit' onClick={add_student_profile}>Save</MDBBtn>
-                            </MDBCol>
+                            <MDBCol> {save_update()}</MDBCol>
+                           
+                            
                             <MDBCol>
                                 <Link to='/stdprofile'><MDBBtn>Back</MDBBtn></Link>
                             </MDBCol>
