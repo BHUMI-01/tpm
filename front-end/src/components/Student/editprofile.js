@@ -143,19 +143,19 @@ const Editprofile = () => {
                         <MDBRow style={{ height: "20px" }}></MDBRow>
 
                         <MDBRow>
-                            <MDBCol>
+                            <MDBCol><label>Date</label>
                                 <MDBInput id='dob' type='date' value={dob}
                                     onChange={(e) => setdob(e.target.value)} required></MDBInput>
                             </MDBCol>
-                            <MDBCol>
+                            <MDBCol><label>Enrollment</label>
                                 <MDBInput id='enumber' type='text' value={enrollNum}
                                     onChange={(e) => setenrollNum(e.target.value)} required></MDBInput>
                             </MDBCol>
-                            <MDBCol>
+                            <MDBCol><label>Mobile Number</label>
                                 <MDBInput id='mnumber' type='tel' value={mobNum}
                                     onChange={(e) => setmobNum(e.target.value)} required></MDBInput>
                             </MDBCol>
-                            <MDBCol>
+                            <MDBCol><label>Altenate Number</label>
                                 <MDBInput id='mnumber' type='tel' value={alternateNum}
                                     onChange={(e) => setalternateNum(e.target.value)} required></MDBInput>
                             </MDBCol>

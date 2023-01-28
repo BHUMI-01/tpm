@@ -1,4 +1,4 @@
-import React , {useState}from "react";
+import React , {useState, useEffect}from "react";
 import {
   MDBBtn,
   MDBContainer,
@@ -17,6 +17,22 @@ function EditTempaddress() {
   const [postalCode, setpostalCode] = useState("");
   const [country, setcountry] = useState("");
   const [province, setprovince] = useState("");
+  useEffect(()=>{
+    getTempAddressDetails();
+}, [])
+const idd = JSON.parse(localStorage.getItem("student"))._id;
+  const getTempAddressDetails = async()=>{
+    let result = await fetch(`http://localhost:5000/tempaddresses/${idd}`);
+    result = await result.json();
+    setflatNo(result.flatNo);
+    setarea(result.area);
+    setlandmark(result.landmark);
+    setlocality(result.locality);
+    setcity(result.city);
+    setpostalCode(result.postalCode);
+    setcountry(result.country);
+    setprovince(result.province);
+}
 
   const add_studenttemp_address = async () => {
     console.warn(
@@ -50,6 +66,53 @@ function EditTempaddress() {
     result = await result.json();
     console.warn(result);
   };
+
+  const update_address = async () => {
+    console.warn(
+      flatNo,
+      area,
+      landmark,
+      locality,
+      city,
+      postalCode,
+      country,
+      province
+    );
+    const studentId = JSON.parse(localStorage.getItem("student"))._id;
+    let result = await fetch(`http://localhost:5000/add-temp-address/${idd}`, {
+      method: "post",
+      body: JSON.stringify({
+        flatNo,
+        area,
+        landmark,
+        locality,
+        city,
+        postalCode,
+        country,
+        province,
+        studentId,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    result = await result.json();
+    console.warn(result);
+  };
+
+  const save_update=()=>{
+    const auth = JSON.parse(localStorage.getItem("tempaddress"))._id;
+    const authh = JSON.parse(localStorage.getItem("tempaddress")).result;
+    if(auth)
+    {
+        return <Link to='/stdprofile'><MDBBtn type='submit' onClick={update_address}>Update</MDBBtn></Link>
+        
+    } 
+    else if(authh){
+
+        return <Link to='/stdprofile'><MDBBtn type='submit'  onClick={add_studenttemp_address}>Save</MDBBtn></Link>
+    }
+}
   return (
     <MDBContainer fluid>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
@@ -473,9 +536,7 @@ function EditTempaddress() {
               <MDBRow style={{ height: "20px" }}></MDBRow>
               <MDBRow>
                 <MDBCol>
-                  <MDBBtn type="submit" onClick={add_studenttemp_address}>
-                    Save
-                  </MDBBtn>
+                  {save_update()}
                 </MDBCol>
                 <MDBCol>
                   <Link to="/stdaddress">

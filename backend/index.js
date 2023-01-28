@@ -90,14 +90,24 @@ app.get("/prof/:id",async (req, resp)=> {
         }
 })
 
-app.post("/add-per-address",async (req, resp)=> {
+app.post("/add-stdper-address",async (req, resp)=> {
     let student_address = new Student_Per_Address(req.body);
     let result = await student_address.save();
     resp.send(result);
 })
 
+app.post("/add-per-address/:id",async (req, resp)=> {
+    let result = await Student_Per_Address.updateOne(
+        {studentId:req.params.id},
+        {
+            $set:req.body
+        }
+    )
+    resp.send(result); 
+})
+
 app.get("/peraddresses/:id", async(req, resp)=> {
-    const data = await Student_Per_Address.find({studentId:req.params.id});
+    const data = await Student_Per_Address.findOne({studentId:req.params.id});
    if(data)
    {
        resp.send(data)
@@ -108,7 +118,7 @@ app.get("/peraddresses/:id", async(req, resp)=> {
 
 })
 app.get("/tempaddresses/:id", async(req, resp)=> {
-    const data = await Student_Temp_Address.find({studentId:req.params.id});
+    const data = await Student_Temp_Address.findOne({studentId:req.params.id});
    if(data)
    {
        resp.send(data)
@@ -125,4 +135,13 @@ app.post("/add-temp-address",async (req, resp)=> {
     resp.send(result);
 })
 
+app.post("/add-temp-address",async (req, resp)=> {
+       let result = await Student_Temp_Address.updateOne(
+        {studentId:req.params.id},
+        {
+            $set:req.body
+        }
+    )
+    resp.send(result); 
+})
 app.listen(5000)
