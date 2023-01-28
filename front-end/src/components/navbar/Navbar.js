@@ -19,13 +19,13 @@ function navbar() {
       {
         auth 
         ?
-        <nav class="navbar">
+        <nav className="navbar">
         <Container>
-          <div class="logo">Placement Cell</div>
-          <ul class="nav-links">
+          <div className="logo">Placement Cell</div>
+          <ul className="nav-links">
             <input type="checkbox" id="checkbox_toggle" />
-            <label for="checkbox_toggle" class="hamburger">&#9776;</label>
-            <div class="menu">
+            <label htmlFor="checkbox_toggle" className="hamburger">&#9776;</label>
+            <div className="menu">
             <li><Link to="/">Home</Link></li>
             <li><Link to="/stdprofile">Profile</Link></li>
             <li><Link to="/stdaddress">Address</Link></li>
@@ -37,13 +37,13 @@ function navbar() {
         </Container>
       </nav>
       :
-      <nav class="navbar">
+      <nav className="navbar">
         <Container>
-          <div class="logo">Placement Cell</div>
-          <ul class="nav-links">
+          <div className="logo">Placement Cell</div>
+          <ul className="nav-links">
             <input type="checkbox" id="checkbox_toggle" />
-            <label for="checkbox_toggle" class="hamburger">&#9776;</label>
-            <div class="menu">
+            <label htmlFor="checkbox_toggle" className="hamburger">&#9776;</label>
+            <div className="menu">
             <li><Link to="/">Home</Link></li>
             <li><Link to="/register">Register</Link></li>
                 <li><Link to="/login">Login</Link></li>

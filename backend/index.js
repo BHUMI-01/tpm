@@ -7,6 +7,7 @@ const Student = require("./models/Student");
 const Student_prof = require("./models/Student_profile");
 const Student_Per_Address = require("./models/Student_Per_Address");
 const Student_Temp_Address = require("./models/Student_Temp_Address");
+const Student_quali = require("./models/Student_qualify");
 
 // middlewares
 app.use(express.json());
@@ -20,7 +21,7 @@ app.post("/register",async (req, resp)=> {
             resp.send("user already enrolled")
         }
         else {
-            let student = await Student(req.body);
+            let student = new Student(req.body);
             let result = await student.save();
             result = result.toObject();
             delete result.password
@@ -123,4 +124,31 @@ app.post("/add-temp-address", async (req, resp) => {
     resp.send(result);
 })
 
+app.get("/qualify/:id", async(req, resp)=> {
+    const data = await Student_quali.findOne({studentId:req.params.id});
+    if(data)
+    {
+        resp.send(data)
+    }
+    else{
+        resp.send({result:"No User Found"})
+    }
+})
+
+app.post("/add-qualify", async (req, resp) => {
+    let student_qualif = new Student_quali(req.body);
+    let result = await student_qualif.save();
+    resp.send(result);   
+
+})
+
+app.put("/add-student-qualify/:id", async (req, resp) => {
+    let result = await Student_quali.updateOne(
+        {studentId:req.params.id},
+        {
+            $set:req.body
+        }
+    )
+    resp.send(result);  
+})
 app.listen(5000)

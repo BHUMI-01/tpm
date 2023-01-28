@@ -44,7 +44,7 @@ function About() {
 
                         <MDBCol md='4'>
                             <MDBRow>
-                                <img alt="ph" src="./saeed.jpg" class='user-img-head' style={{ width: '400px', height: '400px' }} />
+                                <img alt="ph" src="./saeed.jpg" className='user-img-head' style={{ width: '400px', height: '400px' }} />
                             </MDBRow>
                             <MDBRow>
                                 <Table striped>
@@ -61,13 +61,13 @@ function About() {
                                 </Table>
                             </MDBRow>
                             <MDBRow style={{ height: "20px" }}></MDBRow>
-                            <MDBRow>
-                                <h2 _ngcontent-amu-c8="">Related Links</h2>
-                                <a _ngcontent-amu-c8="" href="/training-and-placement/zhcet/home-page">Home Page</a>
-                                <a _ngcontent-amu-c8="" href="https://www.amu.ac.in/training-and-placement/zhcet/staff-members">Staff Members</a>
-                                <a _ngcontent-amu-c8="" href="https://www.amu.ac.in/training-and-placement/zhcet/notice-and-circular">Notice and Circular</a>
-                                <a _ngcontent-amu-c8="" href="https://www.amu.ac.in/training-and-placement/zhcet/useful-download">Useful Download</a>
-                            </MDBRow>
+                            {/* <MDBRow>
+                                <h2>Related Links</h2>
+                                <a href="/training-and-placement/zhcet/home-page">Home Page</a>
+                                <a href="https://www.amu.ac.in/training-and-placement/zhcet/staff-members">Staff Members</a>
+                                <a href="https://www.amu.ac.in/training-and-placement/zhcet/notice-and-circular">Notice and Circular</a>
+                                <a href="https://www.amu.ac.in/training-and-placement/zhcet/useful-download">Useful Download</a>
+                            </MDBRow> */}
                             <MDBRow></MDBRow>
                         </MDBCol>
                     </MDBRow>

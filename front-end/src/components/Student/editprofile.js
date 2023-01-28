@@ -144,18 +144,22 @@ const Editprofile = () => {
 
                         <MDBRow>
                             <MDBCol>
+                                <label>Date of Birth: </label>
                                 <MDBInput id='dob' type='date' value={dob}
                                     onChange={(e) => setdob(e.target.value)} required></MDBInput>
                             </MDBCol>
                             <MDBCol>
+                                <label>Enrollemnt No.: </label>
                                 <MDBInput id='enumber' type='text' value={enrollNum}
                                     onChange={(e) => setenrollNum(e.target.value)} required></MDBInput>
                             </MDBCol>
                             <MDBCol>
+                                <label>Mobile No.: </label>
                                 <MDBInput id='mnumber' type='tel' value={mobNum}
                                     onChange={(e) => setmobNum(e.target.value)} required></MDBInput>
                             </MDBCol>
                             <MDBCol>
+                                <label>Alternate No.: </label>
                                 <MDBInput id='mnumber' type='tel' value={alternateNum}
                                     onChange={(e) => setalternateNum(e.target.value)} required></MDBInput>
                             </MDBCol>
@@ -165,8 +169,8 @@ const Editprofile = () => {
 
                         <MDBRow>
                             <MDBCol>
-                                <label class="required" for="disability">Disability: </label>
-                                <select class="form-control select2" name="disability" id="disability" required="" aria-hidden="true"
+                                <label className="required" htmlFor="disability">Disability: </label>
+                                <select className="form-control select2" name="disability" id="disability" required="" aria-hidden="true"
                                     value={disability}
                                     onChange={(e) => setDisability(e.target.value)}>
                                     <option value="">Please select</option>
@@ -175,7 +179,7 @@ const Editprofile = () => {
                                 </select>
                             </MDBCol>
                             <MDBCol><label>Religion: </label>
-                                <select class="form-control select2" name="religion" id="religion" required="" aria-hidden="true" value={religion}
+                                <select className="form-control select2" name="religion" id="religion" required="" aria-hidden="true" value={religion}
                                     onChange={(e) => setreligion(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="Hindu">Hindu</option>
@@ -187,7 +191,7 @@ const Editprofile = () => {
                                 </select>
                             </MDBCol>
                             <MDBCol><label>Caste: </label>
-                                <select class="form-control select2" name="caste" id="caste" required="" aria-hidden="true" value={caste}
+                                <select className="form-control select2" name="caste" id="caste" required="" aria-hidden="true" value={caste}
                                     onChange={(e) => setcaste(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="GEN">GEN</option>
@@ -207,8 +211,8 @@ const Editprofile = () => {
                                     onChange={(e) => setaadharNum(e.target.value)} required></MDBInput>
                             </MDBCol>
                             <MDBCol>
-                                <label class="required" for="country_id">Nationality: </label>
-                                <select class="form-control select2" name="country_id" id="country_id" required="" aria-hidden="true" value={nationality}
+                                <label className="required" htmlFor="country_id">Nationality: </label>
+                                <select className="form-control select2" name="country_id" id="country_id" required="" aria-hidden="true" value={nationality}
                                     onChange={(e) => setnationality(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="1">Afghanistan</option>
@@ -460,8 +464,8 @@ const Editprofile = () => {
                                 </select>
                             </MDBCol>
                             <MDBCol>
-                                <label class="required" for="gender">Gender: </label>
-                                <select class="form-control select2" name="gender" id="gender" required="" aria-hidden="true" value={gender}
+                                <label className="required" htmlFor="gender">Gender: </label>
+                                <select className="form-control select2" name="gender" id="gender" required="" aria-hidden="true" value={gender}
                                     onChange={(e) => setgender(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="Male">MALE</option>
@@ -474,8 +478,8 @@ const Editprofile = () => {
                         <MDBRow style={{ height: "20px" }}></MDBRow>
 
                         <MDBRow>
-                            <MDBCol><label for="province_id">Domicile Province:</label>
-                                <select class="form-control" name="province_id" id="province_id" value={state}
+                            <MDBCol><label htmlFor="province_id">Domicile Province:</label>
+                                <select className="form-control" name="province_id" id="province_id" value={state}
                                     onChange={(e) => setstate(e.target.value)}>
                                     <option value="">Please select</option>
                                     <option value="Andhra Pradesh">Andhra Pradesh</option>

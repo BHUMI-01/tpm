@@ -10,16 +10,32 @@ import {
 }
     from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-function qualification() {
+const  Qualification =()=>{
+    const idd = JSON.parse(localStorage.getItem("student"))._id;
+
+    const [qualifies, setQualify] = useState([]);
+    useEffect(() => {
+        getQualify();
+    }, []);
+    
+    const getQualify = async () => {;
+        
+        let result = await fetch(`http://localhost:5000/qualify/${idd}`);
+        result = await result.json();
+        console.warn(result);
+        setQualify(result);
+        localStorage.setItem("qualify", JSON.stringify(result));
+    }
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>
-                <MDBCardBody style={{height:'40px', width: '400px',}}><MDBBtn type='success' >Add Academic Details</MDBBtn></MDBCardBody>
+                <MDBCardBody style={{ height: '40px', width: '400px', }}><MDBBtn type='success' >Add Academic Details</MDBBtn></MDBCardBody>
                 <MDBRow style={{ height: "60px" }}></MDBRow>
                 <MDBCardBody>
                     <h5>Academic Qualification List</h5>
-                    <hr/>
+                    <hr />
                     <Table striped>
                         <thead>
                             <tr>
@@ -35,14 +51,14 @@ function qualification() {
                         </thead>
                         <tbody>
                             <tr>
-                                <th>#</th>
-                                <th>#</th>
-                                <th>#</th>
-                                <th>#</th>
-                                <th>#</th>
-                                <th>#</th>
-                                <th>#</th>
-                                <th>#</th>
+                                <th>{qualifies.qualifyLevel}</th>
+                                <td>{qualifies.qualifyLevel}</td>
+                                <th>{qualifies.passYear}</th>
+                                <th>{qualifies.rollNum}</th>
+                                <th>{qualifies.board}</th>
+                                <th>{qualifies.resultStatus}</th>
+                                <th>{qualifies.gradeSys}</th>
+                                <th>{qualifies.grade}</th>
                             </tr>
                         </tbody>
                     </Table>
@@ -59,4 +75,4 @@ function qualification() {
     )
 }
 
-export default qualification
+export default Qualification

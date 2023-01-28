@@ -82,6 +82,7 @@ const Profile = () => {
                                             <td>{item.motherName}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.motherName}</td>
                             </tr>
                             <tr>
                                 <td>6</td>
@@ -93,6 +94,7 @@ const Profile = () => {
                                             <td>{item.dob}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.dob}</td>                               
                             </tr>
                             <tr>
                                 <td>7</td>
@@ -104,6 +106,7 @@ const Profile = () => {
                                             <td>{item.gender}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.gender}</td>
                             </tr>
                             <tr>
                                 <td>8</td>
@@ -115,6 +118,7 @@ const Profile = () => {
                                             <td>{item.enrollNum}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.enrollNum}</td>
                             </tr>
                             <tr>
                                 <td>9</td>
@@ -126,6 +130,7 @@ const Profile = () => {
                                             <td>{item.mobNum}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.mobNum}</td>
                             </tr>
                             <tr>
                                 <td>10</td>
@@ -137,6 +142,7 @@ const Profile = () => {
                                             <td>{item.alternateNum}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.alternateNum}</td>
                             </tr>
                             <tr>
                                 <td>11</td>
@@ -148,6 +154,7 @@ const Profile = () => {
                                             <td>{item.disability}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.disability}</td>
                             </tr>
                             <tr>
                                 <td>12</td>
@@ -159,6 +166,7 @@ const Profile = () => {
                                             <td>{item.aadharNum}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.aadharNum}</td>
                             </tr>
                             <tr>
                                 <td>13</td>
@@ -170,6 +178,7 @@ const Profile = () => {
                                             <td>{item.bloodGroup}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.bloodGroup}</td>
                             </tr>
                             <tr>
                                 <td>14</td>
@@ -181,6 +190,7 @@ const Profile = () => {
                                             <td>{item.caste}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.caste}</td>
                             </tr>
                             <tr>
                                 <td>15</td>
@@ -192,6 +202,7 @@ const Profile = () => {
                                             <td>{item.religion}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.religion}</td>
                             </tr>
                             <tr>
                                 <td>16</td>
@@ -203,6 +214,7 @@ const Profile = () => {
                                             <td>{item.nationality}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.nationality}</td>
                             </tr>
                             <tr>
                                 <td>17</td>
@@ -214,6 +226,7 @@ const Profile = () => {
                                             <td>{item.state}</td>
                                         )[len - 1]
                                 } */}
+                                <td>{profiles.state}</td>
                             </tr>
                         </tbody>
                     </Table>

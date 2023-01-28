@@ -103,8 +103,8 @@ const Login = () => {
               <div className="d-flex flex-column  justify-content-center gradient-custom-2 h-100 mb-4">
 
                 <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                  <h4 class="mb-4">Training and Placement Portal For Students</h4>
-                  <p class="small mb-0">Students can login here and providing their personal details,
+                  <h4 className="mb-4">Training and Placement Portal For Students</h4>
+                  <p className="small mb-0">Students can login here and providing their personal details,
                     academic qualifications and other details related to the placement.
                   </p>
                 </div>
