@@ -126,11 +126,11 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
 
               <MDBRow>
                 <MDBCol>
-                  <label class="required" for="details">
+                  <label className="required" htmlFor="details">
                     Flat, House no., Building, Company, Apartment
                   </label>
                   <input
-                    class="form-control"
+                    className="htmlForm-control"
                     type="text"
                     name="details"
                     id="details"
@@ -140,9 +140,9 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                   />
                 </MDBCol>
                 <MDBCol>
-                  <label for="street">Area, Street, Sector, Village</label>
+                  <label htmlFor="street">Area, Street, Sector, Village</label>
                   <input
-                    class="form-control"
+                    className="htmlForm-control"
                     type="text"
                     name="street"
                     id="street"
@@ -154,9 +154,9 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
 
               <MDBRow>
                 <MDBCol>
-                  <label for="landmark">Landmark</label>
+                  <label htmlFor="landmark">Landmark</label>
                   <input
-                    class="form-control"
+                    className="htmlForm-control"
                     type="text"
                     name="landmark"
                     id="landmark"
@@ -165,11 +165,11 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                   />
                 </MDBCol>
                 <MDBCol>
-                  <label class="required" for="locality">
+                  <label className="required" htmlFor="locality">
                     Locality
                   </label>
                   <input
-                    class="form-control"
+                    className="htmlForm-control"
                     type="text"
                     name="locality"
                     id="locality"
@@ -182,11 +182,11 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
 
               <MDBRow>
                 <MDBCol>
-                  <label class="required" for="city">
+                  <label className="required" htmlFor="city">
                     City/Town
                   </label>
                   <input
-                    class="form-control"
+                    className="htmlForm-control"
                     type="text"
                     name="city"
                     id="city"
@@ -196,12 +196,12 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                   />
                 </MDBCol>
                 <MDBCol>
-                  <label class="required" for="postal_code">
+                  <label className="required" htmlFor="postal_code">
                     Postal Code
                   </label>
                   <input
                     id="postal_code"
-                    class="form-control"
+                    className="htmlForm-control"
                     type="text"
                     name="postal_code"
                     value={postalCode}
@@ -213,11 +213,11 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
 
               <MDBRow>
                 <MDBCol>
-                  <label class="required" for="country_id">
+                  <label className="required" htmlFor="country_id">
                     Country
                   </label>
                   <select
-                    class="form-control select2"
+                    className="htmlForm-control select2"
                     name="country_id"
                     id="country_id"
                     value={country}
@@ -483,9 +483,9 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                   </select>
                 </MDBCol>
                 <MDBCol>
-                  <label for="province_id">Province</label>
+                  <label htmlFor="province_id">Province</label>
                   <select
-                    class="form-control"
+                    className="htmlForm-control"
                     name="province_id"
                     id="province_id"
                     value={province}
