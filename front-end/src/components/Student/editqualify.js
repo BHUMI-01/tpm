@@ -31,9 +31,8 @@ const Editqualify=()=> {
     useEffect(() => {
         getQualifyDetails();
     }, [])
-
+    const idd = JSON.parse(localStorage.getItem("student"))._id;
     const getQualifyDetails = async () => {
-        const idd = JSON.parse(localStorage.getItem("student"))._id;
         let result = await fetch(`http://localhost:5000/qualify/${idd}`);
         result = await result.json();
         setqualifyLevel(result.qualifyLevel);
@@ -48,7 +47,7 @@ const Editqualify=()=> {
 
     const update_qualify = async () => {
         const studentId = JSON.parse(localStorage.getItem("student"))._id;
-        let result = await fetch(`http://localhost:5000/add-student-qualify/${studentId}`, {
+        let result = await fetch(`http://localhost:5000/add-student-qualify/${idd}`, {
             method: 'put',
             body: JSON.stringify({
                 qualifyLevel, qualifyName,studentId, passYear, board, rollNum, resultStatus, gradeSys, grade }),

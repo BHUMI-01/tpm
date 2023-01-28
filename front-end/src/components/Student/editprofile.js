@@ -40,7 +40,7 @@ const Editprofile = () => {
     }, [])
    
     const getProductDetails = async()=>{
-        let result = await fetch(`http://localhost:5000/prof/${idd}`);
+        let result = await fetch(`http://localhost:5000/profiles/${idd}`);
         result = await result.json();
         setfatherName(result.fatherName);
         setmotherName(result.motherName);

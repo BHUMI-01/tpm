@@ -105,12 +105,12 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
     const authh = JSON.parse(localStorage.getItem("tempaddress")).result;
     if(auth)
     {
-        return <Link to='/stdprofile'><MDBBtn type='submit' onClick={update_address}>Update</MDBBtn></Link>
+        return <Link to='/stdaddress'><MDBBtn type='submit' onClick={update_address}>Update</MDBBtn></Link>
         
     } 
     else if(authh){
 
-        return <Link to='/stdprofile'><MDBBtn type='submit'  onClick={add_studenttemp_address}>Save</MDBBtn></Link>
+        return <Link to='/stdaddress'><MDBBtn type='submit'  onClick={add_studenttemp_address}>Save</MDBBtn></Link>
     }
 }
   return (
@@ -129,7 +129,7 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                     Flat, House no., Building, Company, Apartment
                   </label>
                   <input
-                    className="htmlForm-control"
+                    className="form-control"
                     type="text"
                     name="details"
                     id="details"

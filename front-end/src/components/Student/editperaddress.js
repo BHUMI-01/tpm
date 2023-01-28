@@ -105,12 +105,12 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
     const authh = JSON.parse(localStorage.getItem("peraddress")).result;
     if(auth)
     {
-        return <Link to='/stdprofile'><MDBBtn type='submit' onClick={update_address}>Update</MDBBtn></Link>
+        return <Link to='/stdaddress'><MDBBtn type='submit' onClick={update_address}>Update</MDBBtn></Link>
         
     } 
     else if(authh){
 
-        return <Link to='/stdprofile'><MDBBtn type='submit'  onClick={add_studentper_address}>Save</MDBBtn></Link>
+        return <Link to='/stdaddress'><MDBBtn type='submit'  onClick={add_studentper_address}>Save</MDBBtn></Link>
     }
 }
 
@@ -130,7 +130,7 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                     Flat, House no., Building, Company, Apartment
                   </label>
                   <input
-                    className="htmlForm-control"
+                    className="form-control"
                     type="text"
                     name="details"
                     id="details"
@@ -142,7 +142,7 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                 <MDBCol>
                   <label htmlFor="street">Area, Street, Sector, Village</label>
                   <input
-                    className="htmlForm-control"
+                    className="form-control"
                     type="text"
                     name="street"
                     id="street"
@@ -156,7 +156,7 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                 <MDBCol>
                   <label htmlFor="landmark">Landmark</label>
                   <input
-                    className="htmlForm-control"
+                    className="form-control"
                     type="text"
                     name="landmark"
                     id="landmark"
@@ -169,7 +169,7 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                     Locality
                   </label>
                   <input
-                    className="htmlForm-control"
+                    className="form-control"
                     type="text"
                     name="locality"
                     id="locality"
@@ -186,7 +186,7 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                     City/Town
                   </label>
                   <input
-                    className="htmlForm-control"
+                    className="form-control"
                     type="text"
                     name="city"
                     id="city"
@@ -201,7 +201,7 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                   </label>
                   <input
                     id="postal_code"
-                    className="htmlForm-control"
+                    className="form-control"
                     type="text"
                     name="postal_code"
                     value={postalCode}
@@ -217,7 +217,7 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                     Country
                   </label>
                   <select
-                    className="htmlForm-control select2"
+                    className="form-control select2"
                     name="country_id"
                     id="country_id"
                     value={country}
@@ -485,7 +485,7 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
                 <MDBCol>
                   <label htmlFor="province_id">Province</label>
                   <select
-                    className="htmlForm-control"
+                    className="form-control"
                     name="province_id"
                     id="province_id"
                     value={province}
