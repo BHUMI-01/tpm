@@ -12,22 +12,21 @@ import {
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-const  Qualification =()=>{
+const Qualification = () => {
     const idd = JSON.parse(localStorage.getItem("student"))._id;
-
     const [qualifies, setQualify] = useState([]);
     useEffect(() => {
         getQualify();
     }, []);
-    
-    const getQualify = async () => {;
-        
+
+    const getQualify = async () => {
         let result = await fetch(`http://localhost:5000/qualify/${idd}`);
         result = await result.json();
-        console.warn(result);
+        // console.warn(result);
         setQualify(result);
         localStorage.setItem("qualify", JSON.stringify(result));
     }
+    // console.warn(typeof(qualifies.result));
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>
@@ -50,16 +49,31 @@ const  Qualification =()=>{
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>{qualifies.qualifyLevel}</th>
-                                <td>{qualifies.qualifyLevel}</td>
-                                <th>{qualifies.passYear}</th>
-                                <th>{qualifies.rollNum}</th>
-                                <th>{qualifies.board}</th>
-                                <th>{qualifies.resultStatus}</th>
-                                <th>{qualifies.gradeSys}</th>
-                                <th>{qualifies.grade}</th>
-                            </tr>
+                            {
+                                qualifies.result == "No User Found"
+                                    ?
+                                    <tr>
+                                        <th>-</th>
+                                        <th>-</th>
+                                        <th>-</th>
+                                        <th>-</th>
+                                        <th>-</th>
+                                        <th>-</th>
+                                        <th>-</th>
+                                        <th>-</th>
+                                    </tr>
+                                    :
+                                    <tr>
+                                        <th>{qualifies.qualifyLevel}</th>
+                                        <td>{qualifies.qualifyLevel}</td>
+                                        <th>{qualifies.passYear}</th>
+                                        <th>{qualifies.rollNum}</th>
+                                        <th>{qualifies.board}</th>
+                                        <th>{qualifies.resultStatus}</th>
+                                        <th>{qualifies.gradeSys}</th>
+                                        <th>{qualifies.grade}</th>
+                                    </tr>
+                            }
                         </tbody>
                     </Table>
                     <MDBRow style={{ height: "20px" }}></MDBRow>

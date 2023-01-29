@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-
 import {
     MDBBtn,
     MDBContainer,
@@ -10,10 +9,7 @@ import {
     MDBInput,
 }
     from 'mdb-react-ui-kit';
-    import {
-        Link, useNavigate
-      } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 const Editprofile = () => {
     const [fatherName, setfatherName] = useState("");
@@ -39,9 +35,29 @@ const Editprofile = () => {
         getProductDetails();
     }, [])
    
+    const setEmpty =()=>{
+        setfatherName("");
+        setmotherName("");
+        setDisability("");
+        setaadharNum("");
+        setalternateNum("");
+        setmobNum("");
+        setenrollNum("");
+        setbloodGroup("");
+        setcaste("");
+        setdob("");
+        setgender("");
+        setnationality("");
+        setreligion("");
+        setstate("");
+    }
     const getProductDetails = async()=>{
         let result = await fetch(`http://localhost:5000/profiles/${idd}`);
         result = await result.json();
+        if(result.result == "No User Found"){
+            setEmpty();
+        }
+        else{
         setfatherName(result.fatherName);
         setmotherName(result.motherName);
         setDisability(result.disability);
@@ -56,8 +72,8 @@ const Editprofile = () => {
         setnationality(result.nationality);
         setreligion(result.religion);
         setstate(result.state);
+        }
     }
-
 
     const update_profile = async () => {
         const studentId = JSON.parse(localStorage.getItem("student"))._id;
@@ -69,12 +85,11 @@ const Editprofile = () => {
                 'Content-Type' : 'application/json'
             }
         });
-        // setfatherName(result.fatherName);
         result = await result.json();
         if(result){
             navigate('/stdprofile')
         }
-        console.warn(result);
+        // console.warn(result);
     }
     
     const add_student_profile = async () => {
@@ -87,22 +102,17 @@ const Editprofile = () => {
                 'Content-Type' : 'application/json'
             }
         });
-        // setfatherName(result.fatherName);
         result = await result.json();
-
-        console.warn(result);
+        // console.warn(result);
     }
 
     const save_update=()=>{
         const auth = JSON.parse(localStorage.getItem("profile"))._id;
         const authh = JSON.parse(localStorage.getItem("profile")).result;
-        if(auth)
-        {
+        if(auth){
             return <Link to='/stdprofile'><MDBBtn type='submit' onClick={update_profile}>Update</MDBBtn></Link>
-            
         } 
         else if(authh){
-
             return <Link to='/stdprofile'><MDBBtn type='submit'  onClick={add_student_profile}>Save</MDBBtn></Link>
         }
     }
@@ -524,8 +534,7 @@ const Editprofile = () => {
 
                         <MDBRow>
                             <MDBCol> {save_update()}</MDBCol>
-                           
-                            
+                                                       
                             <MDBCol>
                                 <Link to='/stdprofile'><MDBBtn>Back</MDBBtn></Link>
                             </MDBCol>

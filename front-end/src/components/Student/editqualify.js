@@ -6,18 +6,13 @@ import {
     MDBCol,
     MDBCard,
     MDBCardBody,
-    MDBCardImage,
-    MDBInput,
-    MDBIcon,
-    MDBCheckbox
+    MDBInput
 }
     from 'mdb-react-ui-kit';
-    import { useState, useEffect } from 'react';
-    import {
-        Link, useNavigate
-      } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-const Editqualify=()=> {
+const Editqualify = () => {
     const [qualifyLevel, setqualifyLevel] = useState("");
     const [qualifyName, setqualifyName] = useState("");
     const [passYear, setpassYear] = useState("");
@@ -26,23 +21,39 @@ const Editqualify=()=> {
     const [resultStatus, setResultStatus] = useState("");
     const [gradeSys, setgradeSys] = useState("");
     const [grade, setGrade] = useState("");
-   
-    
+
     useEffect(() => {
         getQualifyDetails();
     }, [])
+
+    const setEmpty = () => {
+        setqualifyLevel("");
+        setqualifyName("");
+        setpassYear("");
+        setBoard("");
+        setrollNum("");
+        setResultStatus("");
+        setgradeSys("");
+        setGrade("");
+    }
     const idd = JSON.parse(localStorage.getItem("student"))._id;
     const getQualifyDetails = async () => {
         let result = await fetch(`http://localhost:5000/qualify/${idd}`);
         result = await result.json();
-        setqualifyLevel(result.qualifyLevel);
-        setqualifyName(result.qualifyName);
-        setpassYear(result.passYear);
-        setBoard(result.board);
-        setrollNum(result.rollNum);
-        setResultStatus(result.resultStatus);
-        setgradeSys(result.gradeSys);
-        setGrade(result.grade);
+        console.warn(result);
+        if (result.result == "No User Found") {
+            setEmpty();
+        }
+        else {
+            setqualifyLevel(result.qualifyLevel);
+            setqualifyName(result.qualifyName);
+            setpassYear(result.passYear);
+            setBoard(result.board);
+            setrollNum(result.rollNum);
+            setResultStatus(result.resultStatus);
+            setgradeSys(result.gradeSys);
+            setGrade(result.grade);
+        }
     }
 
     const update_qualify = async () => {
@@ -50,14 +61,14 @@ const Editqualify=()=> {
         let result = await fetch(`http://localhost:5000/add-student-qualify/${idd}`, {
             method: 'put',
             body: JSON.stringify({
-                qualifyLevel, qualifyName,studentId, passYear, board, rollNum, resultStatus, gradeSys, grade }),
+                qualifyLevel, qualifyName, studentId, passYear, board, rollNum, resultStatus, gradeSys, grade
+            }),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-        // setfatherName(result.fatherName);
         result = await result.json();
-        console.warn(result);
+        // console.warn(result);
     }
 
     const add_student_qualify = async () => {
@@ -65,15 +76,14 @@ const Editqualify=()=> {
         let result = await fetch("http://localhost:5000/add-qualify", {
             method: 'post',
             body: JSON.stringify({
-                qualifyLevel,studentId, qualifyName, passYear, board, rollNum, resultStatus, gradeSys, grade }),
+                qualifyLevel, studentId, qualifyName, passYear, board, rollNum, resultStatus, gradeSys, grade
+            }),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-        // setfatherName(result.fatherName);
         result = await result.json();
-
-        console.warn(result);
+        // console.warn(result);
     }
 
     const save_update = () => {
@@ -81,10 +91,8 @@ const Editqualify=()=> {
         const authh = JSON.parse(localStorage.getItem("qualify")).result;
         if (auth) {
             return <Link to='/stdqualify'><MDBBtn type='submit' onClick={update_qualify}>Update</MDBBtn></Link>
-
         }
         else if (authh) {
-
             return <Link to='/stdqualify'><MDBBtn type='submit' onClick={add_student_qualify}>Save</MDBBtn></Link>
         }
     }

@@ -162,7 +162,7 @@ app.put("/add-student-qualify/:id",async (req, resp)=> {
     resp.send(result); 
 })
 
-app.put("/add-qualify",async (req, resp)=> {
+app.post("/add-qualify",async (req, resp)=> {
     let student_qualify = new Student_quali(req.body);
     let result = await student_qualify.save();
     resp.send(result);

@@ -1,4 +1,4 @@
-import React , {useState, useEffect}from "react";
+import React, { useState, useEffect } from "react";
 import {
   MDBBtn,
   MDBContainer,
@@ -18,101 +18,80 @@ function EditPeraddress() {
   const [country, setcountry] = useState("");
   const [province, setprovince] = useState("");
 
-  useEffect(()=>{
+  useEffect(() => {
     getPerAddressDetails();
-}, [])
-const idd = JSON.parse(localStorage.getItem("student"))._id;
-  const getPerAddressDetails = async()=>{
+  }, [])
+
+  const setEmpty = () => {
+    setflatNo("");
+    setarea("");
+    setlandmark("");
+    setlocality("");
+    setcity("");
+    setpostalCode("");
+    setcountry("");
+    setprovince("");
+  }
+  const idd = JSON.parse(localStorage.getItem("student"))._id;
+  const getPerAddressDetails = async () => {
     let result = await fetch(`http://localhost:5000/peraddresses/${idd}`);
     result = await result.json();
-    setflatNo(result.flatNo);
-    setarea(result.area);
-    setlandmark(result.landmark);
-    setlocality(result.locality);
-    setcity(result.city);
-    setpostalCode(result.postalCode);
-    setcountry(result.country);
-    setprovince(result.province);
-}
+    if (result.result == "No User Found") {
+      setEmpty();
+    }
+    else {
+      setflatNo(result.flatNo);
+      setarea(result.area);
+      setlandmark(result.landmark);
+      setlocality(result.locality);
+      setcity(result.city);
+      setpostalCode(result.postalCode);
+      setcountry(result.country);
+      setprovince(result.province);
+    }
+  }
   const add_studentper_address = async () => {
-    console.warn(
-      flatNo,
-      area,
-      landmark,
-      locality,
-      city,
-      postalCode,
-      country,
-      province
-    );
+    // console.warn(flatNo,area,landmark,locality,city,postalCode,country,province);
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
     let result = await fetch("http://localhost:5000/add-stdper-address", {
       method: "post",
       body: JSON.stringify({
-        flatNo,
-        area,
-        landmark,
-        locality,
-        city,
-        postalCode,
-        country,
-        province,
-        studentId,
+        flatNo, area, landmark, locality, city, postalCode, country, province, studentId,
       }),
       headers: {
         "Content-Type": "application/json",
       },
     });
     result = await result.json();
-    console.warn(result);
+    // console.warn(result);
   };
 
   const update_address = async () => {
-    console.warn(
-      flatNo,
-      area,
-      landmark,
-      locality,
-      city,
-      postalCode,
-      country,
-      province
-    );
+    // console.warn(flatNo,area,landmark,locality,city,postalCode,country,province);
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
     let result = await fetch(`http://localhost:5000/add-per-address/${idd}`, {
-      method: "post",
+      method: "put",
       body: JSON.stringify({
-        flatNo,
-        area,
-        landmark,
-        locality,
-        city,
-        postalCode,
-        country,
-        province,
-        studentId,
+        flatNo, area, landmark, locality, city, postalCode, country, province, studentId,
       }),
       headers: {
         "Content-Type": "application/json",
       },
     });
     result = await result.json();
-    console.warn(result);
+    // console.warn(result);
   };
 
-  const save_update=()=>{
+  const save_update = () => {
     const auth = JSON.parse(localStorage.getItem("peraddress"))._id;
     const authh = JSON.parse(localStorage.getItem("peraddress")).result;
-    if(auth)
-    {
-        return <Link to='/stdaddress'><MDBBtn type='submit' onClick={update_address}>Update</MDBBtn></Link>
-        
-    } 
-    else if(authh){
-
-        return <Link to='/stdaddress'><MDBBtn type='submit'  onClick={add_studentper_address}>Save</MDBBtn></Link>
+    if (auth) {
+      return <Link to='/stdaddress'><MDBBtn type='submit' onClick={update_address}>Update</MDBBtn></Link>
     }
-}
+    else if (authh) {
+      return <Link to='/stdaddress'><MDBBtn type='submit' onClick={add_studentper_address}>Save</MDBBtn></Link>
+    }
+  }
 
   return (
     <MDBContainer fluid>
@@ -122,8 +101,6 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
           <MDBRow style={{ height: "20px" }}></MDBRow>
           <MDBRow>
             <form>
-        
-
               <MDBRow>
                 <MDBCol>
                   <label className="required" htmlFor="details">
@@ -538,7 +515,7 @@ const idd = JSON.parse(localStorage.getItem("student"))._id;
               <MDBRow>
                 <MDBCol>
                   {save_update()}
-                
+
                 </MDBCol>
                 <MDBCol>
                   <Link to="/stdaddress">

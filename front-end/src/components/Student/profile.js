@@ -25,13 +25,11 @@ const Profile = () => {
     const getProfiles = async () => {
         let result = await fetch(`http://localhost:5000/profiles/${idd}`);
         result = await result.json();
-        console.warn(result);
+        // console.warn(result);
         setProfiles(result);
         localStorage.setItem("profile", JSON.stringify(result));
     }
-    let len = profiles.length;
-    // profiles = profiles[len-1];
-    console.warn(len);
+    
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>
@@ -62,8 +60,7 @@ const Profile = () => {
                             </tr>
                             <tr>
                                 <td>4</td>
-                                <td>Father's Name</td>
-                    
+                                <td>Father's Name</td>                
                                 <td>{profiles.fatherName}</td>
                             </tr>
                             <tr>
@@ -139,7 +136,6 @@ const Profile = () => {
                             <Link to='/editstdprofile'><MDBBtn>Edit</MDBBtn></Link>
                         </MDBCol>
                     </MDBRow>
-
                 </MDBCardBody>
             </MDBCard>
         </MDBContainer>
