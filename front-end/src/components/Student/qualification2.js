@@ -22,16 +22,16 @@ const Qualification = () => {
     }, []);
 
     const getQualify = async () => {
-        let result = await fetch(`http://localhost:5000/qualify/${idd}`);
+        let result = await fetch(`http://localhost:5000/qualifyEntry/${idd}`);
         result = await result.json();
         // console.warn(result);
         setQualify(result);
         localStorage.setItem("qualify", JSON.stringify(result));
     }
-    // console.warn(typeof(qualifies.result));
-    const setAdd = (qL) => {
-        localStorage.setItem("qualifyVal", qL);
-    }
+    // // console.warn(typeof(qualifies.result));
+    // const setAdd = (qL) => {
+    //     localStorage.setItem("qualifyVal", qL);
+    // }
     
     return (
         <MDBContainer fluid>
@@ -46,7 +46,7 @@ const Qualification = () => {
                     <MDBTable striped>
                         <MDBTableHead>
                             <tr>
-                                <th>number</th>
+                             
                                 <th>Qualification Level</th>
                                 <th>Name of Qualification</th>
                                 <th>Year of Passing</th>
@@ -60,7 +60,7 @@ const Qualification = () => {
                         </MDBTableHead>
                         <MDBTableBody>
                             {
-                                qualifies.result == "No User Found"?
+                                qualifies.result === "No User Found"?
                                 <tr>
                                         <td>-</td>
                                         <td>-</td>
@@ -75,9 +75,8 @@ const Qualification = () => {
                                     </tr>
                                     :
                                     
-                                qualifies.map((item, index) =>
-                                    <tr>
-                                        <td>{index+1}</td>
+                                qualifies.map((item) =>
+                                    <tr key ={item._id}>
                                         <td>{item.qualifyLevel}</td>
                                         <td>{item.qualifyName}</td>
                                         <td>{item.passYear}</td>
@@ -86,7 +85,7 @@ const Qualification = () => {
                                         <td>{item.resultStatus}</td>
                                         <td>{item.gradeSys}</td>
                                         <td>{item.grade}</td>
-                                        <td><Link to="/editstdqualify/:id"><MDBBtn>edit</MDBBtn></Link></td>
+                                        <td><Link to={`/editstdqualify/${item._id}/${item.qualifyLevel}`}><MDBBtn>edit</MDBBtn></Link></td>
                                     </tr>
                                 )
 

@@ -31,7 +31,7 @@ function App() {
           <Route path="/editstdperaddress" element={<EditPerStudentAddress />} />
           <Route path="/editstdtempaddress" element={<EditTempAddress/>} />
           <Route path="/stdqualify" element={<StudentQualify />} />
-          <Route path="/editstdqualify/:id" element={<EditStudentQualify />} />
+          <Route path="/editstdqualify/:id/:qL" element={<EditStudentQualify />} />
           <Route path="/addstdqualify" element={<AddStudentQualify />} />
           </Route>
           

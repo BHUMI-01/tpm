@@ -152,8 +152,8 @@ app.put("/add-temp-address/:id",async (req, resp)=> {
 //         }
 // })
 
-app.get("/qualify/:id",async (req, resp)=> {
-    const data = await Student_quali.find({studentId:req.params.id});
+app.get("/qualifyyy/:id/:qL",async (req, resp)=> {
+    const data = await Student_quali.find({studentId:req.params.id, qualifyLevel:req.params.qL});
         if(data)
         {
             resp.send(data)
@@ -164,7 +164,7 @@ app.get("/qualify/:id",async (req, resp)=> {
 })
 
 app.get("/qualifyEntry/:id",async (req, resp)=> {
-    const data = await Student_quali.findOne({studentId:req.params.id});
+    const data = await Student_quali.find({studentId:req.params.id});
         if(data)
         {
             resp.send(data)
@@ -176,7 +176,7 @@ app.get("/qualifyEntry/:id",async (req, resp)=> {
 
 app.put("/add-student-qualify/:id/:qL",async (req, resp)=> {
     let result = await Student_quali.updateOne(
-        {studentId:req.params.id, qualifyLevel:req.params.qL},
+        {studentId:req.params.id, qualifyLevel: req.params.qL},
         {
             $set:req.body
         }
