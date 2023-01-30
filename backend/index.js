@@ -141,7 +141,29 @@ app.put("/add-temp-address/:id",async (req, resp)=> {
 
 //add and update qualification 
 
+// app.get("/qualify/:id",async (req, resp)=> {
+//     const data = await Student_quali.findOne({studentId:req.params.id});
+//         if(data)
+//         {
+//             resp.send(data)
+//         }
+//         else{
+//             resp.send({result:"No User Found"})
+//         }
+// })
+
 app.get("/qualify/:id",async (req, resp)=> {
+    const data = await Student_quali.find({studentId:req.params.id});
+        if(data)
+        {
+            resp.send(data)
+        }
+        else{
+            resp.send({result:"No User Found"})
+        }
+})
+
+app.get("/qualifyEntry/:id",async (req, resp)=> {
     const data = await Student_quali.findOne({studentId:req.params.id});
         if(data)
         {
@@ -152,9 +174,9 @@ app.get("/qualify/:id",async (req, resp)=> {
         }
 })
 
-app.put("/add-student-qualify/:id",async (req, resp)=> {
+app.put("/add-student-qualify/:id/:qL",async (req, resp)=> {
     let result = await Student_quali.updateOne(
-        {studentId:req.params.id},
+        {studentId:req.params.id, qualifyLevel:req.params.qL},
         {
             $set:req.body
         }

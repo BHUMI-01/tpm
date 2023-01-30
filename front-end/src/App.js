@@ -14,6 +14,7 @@ import StudentAddress from './containers/Address';
 import EditPerStudentAddress from './containers/EditPerAddress';
 import StudentQualify from './containers/Qualification';
 import EditStudentQualify from './containers/EditQualify';
+import AddStudentQualify from './containers/AddQualify';
 import EditTempAddress from './containers/EditTempAddress';
 function App() {
   return (
@@ -30,7 +31,8 @@ function App() {
           <Route path="/editstdperaddress" element={<EditPerStudentAddress />} />
           <Route path="/editstdtempaddress" element={<EditTempAddress/>} />
           <Route path="/stdqualify" element={<StudentQualify />} />
-          <Route path="/editstdqualify" element={<EditStudentQualify />} />
+          <Route path="/editstdqualify/:id" element={<EditStudentQualify />} />
+          <Route path="/addstdqualify" element={<AddStudentQualify />} />
           </Route>
           
           <Route path="/" element={<Home />} />

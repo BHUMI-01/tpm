@@ -1,8 +1,8 @@
 import React from 'react';
-import Qualify from '../components/Student/qualification2';
+import Qualify from '../components/Student/addqualify';
 import Navbar from '../components/navbar/Navbar';
 
-function Qualification() {
+function AddQualify() {
   return (
     <div>
       <Navbar/>
@@ -11,4 +11,4 @@ function Qualification() {
   )
 }
 
-export default Qualification
+export default AddQualify
