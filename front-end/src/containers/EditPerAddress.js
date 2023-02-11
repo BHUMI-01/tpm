@@ -5,7 +5,7 @@ import Navbar from '../components/navbar/Navbar';
 function EditPerAddress() {
   return (
     <div>
-      <Navbar/>
+      
       <StdPerAddress/>
     </div>
   )

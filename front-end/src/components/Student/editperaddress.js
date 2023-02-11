@@ -51,7 +51,6 @@ function EditPeraddress() {
     }
   }
   const add_studentper_address = async () => {
-    // console.warn(flatNo,area,landmark,locality,city,postalCode,country,province);
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
     let result = await fetch("http://localhost:5000/add-stdper-address", {
       method: "post",
@@ -63,11 +62,9 @@ function EditPeraddress() {
       },
     });
     result = await result.json();
-    // console.warn(result);
   };
 
   const update_address = async () => {
-    // console.warn(flatNo,area,landmark,locality,city,postalCode,country,province);
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
     let result = await fetch(`http://localhost:5000/add-per-address/${idd}`, {
       method: "put",
@@ -79,17 +76,16 @@ function EditPeraddress() {
       },
     });
     result = await result.json();
-    // console.warn(result);
   };
 
   const save_update = () => {
     const auth = JSON.parse(localStorage.getItem("peraddress"))._id;
     const authh = JSON.parse(localStorage.getItem("peraddress")).result;
     if (auth) {
-      return <Link to='/stdaddress'><MDBBtn type='submit' onClick={update_address}>Update</MDBBtn></Link>
+      return <Link to='/stdaddress'><MDBBtn type='submit' onClick={()=>update_address()}>Update</MDBBtn></Link>
     }
     else if (authh) {
-      return <Link to='/stdaddress'><MDBBtn type='submit' onClick={add_studentper_address}>Save</MDBBtn></Link>
+      return <Link to='/stdaddress'><MDBBtn type='submit' onClick={()=>add_studentper_address()}>Save</MDBBtn></Link>
     }
   }
 

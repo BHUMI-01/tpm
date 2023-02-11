@@ -30,14 +30,21 @@ const Login = () => {
       }
     });
     result = await result.json();
-    console.warn(result);
-    if (result.firstName && result.lastName) {
+    if (result.status == "Student") {
       localStorage.setItem("student", JSON.stringify(result));
       navigate('/');
     }
-    // else{
-    //   alert("Please enter correct details");
-    // }
+    else if(result.status == "Recruiter"){
+      localStorage.setItem("student", JSON.stringify(result));
+      navigate('/recruiter');
+    }
+    else if(result.status=="Admin"){
+      localStorage.setItem("student", JSON.stringify(result));
+      navigate("/admin");
+    }
+    else{
+      alert("Please enter correct details");
+    }
   }
 
   return (
@@ -45,11 +52,9 @@ const Login = () => {
       <MDBCard className='text-black m-5' style={{ borderRadius: '25px' }}>
         <MDBCardBody>
           <MDBRow>
-
             <MDBCol col='6' className="mb-5">
               <form >
                 <h3>Sign In</h3>
-
                 <div className="mb-3">
                   <label>Email address</label>
                   <input
@@ -88,7 +93,7 @@ const Login = () => {
                 </div>
 
                 <div className="d-grid">
-                  <button type="submit" onClick={handlelogin} className="btn btn-primary">
+                  <button type="submit" onClick={() => handlelogin()} className="btn btn-primary">
                     Submit
                   </button>
                 </div>
@@ -96,27 +101,20 @@ const Login = () => {
                   <a href="/register">Sign Up</a>
                 </p>
               </form>
-
             </MDBCol>
-
             <MDBCol col='6' className="mb-5">
               <div className="d-flex flex-column  justify-content-center gradient-custom-2 h-100 mb-4">
-
                 <div className="text-white px-3 py-4 p-md-5 mx-md-4">
                   <h4 className="mb-4">Training and Placement Portal For Students</h4>
                   <p className="small mb-0">Students can login here and providing their personal details,
                     academic qualifications and other details related to the placement.
                   </p>
                 </div>
-
               </div>
-
             </MDBCol>
-
           </MDBRow>
         </MDBCardBody>
       </MDBCard>
-
     </MDBContainer>
   );
 }

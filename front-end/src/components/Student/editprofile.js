@@ -89,7 +89,6 @@ const Editprofile = () => {
         if(result){
             navigate('/stdprofile')
         }
-        // console.warn(result);
     }
     
     const add_student_profile = async () => {
@@ -103,17 +102,16 @@ const Editprofile = () => {
             }
         });
         result = await result.json();
-        // console.warn(result);
     }
 
     const save_update=()=>{
         const auth = JSON.parse(localStorage.getItem("profile"))._id;
         const authh = JSON.parse(localStorage.getItem("profile")).result;
         if(auth){
-            return <Link to='/stdprofile'><MDBBtn type='submit' onClick={update_profile}>Update</MDBBtn></Link>
+            return <Link to='/stdprofile'><MDBBtn type='submit' onClick={()=>update_profile()}>Update</MDBBtn></Link>
         } 
         else if(authh){
-            return <Link to='/stdprofile'><MDBBtn type='submit'  onClick={add_student_profile}>Save</MDBBtn></Link>
+            return <Link to='/stdprofile'><MDBBtn type='submit' onClick={()=>add_student_profile()}>Save</MDBBtn></Link>
         }
     }
 
@@ -134,7 +132,6 @@ const Editprofile = () => {
                         </MDBRow>
 
                         <MDBRow style={{ height: "20px" }}></MDBRow>
-
                         <MDBRow>
                             <MDBCol><label>Father's Name: </label>
                                 <MDBInput id='fname' type='text' value={fatherName}
@@ -151,7 +148,6 @@ const Editprofile = () => {
                         </MDBRow>
 
                         <MDBRow style={{ height: "20px" }}></MDBRow>
-
                         <MDBRow>
                             <MDBCol><label>Date</label>
                                 <MDBInput id='dob' type='date' value={dob}
@@ -172,7 +168,6 @@ const Editprofile = () => {
                         </MDBRow>
 
                         <MDBRow style={{ height: "20px" }}></MDBRow>
-
                         <MDBRow>
                             <MDBCol>
                                 <label className="required" htmlFor="disability">Disability: </label>
@@ -482,7 +477,6 @@ const Editprofile = () => {
                         </MDBRow>
 
                         <MDBRow style={{ height: "20px" }}></MDBRow>
-
                         <MDBRow>
                             <MDBCol><label htmlFor="province_id">Domicile Province:</label>
                                 <select className="form-control" name="province_id" id="province_id" value={state}
@@ -531,19 +525,15 @@ const Editprofile = () => {
                         </MDBRow>
 
                         <MDBRow style={{ height: "20px" }}></MDBRow>
-
                         <MDBRow>
-                            <MDBCol> {save_update()}</MDBCol>
-                                                       
+                            <MDBCol> {save_update()}</MDBCol>                        
                             <MDBCol>
                                 <Link to='/stdprofile'><MDBBtn>Back</MDBBtn></Link>
                             </MDBCol>
                         </MDBRow>
                     </form>
-
                 </MDBCardBody>
             </MDBCard>
-
         </MDBContainer>
     )
 }

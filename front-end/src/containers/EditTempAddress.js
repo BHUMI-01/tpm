@@ -5,7 +5,7 @@ import Navbar from '../components/navbar/Navbar';
 function EditTempAddress() {
   return (
     <div>
-      <Navbar/>
+      
       <StdTempAddress/>
     </div>
   )

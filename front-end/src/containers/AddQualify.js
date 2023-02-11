@@ -5,7 +5,7 @@ import Navbar from '../components/navbar/Navbar';
 function AddQualify() {
   return (
     <div>
-      <Navbar/>
+      
       <Qualify/>
     </div>
   )

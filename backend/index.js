@@ -2,14 +2,18 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const bodyParser = require("body-parser");
 require("./db/config");
 const Student = require("./models/Student");
 const Student_prof = require("./models/Student_profile");
 const Student_Per_Address = require("./models/Student_Per_Address");
 const Student_Temp_Address = require("./models/Student_Temp_Address");
 const Student_quali= require('./models/Student_qualify');
+const Student_File_Uplod = require('./models/Student_File_Upload');
 
 // middlewares
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json());
 app.use(cors());
 
@@ -54,6 +58,7 @@ app.post("/login", async (req, resp) => {
         resp.send({ result: "No User Found" })
     }
 })
+
 
 //ADD AND UPDATE PROFILE
 app.post("/add-prof", async (req, resp) => {
@@ -141,19 +146,8 @@ app.put("/add-temp-address/:id",async (req, resp)=> {
 
 //add and update qualification 
 
-// app.get("/qualify/:id",async (req, resp)=> {
-//     const data = await Student_quali.findOne({studentId:req.params.id});
-//         if(data)
-//         {
-//             resp.send(data)
-//         }
-//         else{
-//             resp.send({result:"No User Found"})
-//         }
-// })
-
-app.get("/qualifyyy/:id/:qL",async (req, resp)=> {
-    const data = await Student_quali.find({studentId:req.params.id, qualifyLevel:req.params.qL});
+app.get("/qualifyyy/:id",async (req, resp)=> {
+    const data = await Student_quali.findOne({_id:req.params.id});
         if(data)
         {
             resp.send(data)
@@ -174,9 +168,9 @@ app.get("/qualifyEntry/:id",async (req, resp)=> {
         }
 })
 
-app.put("/add-student-qualify/:id/:qL",async (req, resp)=> {
+app.put("/add-student-qualify/:id",async (req, resp)=> {
     let result = await Student_quali.updateOne(
-        {studentId:req.params.id, qualifyLevel: req.params.qL},
+        {_id:req.params.id},
         {
             $set:req.body
         }
@@ -189,4 +183,11 @@ app.post("/add-qualify",async (req, resp)=> {
     let result = await student_qualify.save();
     resp.send(result);
 })
+
+app.post("/upload-file", async (req, resp)=>{
+    let student_file = await Student_File_Uplod.create(req.body);
+    let result = await student_file.save();
+    resp.send(result);
+})
+
 app.listen(5000)

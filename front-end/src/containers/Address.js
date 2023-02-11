@@ -5,7 +5,7 @@ import Navbar from '../components/navbar/Navbar';
 function Address() {
   return (
     <div>
-      <Navbar/>
+      
       <StdAddress/>
     </div>
   )

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import {
   MDBContainer,
   MDBRow,
@@ -14,6 +13,7 @@ const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [status, setStatus] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -23,17 +23,17 @@ const SignUp = () => {
       navigate('/')
     }
   })
+
   const collectData = async () => {
-    console.warn(firstName, middleName, lastName, email, password);
     let result = await fetch("http://localhost:5000/register", {
       method: 'post',
-      body: JSON.stringify({ firstName, middleName, lastName, email, password }),
+      body: JSON.stringify({ firstName, middleName, lastName, status, email, password }),
       headers: {
         'Content-Type': 'application/json'
       }
     });
     result = await result.json();
-    console.warn(result);
+    console.log(result);
     localStorage.setItem("student", JSON.stringify(result));
     navigate('/');
   }
@@ -86,6 +86,20 @@ const SignUp = () => {
                 </div>
 
                 <div className="mb-3">
+                  <label>Designation</label>
+                  <select
+                    className="form-control"
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                    required
+                  >
+                    <option>Please select</option>
+                    <option>Student</option>
+                    <option>Recruiter</option>
+                  </select>
+                </div>
+
+                <div className="mb-3">
                   <label>Email address</label>
                   <input
                     type="email"
@@ -111,7 +125,7 @@ const SignUp = () => {
 
                 <div className="d-grid">
                   <button type="submit" className="btn btn-primary"
-                    onClick={collectData}>
+                    onClick={() => collectData()}>
                     Sign Up
                   </button>
                 </div>
@@ -120,7 +134,6 @@ const SignUp = () => {
                 </p>
               </form>
             </MDBCol>
-
             <MDBCol
               md="10"
               lg="6"

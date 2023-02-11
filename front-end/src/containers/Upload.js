@@ -5,7 +5,7 @@ import Navbar from '../components/navbar/Navbar';
 function Upload() {
   return (
     <div>
-      <Navbar/>
+      
       <Upoaddocument/>
     </div>
   )

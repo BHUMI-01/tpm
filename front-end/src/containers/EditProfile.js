@@ -5,7 +5,7 @@ import Navbar from '../components/navbar/Navbar';
 function EditProfile() {
   return (
     <div>
-      <Navbar/>
+      
       <Udprofile/>
     </div>
   )

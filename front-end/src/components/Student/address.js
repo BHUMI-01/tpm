@@ -24,14 +24,13 @@ function Address() {
         setPeraddress(result);
         localStorage.setItem("peraddress", JSON.stringify(result));
     }
+    
     const getTempAddress = async () => {
         let result = await fetch(`http://localhost:5000/tempaddresses/${idd}`);
         result = await result.json();
         setTempaddress(result);
         localStorage.setItem("tempaddress", JSON.stringify(result));
     }
-    // console.warn(peraddresses);
-    // console.warn(tempaddresses);
 
     return (
         <MDBContainer fluid>

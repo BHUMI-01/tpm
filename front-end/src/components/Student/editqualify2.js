@@ -21,31 +21,27 @@ const Editqualify2 = () => {
     const [resultStatus, setResultStatus] = useState("");
     const [gradeSys, setgradeSys] = useState("");
     const [grade, setGrade] = useState("");
-    const {mun, mun4}= useParams();
+    const { id } = useParams();
     useEffect(() => {
         getQualifyDetails();
     }, [])
 
-
     const getQualifyDetails = async () => {
-        
-        let resu = await fetch(`http://localhost:5000/qualifyyy/${mun}/${mun4}`);
+        let resu = await fetch(`http://localhost:5000/qualifyyy/${id}`);
         resu = await resu.json();
-        console.warn(resu)
-            setqualifyLevel(resu.qualifyLevel);
-            setqualifyName(resu.qualifyName);
-            setpassYear(resu.passYear);
-            setBoard(resu.board);
-            setrollNum(resu.rollNum);
-            setResultStatus(resu.resultStatus);
-            setgradeSys(resu.gradeSys);
-            setGrade(resu.grade);
+        setqualifyLevel(resu.qualifyLevel);
+        setqualifyName(resu.qualifyName);
+        setpassYear(resu.passYear);
+        setBoard(resu.board);
+        setrollNum(resu.rollNum);
+        setResultStatus(resu.resultStatus);
+        setgradeSys(resu.gradeSys);
+        setGrade(resu.grade);
     }
 
     const update_qualify = async () => {
         const studentId = JSON.parse(localStorage.getItem("student"))._id;
-
-        let result = await fetch(`http://localhost:5000/add-student-qualify/${mun}/${mun4}`, {
+        let result = await fetch(`http://localhost:5000/add-student-qualify/${id}`, {
             method: 'put',
             body: JSON.stringify({
                 qualifyLevel, qualifyName, studentId, passYear, board, rollNum, resultStatus, gradeSys, grade
@@ -55,34 +51,7 @@ const Editqualify2 = () => {
             }
         });
         result = await result.json();
-        // console.warn(result);
     }
-
-    // const add_student_qualify = async () => {
-    //     const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    //     let result = await fetch("http://localhost:5000/add-qualify", {
-    //         method: 'post',
-    //         body: JSON.stringify({
-    //             qualifyLevel, studentId, qualifyName, passYear, board, rollNum, resultStatus, gradeSys, grade
-    //         }),
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     });
-    //     result = await result.json();
-    //     // console.warn(result);
-    // }
-
-    // const save_update = () => {
-    //     const auth = JSON.parse(localStorage.getItem("student"))._id;
-    //     const authh = JSON.parse(localStorage.getItem("qualify")).result;
-    //     if (auth) {
-    //         return <Link to='/stdqualify'><MDBBtn type='submit' onClick={update_qualify}>Update</MDBBtn></Link>
-    //     }
-    //     else if (authh) {
-    //         return <Link to='/stdqualify'><MDBBtn type='submit' onClick={add_student_qualify}>Save</MDBBtn></Link>
-    //     }
-    // }
 
     return (
         <MDBContainer fluid>
@@ -150,7 +119,7 @@ const Editqualify2 = () => {
                         <MDBRow style={{ height: "20px" }}></MDBRow>
 
                         <MDBRow>
-                        <MDBCol><MDBBtn type='submit' onClick={update_qualify}>Update</MDBBtn></MDBCol>
+                            <MDBCol><MDBBtn type='submit' onClick={()=>update_qualify()}>Update</MDBBtn></MDBCol>
                             <MDBCol>
                                 <Link to='/stdqualify'><MDBBtn>Back</MDBBtn></Link>
                             </MDBCol>

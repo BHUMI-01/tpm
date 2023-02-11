@@ -5,7 +5,7 @@ import Register from '../components/Register/register';
 const RegisterScr = () => {
     return (
       <>
-        <Navbar />
+       
         <Register />
       </>
     );
