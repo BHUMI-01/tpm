@@ -15,14 +15,14 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   useEffect(() => { 
-    const auth = localStorage.getItem("student");
+    const auth = localStorage.getItem("recruiter");
     if (auth) {
       navigate('/');
     }
   })
 
   const handlelogin = async () => {
-    let result = await fetch("http://localhost:5000/login", {
+    let result = await fetch("http://localhost:5000/comp-login", {
       method: 'post',
       body: JSON.stringify({ email, password }),
       headers: {
@@ -31,7 +31,7 @@ const Login = () => {
     });
     result = await result.json();
     if (result.result != "No User Found") {
-      localStorage.setItem("student", JSON.stringify(result));
+      localStorage.setItem("recruiter", JSON.stringify(result));
       navigate('/');
     }
     else{
@@ -90,7 +90,7 @@ const Login = () => {
                   </button>
                 </div>
                 <p className="forgot-password text-right">
-                  <a href="/stdregister">Sign Up</a>
+                  <a href="/compregister">Sign Up</a>
                 </p>
               </form>
             </MDBCol>

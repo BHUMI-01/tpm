@@ -8,11 +8,12 @@ import {
 
 function navbar() {
   const auth = localStorage.getItem("student");
+  const authh = localStorage.getItem("recruiter");
   const navigate = useNavigate;
 
   const shoot = () => {
-    const val = JSON.parse(localStorage.getItem("student")).status;
-    if (val == "Student") {
+
+    if (localStorage.getItem("student")) {
       return <div className="menu">
         <li><Link to="/stdprofile">Profile</Link></li>
         <li><Link to="/stdaddress">Address</Link></li>
@@ -20,12 +21,12 @@ function navbar() {
         <li><Link to="/uploaddoc">Documents</Link></li>
       </div>
     }
-    else if(val == "Recruiter"){
+    else if(localStorage.getItem("recruiter")){
       return <ul>
         <li><Link to="/recruiter">Profile</Link></li>
       </ul>
     }
-    else if(val=="Admin"){
+    else{
       return <ul>
         <li><Link to="/admin">Profile</Link></li>
       </ul>
@@ -40,7 +41,7 @@ function navbar() {
   return (
     <div>
       {
-        auth
+        auth || authh
           ?
           <nav className="navbar">
             <Container>

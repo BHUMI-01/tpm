@@ -4,12 +4,13 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 require("./db/config");
-const Student = require("./models/Student");
-const Student_prof = require("./models/Student_profile");
-const Student_Per_Address = require("./models/Student_Per_Address");
-const Student_Temp_Address = require("./models/Student_Temp_Address");
-const Student_quali= require('./models/Student_qualify');
-const Student_File_Uplod = require('./models/Student_File_Upload');
+const Student = require("./models/students/Student");
+const Student_prof = require("./models/students/Student_profile");
+const Student_Per_Address = require("./models/students/Student_Per_Address");
+const Student_Temp_Address = require("./models/students/Student_Temp_Address");
+const Student_quali= require('./models/students/Student_qualify');
+const Student_File_Uplod = require('./models/students/Student_File_Upload');
+const Recruiter = require('./models/recruiters/Recruiter');
 
 // middlewares
 app.use(bodyParser.json({limit: '50mb'}));
@@ -59,6 +60,48 @@ app.post("/login", async (req, resp) => {
     }
 })
 
+
+//register
+app.post("/comp-register",async (req, resp)=> { 
+    if (req.body.password && req.body.email) {
+        let comp = await Recruiter.findOne(req.body);
+        
+        if (comp) {
+            resp.send("user already enrolled")
+        }
+        else {
+            let comp = new Recruiter(req.body);
+            let result = await comp.save();
+            result = result.toObject();
+            delete result.password
+            resp.send(result);
+        }
+    }
+    else 
+    {
+        let student = new Recruiter(req.body);
+            let result = await student.save();
+            result = result.toObject();
+            delete result.password
+            resp.send(result);
+    }
+})
+ 
+//login
+app.post("/comp-login", async (req, resp) => {
+    if (req.body.password && req.body.email) {
+        let student = await Recruiter.findOne(req.body).select("-password");
+        if (student) {
+            resp.send(student)
+        }
+        else {
+            resp.send({ result: "No User Found" })
+        }
+    }
+    else {
+        resp.send({ result: "No User Found" })
+    }
+})
 
 //ADD AND UPDATE PROFILE
 app.post("/add-prof", async (req, resp) => {

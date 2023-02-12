@@ -1,11 +1,9 @@
 import React from 'react'
-import Navbar from '../components/navbar/Navbar';
-import Register from '../components/Register/register';
+import Register from '../components/Register/register2';
 
 const RegisterScr = () => {
     return (
       <>
-       
         <Register />
       </>
     );

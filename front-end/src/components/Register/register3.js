@@ -11,32 +11,28 @@ import {
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
-  const [middleName, setMiddleName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
-    const auth = localStorage.getItem("student");
+    const auth = localStorage.getItem("recruiter");
     if (auth) {
-      navigate('/stdprofile');
-      
+      navigate('/')
     }
   })
 
   const collectData = async () => {
-    let result = await fetch("http://localhost:5000/register", {
+    let result = await fetch("http://localhost:5000/comp-register", {
       method: 'post',
-      body: JSON.stringify({ firstName, middleName, lastName, email, password }),
+      body: JSON.stringify({ firstName, email, password }),
       headers: {
         'Content-Type': 'application/json'
       }
     });
     result = await result.json();
-    console.log(result);
     if (result.result != "user already enrolled") {
-      localStorage.setItem("student", JSON.stringify(result));
-      navigate('/stdlogin');
+      localStorage.setItem("recruiter", JSON.stringify(result));
+      navigate('/complogin');
     }
     else {
       alert("User Already Registered");
@@ -57,7 +53,7 @@ const SignUp = () => {
                 <h3>Sign Up</h3>
 
                 <div className="mb-3">
-                  <label>First name</label>
+                  <label>Company Name</label>
                   <input
                     type="text"
                     className="form-control"
@@ -67,31 +63,9 @@ const SignUp = () => {
                     required
                   />
                 </div>
-                <div className="mb-3">
-                  <label>Middle name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Last name"
-                    value={middleName}
-                    onChange={(e) => setMiddleName(e.target.value)}
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label>Last name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Last name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                  />
-                </div>
 
                 <MDBRow className="mb-3">
-                  <label>Email address</label>
+                  <label>Business Email</label>
                   <input
                     type="email"
                     className="form-control"
@@ -121,7 +95,7 @@ const SignUp = () => {
                   </button>
                 </div>
                 <p className="forgot-password text-right">
-                  Already registered <a href="/stdlogin">sign in?</a>
+                  Already registered <a href="/complogin">sign in?</a>
                 </p>
               </form>
             </MDBCol>
