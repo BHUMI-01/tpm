@@ -1,5 +1,5 @@
 import React from 'react'
-import Login from '../components/Login/login2';
+import Login from '../components/Login/login';
 
 const LoginScr = () => {
     return (
