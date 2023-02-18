@@ -188,7 +188,6 @@ app.put("/add-temp-address/:id",async (req, resp)=> {
 })
 
 //add and update qualification 
-
 app.get("/qualifyyy/:id",async (req, resp)=> {
     const data = await Student_quali.findOne({_id:req.params.id});
         if(data)
