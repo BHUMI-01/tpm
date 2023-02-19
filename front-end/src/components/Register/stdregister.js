@@ -19,8 +19,7 @@ const Stdregister = () => {
   useEffect(() => {
     const auth = localStorage.getItem("student");
     if (auth) {
-      navigate('/stdprofile');
-      
+      navigate('/student/editstdprofile');
     }
   })
 
@@ -36,7 +35,7 @@ const Stdregister = () => {
     console.log(result);
     if (result.result != "user already enrolled") {
       localStorage.setItem("student", JSON.stringify(result));
-      navigate('/');
+      navigate('/student/editstdprofile');
     }
     else {
       alert("User Already Registered");

@@ -133,7 +133,7 @@ const Profile = () => {
                     <MDBRow style={{ height: "20px" }}></MDBRow>
                     <MDBRow>
                         <MDBCol>
-                            <Link to='/editstdprofile'><MDBBtn>Edit</MDBBtn></Link>
+                            <Link to='/student/editstdprofile'><MDBBtn>Edit</MDBBtn></Link>
                         </MDBCol>
                     </MDBRow>
                 </MDBCardBody>

@@ -85,10 +85,10 @@ function EditTempaddress() {
     const auth = JSON.parse(localStorage.getItem("tempaddress"))._id;
     const authh = JSON.parse(localStorage.getItem("tempaddress")).result;
     if (auth) {
-      return <Link to='/stdaddress'><MDBBtn type='submit' onClick={update_address}>Update</MDBBtn></Link>
+      return <Link to='/student/stdaddress'><MDBBtn type='submit' onClick={update_address}>Update</MDBBtn></Link>
     }
     else if (authh) {
-      return <Link to='/stdaddress'><MDBBtn type='submit' onClick={add_studenttemp_address}>Save</MDBBtn></Link>
+      return <Link to='/student/stdaddress'><MDBBtn type='submit' onClick={add_studenttemp_address}>Save</MDBBtn></Link>
     }
   }
   return (
@@ -515,7 +515,7 @@ function EditTempaddress() {
                   {save_update()}
                 </MDBCol>
                 <MDBCol>
-                  <Link to="/stdaddress">
+                  <Link to="/student/stdaddress">
                     <MDBBtn>Back</MDBBtn>
                   </Link>
                 </MDBCol>

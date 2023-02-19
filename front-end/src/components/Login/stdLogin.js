@@ -17,7 +17,7 @@ const Login = () => {
   useEffect(() => { 
     const auth = localStorage.getItem("student");
     if (auth) {
-      navigate('/');
+      navigate('/student');
     }
   })
 
@@ -32,7 +32,7 @@ const Login = () => {
     result = await result.json();
     if (result.result != "No User Found") {
       localStorage.setItem("student", JSON.stringify(result));
-      navigate('/');
+      navigate('/student');
     }
     else{
       alert("Please enter correct details");

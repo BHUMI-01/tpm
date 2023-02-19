@@ -31,7 +31,7 @@ const Qualification = () => {
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>
                 <MDBCardBody style={{ height: '40px', width: '400px', }}>
-                    <Link to="/addstdqualify"><MDBBtn type='save'>Add Academic Details</MDBBtn></Link>
+                    <Link to="/student/addstdqualify"><MDBBtn type='save'>Add Academic Details</MDBBtn></Link>
                 </MDBCardBody>
                 <MDBRow style={{ height: "60px" }}></MDBRow>
                 <MDBCardBody>
@@ -77,7 +77,7 @@ const Qualification = () => {
                                             <td>{item.resultStatus}</td>
                                             <td>{item.gradeSys}</td>
                                             <td>{item.grade}</td>
-                                            <td><Link to={`/editstdqualify/${item._id}`}><MDBBtn>edit</MDBBtn></Link></td>
+                                            <td><Link to={`/student/editstdqualify/${item._id}`}><MDBBtn>edit</MDBBtn></Link></td>
                                         </tr>
                                     )
                             }

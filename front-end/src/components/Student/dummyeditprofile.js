@@ -52,54 +52,54 @@ const Editprofile = () => {
         setstate("");
     }
     const getProductDetails = async () => {
-        let result = await fetch(`http://localhost:5000/profiles/${idd}`);
+        let result = await fetch(`http://localhost:5000/add-data/${idd}`);
         result = await result.json();
         if (result.result == "No User Found") {
             setEmpty();
         }
         else {
-            setfatherName(result.fatherName);
-            setmotherName(result.motherName);
-            setDisability(result.disability);
-            setaadharNum(result.aadharNum);
-            setalternateNum(result.alternateNum);
-            setmobNum(result.mobNum);
-            setenrollNum(result.enrollNum);
-            setbloodGroup(result.bloodGroup);
-            setcaste(result.caste);
-            setdob(result.dob);
-            setgender(result.gender);
-            setnationality(result.nationality);
-            setreligion(result.religion);
-            setstate(result.state);
+            setfatherName(result.stdprofile.fatherName);
+            setmotherName(result.stdprofile.motherName);
+            setDisability(result.stdprofile.disability);
+            setaadharNum(result.stdprofile.aadharNum);
+            setalternateNum(result.stdprofile.alternateNum);
+            setmobNum(result.stdprofile.mobNum);
+            setenrollNum(result.stdprofile.enrollNum);
+            setbloodGroup(result.stdprofile.bloodGroup);
+            setcaste(result.stdprofile.caste);
+            setdob(result.stdprofile.dob);
+            setgender(result.stdprofile.gender);
+            setnationality(result.stdprofile.nationality);
+            setreligion(result.stdprofile.religion);
+            setstate(result.stdprofile.state);
         }
     }
 
-    const update_profile = async () => {
-        const studentId = JSON.parse(localStorage.getItem("student"))._id;
-        let result = await fetch(`http://localhost:5000/add-student-prof/${idd}`, {
-            method: 'put',
-            body: JSON.stringify({
-                fatherName, motherName, gender, dob, enrollNum, mobNum, alternateNum, disability, aadharNum
-                , bloodGroup, caste, religion, nationality, state, studentId
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        result = await result.json();
-        if (result) {
-            navigate('/stdprofile')
-        }
-    }
+    // const update_profile = async () => {
+    //     const studentId = JSON.parse(localStorage.getItem("student"))._id;
+    //     let result = await fetch(`http://localhost:5000/add-student-prof/${idd}`, {
+    //         method: 'put',
+    //         body: JSON.stringify({
+    //             fatherName, motherName, gender, dob, enrollNum, mobNum, alternateNum, disability, aadharNum
+    //             , bloodGroup, caste, religion, nationality, state, studentId
+    //         }),
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     });
+    //     result = await result.json();
+    //     if (result) {
+    //         navigate('/stdprofile')
+    //     }
+    // }
 
     const add_student_profile = async () => {
         const studentId = JSON.parse(localStorage.getItem("student"))._id;
-        let result = await fetch("http://localhost:5000/add-prof", {
+        const stdprofile = JSON.parse(localStorage.getItem("stdprofile"));
+        let result = await fetch("http://localhost:5000/add-data", {
             method: 'post',
             body: JSON.stringify({
-                fatherName, motherName, gender, dob, enrollNum, mobNum, alternateNum, disability, aadharNum
-                , bloodGroup, caste, religion, nationality, state, studentId
+                studentId, stdprofile
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -108,25 +108,32 @@ const Editprofile = () => {
         result = await result.json();
     }
 
+    const set_student_profile = async () => {
+        const profi = JSON.stringify({
+            fatherName, motherName, gender, dob, enrollNum, mobNum, alternateNum, disability, aadharNum
+            , bloodGroup, caste, religion, nationality, state
+        });
+        localStorage.setItem("stdprofile", profi);
+    }
     const save_update = () => {
         if (localStorage.getItem("profile")) {
             const auth = JSON.parse(localStorage.getItem("profile"))._id;
             const authh = JSON.parse(localStorage.getItem("profile")).result;
             if (auth) {
-                return <Link to='/student/stdprofile'><MDBBtn type='submit' onClick={() => update_profile()}>Update</MDBBtn></Link>
+                return <Link to='/student/stdprofile'><MDBBtn type='submit'>Update</MDBBtn></Link>
             }
             else if (authh) {
                 return <MDBRow>
-                    <MDBCol><Link to='/student/stdprofile'><MDBBtn type='submit' onClick={() => add_student_profile()}>Save</MDBBtn></Link></MDBCol>
-                    <MDBCol><Link to='/student/stdprofile'><MDBBtn >Back</MDBBtn></Link></MDBCol>
+                    <MDBCol><MDBBtn type='submit' onClick={() => set_student_profile()}>Save</MDBBtn></MDBCol>
+                    <MDBCol><MDBBtn type='submit' onClick={() => add_student_profile()}>Submit</MDBBtn></MDBCol>
                 </MDBRow>
-                
+
             }
         }
         else {
             return <MDBRow>
-                <MDBCol><MDBBtn type='submit' onClick={() => add_student_profile()}>Save</MDBBtn></MDBCol>
-                <MDBCol><Link to='/student/editstdperaddress'><MDBBtn>Next</MDBBtn></Link></MDBCol>
+                <MDBCol><MDBBtn type='submit' onClick={() => set_student_profile()}>Save</MDBBtn></MDBCol>
+                <MDBCol><MDBBtn type='submit' onClick={() => add_student_profile()}>Submit</MDBBtn></MDBCol>
             </MDBRow>
 
         }

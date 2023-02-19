@@ -10,6 +10,7 @@ import {
 }
     from 'mdb-react-ui-kit';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Student() {
     let file = "";
@@ -18,7 +19,7 @@ function Student() {
         const base64 = await convertToBase64(fill);
         console.log(base64);
         // console.log(typeof(base64));
-        file= base64;
+        file = base64;
         console.warn(file);
     }
     const uploadFile = async () => {
@@ -32,15 +33,24 @@ function Student() {
                 'Content-Type': 'application/json'
             }
         });
-        
+
         result = await result.json();
         localStorage.setItem("upload", result);
         console.warn(result.file);
 
     }
+    const save_update = () => {
+        if (localStorage.getItem("profile")) {
+            return <Link to='/student/stdqualify'><MDBBtn type='submit' onClick={() => uploadFile()}>Save</MDBBtn></Link>
+        }
+        else {
+            return <MDBRow>
+                <MDBCol><MDBBtn type='submit' onClick={uploadFile}>Save</MDBBtn></MDBCol>
+                <MDBCol><Link to='/'><MDBBtn>Submit</MDBBtn></Link></MDBCol>
+            </MDBRow>
+        }
+    }
 
-   
-    
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>
@@ -74,8 +84,11 @@ function Student() {
                         <label>Upload Other certificates :</label>
                         <input  type="file"></input> */}
                     </form>
-                    
-                    <MDBBtn type='submit' onClick={uploadFile}>Save</MDBBtn>
+
+                    <MDBRow>
+                        {save_update()}
+                    </MDBRow>
+
                 </MDBCardBody>
             </MDBCard>
 

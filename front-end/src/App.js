@@ -8,6 +8,8 @@ import RecruiterLoginScr from "./components/Login/compLogin";
 import RegisterScr from './containers/RegisterScr';
 import StudentRegister from './components/Register/stdregister';
 import RecruiterRegister from './components/Register/compregister';
+import StudentDash from './containers/Student/Student';
+
 import Uploaddoc from './containers/Upload';
 import StudentProfile from './containers/Profile';
 import EditStudentProfile from './containers/EditProfile';
@@ -31,15 +33,18 @@ function App() {
         <Route path="/login" element={<LoginScr />} />
         <Route path="/stdlogin" element={<StudentLoginScr />} />
         <Route path="/complogin" element={<RecruiterLoginScr />} />
-        <Route path="/uploaddoc" element={<Uploaddoc />} />
-        <Route path="/stdprofile" element={<StudentProfile />} />
-        <Route path="/editstdprofile" element={<EditStudentProfile />} />
-        <Route path="/stdaddress" element={<StudentAddress />} />
-        <Route path="/editstdperaddress" element={<EditPerStudentAddress />} />
-        <Route path="/editstdtempaddress" element={<EditTempAddress />} />
-        <Route path="/stdqualify" element={<StudentQualify />} />
-        <Route path="/editstdqualify/:id" element={<EditStudentQualify />} />
-        <Route path="/addstdqualify" element={<AddStudentQualify />} />
+
+        <Route path="/student" element={<StudentDash />}>
+          <Route path="stdprofile" element={<StudentProfile />} />
+          <Route path="stdaddress" element={<StudentAddress />} />
+          <Route path="stdqualify" element={<StudentQualify />} />
+          <Route path="uploaddoc" element={<Uploaddoc />} />
+          <Route path="editstdprofile" element={<EditStudentProfile />} />
+          <Route path="editstdperaddress" element={<EditPerStudentAddress />} />
+          <Route path="editstdtempaddress" element={<EditTempAddress />} />
+          <Route path="editstdqualify/:id" element={<EditStudentQualify />} />
+          <Route path="addstdqualify" element={<AddStudentQualify />} />
+        </Route>
 
         <Route path="/admin" element={<Admin />} />
         <Route path="/recruiter" element={<Recruiter />} />

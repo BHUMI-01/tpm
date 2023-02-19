@@ -121,7 +121,7 @@ const Editqualify2 = () => {
                         <MDBRow>
                             <MDBCol><MDBBtn type='submit' onClick={()=>update_qualify()}>Update</MDBBtn></MDBCol>
                             <MDBCol>
-                                <Link to='/stdqualify'><MDBBtn>Back</MDBBtn></Link>
+                                <Link to='/student/stdqualify'><MDBBtn>Back</MDBBtn></Link>
                             </MDBCol>
                         </MDBRow>
                     </form>

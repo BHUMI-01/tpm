@@ -38,7 +38,15 @@ const Editqualify2 = () => {
     }
 
     const save_update = () => {
-        return <Link to='/stdqualify'><MDBBtn type='submit' onClick={add_student_qualify}>Save</MDBBtn></Link>
+        if(localStorage.getItem("profile")){
+            return <Link to='/student/stdqualify'><MDBBtn type='submit' onClick={() => add_student_qualify()}>Save</MDBBtn></Link> 
+        }
+        else{
+        return <MDBRow>
+            <MDBCol><MDBBtn type='submit' onClick={add_student_qualify}>Save</MDBBtn></MDBCol>
+            <MDBCol><Link to='/student/uploaddoc'><MDBBtn>Next</MDBBtn></Link></MDBCol>
+        </MDBRow>
+        }
     }
 
     return (
@@ -46,6 +54,12 @@ const Editqualify2 = () => {
             <MDBCard className='text-black m-5'>
                 <MDBCardBody>
                     <form>
+                        <MDBRow>
+                            <MDBCol>Qualification Details</MDBCol>
+                            <MDBCol>
+                                <Link to='/student/stdqualify'><MDBBtn>Back</MDBBtn></Link>
+                            </MDBCol>
+                        </MDBRow>
                         <MDBRow>
                             <MDBCol>
                                 <label>Qualification Level :</label>
@@ -107,10 +121,7 @@ const Editqualify2 = () => {
                         <MDBRow style={{ height: "20px" }}></MDBRow>
 
                         <MDBRow>
-                            <MDBCol>{save_update()}</MDBCol>
-                            <MDBCol>
-                                <Link to='/stdqualify'><MDBBtn>Back</MDBBtn></Link>
-                            </MDBCol>
+                            {save_update()}
                         </MDBRow>
                     </form>
 

@@ -1,10 +1,16 @@
 import React from 'react';
 import './Navbar.css';
 import { Container } from 'react-bootstrap'
-
+import {
+  MDBDropdown,
+  MDBDropdownMenu,
+  MDBDropdownToggle,
+  MDBDropdownItem
+} from 'mdb-react-ui-kit';
 import {
   Link, useNavigate
 } from 'react-router-dom';
+import DropdownToggle from 'react-bootstrap/esm/DropdownToggle';
 
 function navbar() {
   const auth = localStorage.getItem("student");
@@ -14,19 +20,35 @@ function navbar() {
   const shoot = () => {
 
     if (localStorage.getItem("student")) {
-      return <div className="menu">
-        <li><Link to="/stdprofile">Profile</Link></li>
-        <li><Link to="/stdaddress">Address</Link></li>
-        <li><Link to="/stdqualify">Qualification</Link></li>
-        <li><Link to="/uploaddoc">Documents</Link></li>
+      const name = JSON.parse(localStorage.getItem("student")).firstName;
+      return <div className="menu2">
+          <MDBDropdown>
+            <MDBDropdownToggle variant="success">
+              <i className="fa-solid fa-user"></i> {name}
+            </MDBDropdownToggle>
+            <MDBDropdownMenu>
+              <MDBDropdownItem>
+                <Link to="/student/stdprofile" style={{color: "black"}}>Profile</Link>
+              </MDBDropdownItem>
+              <MDBDropdownItem>
+                <Link to="/student/stdaddress" style={{color: "black"}}>Address</Link>
+              </MDBDropdownItem>
+              <MDBDropdownItem>
+                <Link to="/student/stdqualify" style={{color: "black"}}>Qualification</Link>
+              </MDBDropdownItem>
+              <MDBDropdownItem>
+                <Link to="/student/uploaddoc" style={{color: "black"}}>Upload</Link>
+              </MDBDropdownItem>
+            </MDBDropdownMenu>
+          </MDBDropdown>
       </div>
     }
-    else if(localStorage.getItem("recruiter")){
+    else if (localStorage.getItem("recruiter")) {
       return <ul>
         <li><Link to="/recruiter">Profile</Link></li>
       </ul>
     }
-    else{
+    else {
       return <ul>
         <li><Link to="/admin">Profile</Link></li>
       </ul>

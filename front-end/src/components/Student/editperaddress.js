@@ -79,13 +79,21 @@ function EditPeraddress() {
   };
 
   const save_update = () => {
-    const auth = JSON.parse(localStorage.getItem("peraddress"))._id;
-    const authh = JSON.parse(localStorage.getItem("peraddress")).result;
-    if (auth) {
-      return <Link to='/stdaddress'><MDBBtn type='submit' onClick={()=>update_address()}>Update</MDBBtn></Link>
+    if (localStorage.getItem("profile")) {
+      const auth = JSON.parse(localStorage.getItem("peraddress"))._id;
+      const authh = JSON.parse(localStorage.getItem("peraddress")).result;
+      if (auth) {
+        return <Link to='/student/stdaddress'><MDBBtn type='submit' onClick={() => update_address()}>Update</MDBBtn></Link>
+      }
+      else if (authh) {
+        return <Link to='/student/stdaddress'><MDBBtn type='submit' onClick={() => add_studentper_address()}>Save</MDBBtn></Link>
+      }
     }
-    else if (authh) {
-      return <Link to='/stdaddress'><MDBBtn type='submit' onClick={()=>add_studentper_address()}>Save</MDBBtn></Link>
+    else {
+      return <MDBRow>
+        <MDBCol><MDBBtn type='submit' onClick={() => add_studentper_address()}>Save</MDBBtn></MDBCol>
+        <MDBCol><Link to='/student/addstdqualify'><MDBBtn>Next</MDBBtn></Link></MDBCol>
+      </MDBRow>
     }
   }
 
@@ -93,7 +101,14 @@ function EditPeraddress() {
     <MDBContainer fluid>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
         <MDBCardBody>
-          <MDBRow>Edit Permanent Address</MDBRow>
+          <MDBRow>
+            <MDBCol>Edit Permanent Address</MDBCol>
+            <MDBCol>
+              <Link to="/student/stdaddress">
+                <MDBBtn>Back</MDBBtn>
+              </Link>
+            </MDBCol>
+          </MDBRow>
           <MDBRow style={{ height: "20px" }}></MDBRow>
           <MDBRow>
             <form>
@@ -509,15 +524,7 @@ function EditPeraddress() {
               </MDBRow>
               <MDBRow style={{ height: "20px" }}></MDBRow>
               <MDBRow>
-                <MDBCol>
-                  {save_update()}
-
-                </MDBCol>
-                <MDBCol>
-                  <Link to="/stdaddress">
-                    <MDBBtn>Back</MDBBtn>
-                  </Link>
-                </MDBCol>
+                {save_update()}
               </MDBRow>
             </form>
           </MDBRow>

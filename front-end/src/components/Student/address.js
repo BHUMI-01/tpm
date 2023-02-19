@@ -45,7 +45,7 @@ function Address() {
                             <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{peraddresses.country}, {peraddresses.province}</MDBRow>
                             <MDBRow>
                                 <MDBCol>
-                                    <Link to='/editstdperaddress'><MDBBtn>Edit</MDBBtn></Link>
+                                    <Link to='/student/editstdperaddress'><MDBBtn>Edit</MDBBtn></Link>
                                 </MDBCol>
                             </MDBRow>
                         </MDBCardBody>
@@ -62,7 +62,7 @@ function Address() {
                             <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{tempaddresses.country}, {tempaddresses.province}</MDBRow>
                             <MDBRow>
                                 <MDBCol>
-                                    <Link to='/editstdtempaddress'><MDBBtn>Edit</MDBBtn></Link>
+                                    <Link to='/student/editstdtempaddress'><MDBBtn>Edit</MDBBtn></Link>
                                 </MDBCol>
                             </MDBRow>
                         </MDBCardBody>
