@@ -3,7 +3,6 @@ import {
     MDBContainer,
     MDBRow,
     MDBCol,
-    MDBBtn,
     MDBBtnGroup
 } from 'mdb-react-ui-kit';
 import { Link, Outlet } from 'react-router-dom';
@@ -15,7 +14,7 @@ function Student() {
                 <h2 className='text-center bg-success text-bg-dark p-2'>Student PANEL</h2>
                 <MDBRow>
                     <h2 style={{ height: "40px" }}></h2>
-                    <MDBBtnGroup horizontal style={{ padding: "10px" }}>
+                    <MDBBtnGroup horizontal="true" style={{ padding: "10px" }}>
                         <MDBCol md={3} style={{ textAlign: "center" }}>
                             <Link to="/student/stdprofile" >
                             <i className="fa-regular fa-circle"> Profile</i>

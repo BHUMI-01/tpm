@@ -32,13 +32,13 @@ const Stdregister = () => {
       }
     });
     result = await result.json();
-    console.log(result);
-    if (result.result != "user already enrolled") {
-      localStorage.setItem("student", JSON.stringify(result));
-      navigate('/student/editstdprofile');
+    console.log(result.result);
+    if (result.result == "user already enrolled") {
+      alert("User Already Registered");
     }
     else {
-      alert("User Already Registered");
+      localStorage.setItem("student", JSON.stringify(result));
+      navigate('/student/editstdprofile');
     }
   }
 
