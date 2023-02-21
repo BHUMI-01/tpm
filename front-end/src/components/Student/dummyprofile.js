@@ -214,6 +214,17 @@ const Profile = () => {
                                         )[len - 1]
                                 }
                             </tr>
+                            <tr>
+                                <td>18</td>
+                                <td>City</td>
+                                {
+                                    len <= 0 ?
+                                        <td>#</td> :
+                                        profiles.map((item, index) =>
+                                            <td>{item.city}</td>
+                                        )[len - 1]
+                                }
+                            </tr>
                         </tbody>
                     </Table>
                     <MDBRow style={{ height: "20px" }}></MDBRow>

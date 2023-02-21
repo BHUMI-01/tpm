@@ -16,6 +16,7 @@ const studentProfileSchema = new mongoose.Schema({
     religion:  { type: String, required: true },
     nationality:  { type: String, required: true },
     state:  { type: String, required: true },
+    city:  { type: String, required: true },
 });
 
 

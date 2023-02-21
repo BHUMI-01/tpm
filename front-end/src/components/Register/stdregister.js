@@ -32,9 +32,10 @@ const Stdregister = () => {
       }
     });
     result = await result.json();
-    console.log(result.result);
+    console.log(result);
     if (result.result == "user already enrolled") {
       alert("User Already Registered");
+      
     }
     else {
       localStorage.setItem("student", JSON.stringify(result));

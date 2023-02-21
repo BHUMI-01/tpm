@@ -40,9 +40,9 @@ function Address() {
                         <MDBCardBody>
                             <h5>Permanent Address</h5>
                             <hr />
-                            <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{peraddresses.flatNo}, {peraddresses.area}, {peraddresses.landmark}, {peraddresses.locality}</MDBRow>
-                            <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{peraddresses.city}, {peraddresses.postalCode}</MDBRow>
-                            <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{peraddresses.country}, {peraddresses.province}</MDBRow>
+                            <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{peraddresses.flatNo} {peraddresses.area} {peraddresses.landmark} {peraddresses.locality}</MDBRow>
+                            <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{peraddresses.city} {peraddresses.postalCode}</MDBRow>
+                            <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{peraddresses.country} {peraddresses.province}</MDBRow>
                             <MDBRow>
                                 <MDBCol>
                                     <Link to='/student/editstdperaddress'><MDBBtn>Edit</MDBBtn></Link>
@@ -57,9 +57,9 @@ function Address() {
                         <MDBCardBody>
                             <h5>Temporary Address</h5>
                             <hr />
-                            <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{tempaddresses.flatNo}, {tempaddresses.area}, {tempaddresses.landmark}, {tempaddresses.locality}</MDBRow>
-                            <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{tempaddresses.city}, {tempaddresses.postalCode}</MDBRow>
-                            <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{tempaddresses.country}, {tempaddresses.province}</MDBRow>
+                            <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{tempaddresses.flatNo} {tempaddresses.area} {tempaddresses.landmark} {tempaddresses.locality}</MDBRow>
+                            <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{tempaddresses.city} {tempaddresses.postalCode}</MDBRow>
+                            <MDBRow style={{ height: "30px", paddingLeft: "20px" }}>{tempaddresses.country} {tempaddresses.province}</MDBRow>
                             <MDBRow>
                                 <MDBCol>
                                     <Link to='/student/editstdtempaddress'><MDBBtn>Edit</MDBBtn></Link>

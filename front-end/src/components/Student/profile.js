@@ -128,6 +128,11 @@ const Profile = () => {
                                 <td>Province</td>
                                 <td>{profiles.state}</td>
                             </tr>
+                            <tr>
+                                <td>18</td>
+                                <td>City</td>
+                                <td>{profiles.city}</td>
+                            </tr>
                         </tbody>
                     </Table>
                     <MDBRow style={{ height: "20px" }}></MDBRow>

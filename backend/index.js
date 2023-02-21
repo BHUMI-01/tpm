@@ -25,7 +25,7 @@ app.post("/register", async (req, resp) => {
         let student = await Student.findOne(req.body);
 
         if (student) {
-            resp.send({result : "user already enrolled"})
+            resp.send({result :"user already enrolled"})
         }
         else {
             let student = new Student(req.body);

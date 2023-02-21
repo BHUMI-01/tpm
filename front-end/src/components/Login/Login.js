@@ -43,7 +43,7 @@ const Login = () => {
               <MDBRow style={{ height: "10px" }} />
               <h2>For <span style={{ color: "green" }}> Students</span></h2>
               <MDBRow style={{ height: "30px" }} />
-              <p>Join over thounsands of stdents, manage<br /> their profilies and get hired.</p>
+              <p>Join over thousands of students, manage<br /> their profiles and get hired.</p>
               <MDBRow style={{ height: "40px" }} />
               <Link to="/stdlogin"><MDBBtn>Login</MDBBtn></Link>
               <MDBRow style={{ height: "20px" }} />

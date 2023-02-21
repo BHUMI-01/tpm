@@ -4,7 +4,7 @@ const studentPerAddressSchema = new mongoose.Schema({
 	studentId:  { type: String, required: true },
 	flatNo:  { type: String, required: true },
     area:  { type: String, required: true },
-	landmark: { type: String, required: true },
+	landmark: { type: String, required: false },
 	locality:  { type: String, required: true },
     city:  { type: String, required: true },
     postalCode:  { type: String, required: true },

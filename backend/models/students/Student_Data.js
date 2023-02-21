@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const stdPerAddressSchema = new mongoose.Schema({
 	flatNo:  { type: String, required: true },
     area:  { type: String, required: true },
-	landmark: { type: String, required: true },
+	landmark: { type: String, required: false },
 	locality:  { type: String, required: true },
     city:  { type: String, required: true },
     postalCode:  { type: String, required: true },
@@ -26,7 +26,7 @@ const stdQualifySchema = new mongoose.Schema({
 const stdTempAddressSchema = new mongoose.Schema({
 	flatNo:  { type: String, required: true },
     area:  { type: String, required: true },
-	landmark: { type: String, required: true },
+	landmark: { type: String, required: false },
 	locality:  { type: String, required: true },
     city:  { type: String, required: true },
     postalCode:  { type: String, required: true },
@@ -49,6 +49,7 @@ const stdProfileSchema = new mongoose.Schema({
     religion:  { type: String, required: true },
     nationality:  { type: String, required: true },
     state:  { type: String, required: true },
+    city:  { type: String, required: true },
 });
 
 const studentData = new mongoose.Schema({
