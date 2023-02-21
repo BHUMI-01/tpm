@@ -67,7 +67,15 @@ const Editqualify2 = () => {
     <MDBContainer fluid>
       <MDBCard className="text-black m-5">
         <MDBCardBody>
-          <form>
+        <form>
+            <MDBRow>
+              <MDBCol>Qualification Details</MDBCol>
+              <MDBCol>
+                <Link to="/student/stdqualify">
+                  <MDBBtn>Back</MDBBtn>
+                </Link>
+              </MDBCol>
+            </MDBRow>
             <MDBRow>
               <MDBCol>
                 <label>Qualification Level :</label>
@@ -84,12 +92,14 @@ const Editqualify2 = () => {
                   <option value="High School">High School</option>
                   <option value="Intermediate">Intermediate</option>
                   <option value="Diploma">Diploma</option>
-                  <option value="Undergraduation(B.Tech)">Undergraduation(B.Tech)</option>
+                  <option value="Undergraduation(B.Tech)">
+                    Undergraduation(B.Tech)
+                  </option>
                   <option value="Graduation(M.Tech)">Graduation(M.Tech)</option>
                 </select>
               </MDBCol>
               <MDBCol>
-                <label>Name of Qualification :</label>
+                <label>Course Name</label>
                 <MDBInput
                   id="enumber"
                   type="text"
@@ -109,6 +119,8 @@ const Editqualify2 = () => {
                   id="enumber"
                   type="text"
                   value={passYear}
+                  maxLength="4"
+                  pattern="[0-9]+"
                   onChange={(e) => setpassYear(e.target.value)}
                   required
                 ></MDBInput>
@@ -119,6 +131,7 @@ const Editqualify2 = () => {
                   id="enumber"
                   type="text"
                   value={rollNum}
+                  pattern="[0-9]*[a-zA-Z]*[0-9]+"
                   onChange={(e) => setrollNum(e.target.value)}
                   required
                 ></MDBInput>
@@ -140,13 +153,20 @@ const Editqualify2 = () => {
               </MDBCol>
               <MDBCol>
                 <label>Result :</label>
-                <MDBInput
-                  id="enumber"
-                  type="text"
+                <select
+                  className="form-control select2"
+                  name="result"
+                  id="result"
+                  required
+                  aria-hidden="true"
                   value={resultStatus}
                   onChange={(e) => setResultStatus(e.target.value)}
-                  required
-                ></MDBInput>
+                >
+                  <option value="">Please select</option>
+                  <option value="Passed">Passed</option>
+                  <option value="Failed">Failed</option>
+                  <option value="Awaited">Awaited</option>
+                </select>
               </MDBCol>
             </MDBRow>
 
@@ -155,13 +175,20 @@ const Editqualify2 = () => {
             <MDBRow>
               <MDBCol>
                 <label>Grading System :</label>
-                <MDBInput
-                  id="enumber"
-                  type="text"
+                <select
+                  className="form-control select2"
+                  name="grading system"
+                  id="grading system"
+                  required
+                  aria-hidden="true"
                   value={gradeSys}
                   onChange={(e) => setgradeSys(e.target.value)}
-                  required
-                ></MDBInput>
+                >
+                  <option value="">Please select</option>
+                  <option value="CPI">CPI</option>
+                  <option value="CGPA">CGPA</option>
+                  <option value="Percentage">Percentage</option>
+                  </select>
               </MDBCol>
               <MDBCol>
                 <label>Grade / % :</label>
@@ -169,14 +196,12 @@ const Editqualify2 = () => {
                   id="enumber"
                   type="text"
                   value={grade}
+                  pattern="[0-9]+"
                   onChange={(e) => setGrade(e.target.value)}
                   required
                 ></MDBInput>
               </MDBCol>
             </MDBRow>
-
-            <MDBRow style={{ height: "20px" }}></MDBRow>
-
             <MDBRow>
               <MDBCol>
                 <MDBBtn type="submit" onClick={() => update_qualify()}>

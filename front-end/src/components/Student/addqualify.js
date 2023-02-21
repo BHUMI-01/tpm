@@ -45,7 +45,7 @@ const Editqualify2 = () => {
   };
 
   const save_update = () => {
-    if (localStorage.getItem("profile")) {
+    if (localStorage.getItem("stdprofile")) {
       return (
         <Link to="/student/stdqualify">
           <MDBBtn type="submit" onClick={() => add_student_qualify()}>
@@ -128,6 +128,7 @@ const Editqualify2 = () => {
                   type="text"
                   value={passYear}
                   maxLength="4"
+                  pattern="[0-9]+"
                   onChange={(e) => setpassYear(e.target.value)}
                   required
                 ></MDBInput>
@@ -138,6 +139,7 @@ const Editqualify2 = () => {
                   id="enumber"
                   type="text"
                   value={rollNum}
+                  pattern="[0-9]*[a-zA-Z]*[0-9]+"
                   onChange={(e) => setrollNum(e.target.value)}
                   required
                 ></MDBInput>
@@ -202,6 +204,7 @@ const Editqualify2 = () => {
                   id="enumber"
                   type="text"
                   value={grade}
+                  pattern="[0-9]+"
                   onChange={(e) => setGrade(e.target.value)}
                   required
                 ></MDBInput>
