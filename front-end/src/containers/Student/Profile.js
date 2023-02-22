@@ -1,5 +1,5 @@
 import React from 'react';
-import Udprofile from '../components/Student/profile';
+import Udprofile from '../../components/Student/Profile/profile';
 
 function Profile() {
   return (

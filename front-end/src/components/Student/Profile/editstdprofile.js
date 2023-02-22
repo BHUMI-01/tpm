@@ -13,7 +13,7 @@ import { Country, State, City } from "country-state-city";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-const Editprofile = () => {
+const Editstdprofile = () => {
   const [fatherName, setfatherName] = useState("");
   const [motherName, setmotherName] = useState("");
   const [gender, setgender] = useState("");
@@ -446,18 +446,6 @@ const Editprofile = () => {
               </MDBCol>
             </MDBRow>
             <MDBRow>
-              {/* <MDBCol>
-                <label>Mobile Number</label>
-                <MDBInput
-                  id="mnumber"
-                  type="tel"
-                  value={mobNum}
-                  onChange={(e) => setmobNum(e.target.value)}
-                  maxLength="10"
-                  pattern="[0-9]+"
-                  required
-                ></MDBInput>
-              </MDBCol> */}
               <MDBCol>
               <label>Mobile Number</label>
                 <PhoneInput
@@ -469,7 +457,7 @@ const Editprofile = () => {
               <MDBCol>
                 <label>Alternate Number</label>
                 <PhoneInput
-                  country={"in"}
+                  country={"us"}
                   value={alternateNum}
                   onChange={setalternateNum}
                 />
@@ -485,4 +473,4 @@ const Editprofile = () => {
   );
 };
 
-export default Editprofile;
+export default Editstdprofile;

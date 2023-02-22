@@ -10,7 +10,6 @@ import {
 import {
   Link, useNavigate
 } from 'react-router-dom';
-import DropdownToggle from 'react-bootstrap/esm/DropdownToggle';
 
 function navbar() {
   const auth = localStorage.getItem("student");

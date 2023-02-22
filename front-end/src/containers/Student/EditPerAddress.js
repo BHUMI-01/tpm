@@ -1,5 +1,5 @@
 import React from 'react';
-import StdPerAddress from '../components/Student/editperaddress';
+import StdPerAddress from '../../components/Student/Address/editperaddress';
 
 function EditPerAddress() {
   return (

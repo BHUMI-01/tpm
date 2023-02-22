@@ -1,5 +1,5 @@
 import React from 'react';
-import StdTempAddress from '../components/Student/edittempaddress';
+import StdTempAddress from '../../components/Student/Address/edittempaddress';
 
 function EditTempAddress() {
   return (

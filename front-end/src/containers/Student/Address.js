@@ -1,5 +1,5 @@
 import React from 'react';
-import StdAddress from '../components/Student/address';
+import StdAddress from '../../components/Student/Address/address';
 
 function Address() {
   return (

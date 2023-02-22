@@ -11,7 +11,7 @@ import {
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
-const Editqualify2 = () => {
+const Editqualify = () => {
   const [qualifyLevel, setqualifyLevel] = useState("");
   const [qualifyName, setqualifyName] = useState("");
   const [passYear, setpassYear] = useState("");
@@ -221,4 +221,4 @@ const Editqualify2 = () => {
   );
 };
 
-export default Editqualify2;
+export default Editqualify;

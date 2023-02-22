@@ -1,5 +1,5 @@
 import React from 'react';
-import Qualify from '../components/Student/qualification2';
+import Qualify from '../../components/Student/Education/qualification';
 
 function Qualification() {
   return (

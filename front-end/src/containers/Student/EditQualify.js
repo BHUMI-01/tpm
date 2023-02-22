@@ -1,5 +1,5 @@
 import React from 'react';
-import Qualify from '../components/Student/editqualify2';
+import Qualify from '../../components/Student/Education/editqualify';
 
 function EditQualify() {
   return (

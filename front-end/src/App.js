@@ -9,18 +9,18 @@ import RegisterScr from './containers/RegisterScr';
 import StudentRegister from './components/Register/stdregister';
 import RecruiterRegister from './components/Register/compregister';
 import StudentDash from './containers/Student/Student';
-
-import Uploaddoc from './containers/Upload';
-import StudentProfile from './containers/Profile';
-import EditStudentProfile from './containers/EditProfile';
-import StudentAddress from './containers/Address';
-import EditPerStudentAddress from './containers/EditPerAddress';
-import StudentQualify from './containers/Qualification';
-import EditStudentQualify from './containers/EditQualify';
-import AddStudentQualify from './containers/AddQualify';
-import EditTempAddress from './containers/EditTempAddress';
+import Uploaddoc from './containers/Student/Upload';
+import StudentProfile from './containers/Student/Profile';
+import EditStudentProfile from './containers/Student/EditProfile';
+import StudentAddress from './containers/Student/Address';
+import EditPerStudentAddress from './containers/Student/EditPerAddress';
+import StudentQualify from './containers/Student/Qualification';
+import EditStudentQualify from './containers/Student/EditQualify';
+import AddStudentQualify from './containers/Student/AddQualify';
+import EditTempAddress from './containers/Student/EditTempAddress';
 import Admin from './containers/Admin/Admn';
 import Recruiter from './containers/Recruiter';
+
 function App() {
   return (
     <div>
