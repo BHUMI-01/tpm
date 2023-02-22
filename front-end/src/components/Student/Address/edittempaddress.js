@@ -53,7 +53,7 @@ function EditTempaddress() {
   const add_studenttemp_address = async () => {
     // console.warn(flatNo,area,landmark,locality,city,postalCode,country,province);
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    let result = await fetch("http://localhost:5000/add-temp-address", {
+    await fetch("http://localhost:5000/add-temp-address", {
       method: "post",
       body: JSON.stringify({
         flatNo, area, landmark, locality, city, postalCode, country, province, studentId,
@@ -62,14 +62,14 @@ function EditTempaddress() {
         "Content-Type": "application/json",
       },
     });
-    result = await result.json();
+    // result = await result.json();
     // console.warn(result);
   };
 
   const update_address = async () => {
     // console.warn(flatNo,area,landmark,locality,city,postalCode,country,province);
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    let result = await fetch(`http://localhost:5000/add-temp-address/${idd}`, {
+    await fetch(`http://localhost:5000/add-temp-address/${idd}`, {
       method: "put",
       body: JSON.stringify({
         flatNo, area, landmark, locality, city, postalCode, country, province, studentId,
@@ -78,7 +78,7 @@ function EditTempaddress() {
         "Content-Type": "application/json",
       },
     });
-    result = await result.json();
+    // result = await result.json();
     // console.warn(result);
   };
 

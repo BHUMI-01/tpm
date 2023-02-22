@@ -103,7 +103,7 @@ const Editstdprofile = () => {
   const add_student_profile = async () => {
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
     const stdprofile = JSON.parse(localStorage.getItem("stdprofile"));
-    let result = await fetch("http://localhost:5000/add-data", {
+    await fetch("http://localhost:5000/add-data", {
       method: "post",
       body: JSON.stringify({
         studentId,
@@ -113,7 +113,7 @@ const Editstdprofile = () => {
         "Content-Type": "application/json",
       },
     });
-    result = await result.json();
+    // result = await result.json();
   };
 
   const set_student_profile = async () => {

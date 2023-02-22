@@ -54,7 +54,7 @@ function EditPeraddress() {
   };
   const add_studentper_address = async () => {
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    let result = await fetch("http://localhost:5000/add-stdper-address", {
+    await fetch("http://localhost:5000/add-stdper-address", {
       method: "post",
       body: JSON.stringify({
         flatNo,
@@ -71,12 +71,12 @@ function EditPeraddress() {
         "Content-Type": "application/json",
       },
     });
-    result = await result.json();
+    // result = await result.json();
   };
 
   const update_address = async () => {
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    let result = await fetch(`http://localhost:5000/add-per-address/${idd}`, {
+    await fetch(`http://localhost:5000/add-per-address/${idd}`, {
       method: "put",
       body: JSON.stringify({
         flatNo,
@@ -93,7 +93,7 @@ function EditPeraddress() {
         "Content-Type": "application/json",
       },
     });
-    result = await result.json();
+    // result = await result.json();
   };
 
   const save_update = () => {

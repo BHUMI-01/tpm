@@ -41,7 +41,7 @@ const Editqualify = () => {
 
   const update_qualify = async () => {
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    let result = await fetch(
+    await fetch(
       `http://localhost:5000/add-student-qualify/${id}`,
       {
         method: "put",
@@ -61,7 +61,7 @@ const Editqualify = () => {
         },
       }
     );
-    result = await result.json();
+    // result = await result.json();
   };
 
   return (

@@ -23,7 +23,7 @@ const Editqualify2 = () => {
 
   const add_student_qualify = async () => {
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    let result = await fetch("http://localhost:5000/add-qualify", {
+    await fetch("http://localhost:5000/add-qualify", {
       method: "post",
       body: JSON.stringify({
         qualifyLevel,
@@ -40,7 +40,6 @@ const Editqualify2 = () => {
         "Content-Type": "application/json",
       },
     });
-    result = await result.json();
     // console.warn(result);
   };
 
