@@ -16,6 +16,7 @@ function Address() {
     useEffect(() => {
         getPerAddress();
         getTempAddress();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getPerAddress = async () => {

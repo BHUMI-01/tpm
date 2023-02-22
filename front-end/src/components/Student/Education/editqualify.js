@@ -23,6 +23,7 @@ const Editqualify = () => {
   const { id } = useParams();
   useEffect(() => {
     getQualifyDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getQualifyDetails = async () => {

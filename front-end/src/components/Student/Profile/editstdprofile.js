@@ -8,7 +8,6 @@ import {
   MDBCardBody,
   MDBInput,
 } from "mdb-react-ui-kit";
-import { Link, useNavigate } from "react-router-dom";
 import { Country, State, City } from "country-state-city";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -29,16 +28,16 @@ const Editstdprofile = () => {
   const [nationality, setnationality] = useState("");
   const [state, setstate] = useState("");
   const [city, setcity] = useState("");
-  const navigate = useNavigate;
   const firstN = JSON.parse(localStorage.getItem("student")).firstName;
   const middleN = JSON.parse(localStorage.getItem("student")).middleName;
   const lastN = JSON.parse(localStorage.getItem("student")).lastName;
-  const idd = JSON.parse(localStorage.getItem("student"))._id;
+
   useEffect(() => {
     const auth = localStorage.getItem("stdprofile");
     if (auth) {
       getProductDetails();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setEmpty = () => {

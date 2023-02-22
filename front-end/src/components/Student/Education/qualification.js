@@ -18,6 +18,7 @@ const Qualification = () => {
     const [qualifies, setQualify] = useState([]);
     useEffect(() => {
         getQualify();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getQualify = async () => {

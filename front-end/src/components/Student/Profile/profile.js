@@ -20,6 +20,7 @@ const Profile = () => {
     const [profiles, setProfiles] = useState([]);
     useEffect(() => {
         getProfiles();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getProfiles = async () => {

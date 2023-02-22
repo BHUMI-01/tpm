@@ -9,6 +9,7 @@ import {
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import { Country, State, City } from "country-state-city";
+
 function EditPeraddress() {
   const [flatNo, setflatNo] = useState("");
   const [area, setarea] = useState("");
@@ -21,6 +22,7 @@ function EditPeraddress() {
 
   useEffect(() => {
     getPerAddressDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setEmpty = () => {
@@ -37,7 +39,7 @@ function EditPeraddress() {
   const getPerAddressDetails = async () => {
     let result = await fetch(`http://localhost:5000/peraddresses/${idd}`);
     result = await result.json();
-    if (result.result == "No User Found") {
+    if (result.result === "No User Found") {
       setEmpty();
     } else {
       setflatNo(result.flatNo);

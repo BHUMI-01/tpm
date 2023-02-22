@@ -19,6 +19,7 @@ function EditTempaddress() {
   const [province, setprovince] = useState("");
   useEffect(() => {
     getTempAddressDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const setEmpty = () => {
     setflatNo("");
@@ -34,7 +35,7 @@ function EditTempaddress() {
   const getTempAddressDetails = async () => {
     let result = await fetch(`http://localhost:5000/tempaddresses/${idd}`);
     result = await result.json();
-    if (result.result == "No User Found") {
+    if (result.result === "No User Found") {
       setEmpty();
     }
     else {
