@@ -8,6 +8,7 @@ import {
   MDBCardBody,
   MDBInput,
 } from "mdb-react-ui-kit";
+import { Link } from 'react-router-dom';
 import { Country, State, City } from "country-state-city";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -31,7 +32,7 @@ const Editstdprofile = () => {
   const firstN = JSON.parse(localStorage.getItem("student")).firstName;
   const middleN = JSON.parse(localStorage.getItem("student")).middleName;
   const lastN = JSON.parse(localStorage.getItem("student")).lastName;
-
+  let dataval;
   useEffect(() => {
     const auth = localStorage.getItem("stdprofile");
     if (auth) {
@@ -80,83 +81,6 @@ const Editstdprofile = () => {
       setstate(result.state);
       setcity(result.city);
     }
-  };
-
-  // const update_profile = async () => {
-  //     const studentId = JSON.parse(localStorage.getItem("student"))._id;
-  //     let result = await fetch(`http://localhost:5000/add-student-prof/${idd}`, {
-  //         method: 'put',
-  //         body: JSON.stringify({
-  //             fatherName, motherName, gender, dob, enrollNum, mobNum, alternateNum, disability, aadharNum
-  //             , bloodGroup, caste, religion, nationality, state, studentId
-  //         }),
-  //         headers: {
-  //             'Content-Type': 'application/json'
-  //         }
-  //     });
-  //     result = await result.json();
-  //     if (result) {
-  //         navigate('/stdprofile')
-  //     }
-  // }
-
-  const add_student_profile = async () => {
-    const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    const stdprofile = JSON.parse(localStorage.getItem("stdprofile"));
-    await fetch("http://localhost:5000/add-data", {
-      method: "post",
-      body: JSON.stringify({
-        studentId,
-        stdprofile,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    // result = await result.json();
-  };
-
-  const set_student_profile = async () => {
-    const profi = JSON.stringify({
-      fatherName,
-      motherName,
-      gender,
-      dob,
-      enrollNum,
-      mobNum,
-      alternateNum,
-      disability,
-      aadharNum,
-      bloodGroup,
-      caste,
-      religion,
-      nationality,
-      state,
-      city,
-    });
-    localStorage.setItem("stdprofile", profi);
-  };
-  const save_update = () => {
-    return (
-      <MDBRow>
-        <MDBCol>
-          <MDBBtn
-            type="submit"
-            onClick={() => {
-              set_student_profile();
-              getProductDetails();
-            }}
-          >
-            Save
-          </MDBBtn>
-        </MDBCol>
-        <MDBCol>
-          <MDBBtn type="submit" onClick={() => add_student_profile()}>
-            Submit
-          </MDBBtn>
-        </MDBCol>
-      </MDBRow>
-    );
   };
 
   const CountryVar = Country.getAllCountries();
@@ -391,7 +315,7 @@ const Editstdprofile = () => {
 
                   {CountryVar.map((item) => {
                     return (
-                      <option key={item.isoCode} value={item.isoCode}>
+                      <option key={item.name} value={item.isoCode}>
                         {item.name}
                       </option>
                     );
@@ -446,7 +370,7 @@ const Editstdprofile = () => {
             </MDBRow>
             <MDBRow>
               <MDBCol>
-              <label>Mobile Number</label>
+                <label>Mobile Number</label>
                 <PhoneInput
                   country={"in"}
                   value={mobNum}
@@ -464,7 +388,23 @@ const Editstdprofile = () => {
             </MDBRow>
 
             <MDBRow style={{ height: "20px" }}></MDBRow>
-            <MDBRow>{save_update()}</MDBRow>
+            <MDBRow>
+                <MDBRow>
+                  <MDBCol>
+                    <MDBBtn
+                      type="submit"
+                      onClick={() => {
+                        getProductDetails();
+                      }}
+                    >
+                      Update
+                    </MDBBtn>
+                  </MDBCol>
+                  <MDBCol>
+                      <MDBBtn>Back</MDBBtn>
+                  </MDBCol>
+                </MDBRow>
+            </MDBRow>
           </form>
         </MDBCardBody>
       </MDBCard>

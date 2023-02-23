@@ -32,9 +32,7 @@ const Qualification = () => {
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>
                 <MDBCardBody style={{ height: '40px', width: '400px', }}>
-                    <Link to="/student/addstdqualify"><MDBBtn type='save'>Add Academic Details</MDBBtn></Link>
                 </MDBCardBody>
-                <MDBRow style={{ height: "60px" }}></MDBRow>
                 <MDBCardBody>
                     <h5>Academic Qualification List</h5>
                     <hr />

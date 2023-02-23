@@ -19,7 +19,7 @@ const Stdregister = () => {
   useEffect(() => {
     const auth = localStorage.getItem("student");
     if (auth) {
-      navigate('/student/editstdprofile');
+      navigate('/student/addstdprofile');
     }
   })
 
@@ -39,7 +39,7 @@ const Stdregister = () => {
     }
     else {
       localStorage.setItem("student", JSON.stringify(result));
-      navigate('/student/editstdprofile');
+      navigate('/student/addstdprofile');
     }
   }
 

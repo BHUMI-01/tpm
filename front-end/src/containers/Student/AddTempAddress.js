@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { Country, State, City } from "country-state-city";
 
-function EditTempaddress() {
+function AddTempaddress() {
   const [flatNo, setflatNo] = useState("");
   const [area, setarea] = useState("");
   const [landmark, setlandmark] = useState("");
@@ -21,7 +21,10 @@ function EditTempaddress() {
   const [province, setprovince] = useState("");
 
   useEffect(() => {
-    getPerAddressDetails();
+    const auth = localStorage.getItem("stdtempaddress");
+    if (auth) {
+      getPerAddressDetails();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -35,9 +38,9 @@ function EditTempaddress() {
     setcountry("");
     setprovince("");
   };
-  const idd = JSON.parse(localStorage.getItem("student"))._id;
+ 
   const getPerAddressDetails = async () => {
-    let result = JSON.parse(localStorage.getItem("stdperaddress"));
+    let result = JSON.parse(localStorage.getItem("stdtempaddress"));
     console.log(result);
     if (!result) {
       setEmpty();
@@ -53,6 +56,20 @@ function EditTempaddress() {
     }
   };
 
+  const set_student_address = async () => {
+    const profi = JSON.stringify({
+      flatNo,
+      area,
+      landmark,
+      locality,
+      city,
+      postalCode,
+      country,
+      province,
+    });
+    localStorage.setItem("stdtempaddress", profi);
+  };
+  
   const CountryVar = Country.getAllCountries();
   const StateVar = State.getStatesOfCountry(country);
   const CityVar = City.getCitiesOfState(country, province);
@@ -69,7 +86,7 @@ function EditTempaddress() {
                 fontSize: "20px",
               }}
             >
-              EDIT PERMANENT ADDRESS
+              EDIT Corresponding ADDRESS
             </MDBCol>
           </MDBRow>
           <MDBRow style={{ height: "20px" }}></MDBRow>
@@ -224,14 +241,15 @@ function EditTempaddress() {
                     <MDBBtn
                       type="submit"
                       onClick={() => {
+                        set_student_address();
                         getPerAddressDetails();
                       }}
                     >
-                      Update
+                      Save
                     </MDBBtn>
                   </MDBCol>
                   <MDBCol>
-                      <MDBBtn>Back</MDBBtn>
+                  <Link to="/student/addstdeducat"><MDBBtn type="submit">Next</MDBBtn></Link>
                   </MDBCol>
                 </MDBRow>
               </MDBRow>
@@ -243,4 +261,4 @@ function EditTempaddress() {
   );
 }
 
-export default EditTempaddress;
+export default AddTempaddress;

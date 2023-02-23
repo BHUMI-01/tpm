@@ -21,31 +21,48 @@ function Student() {
         file = base64;
         console.warn(file);
     }
-    const uploadFile = async () => {
+    // const uploadFile = async () => {
+    //     const studentId = JSON.parse(localStorage.getItem("student"))._id;
+    //     let result = await fetch("http://localhost:5000/upload-file", {
+    //         method: 'post',
+    //         body: JSON.stringify({
+    //             file, studentId
+    //         }),
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     });
+
+    //     result = await result.json();
+    //     localStorage.setItem("upload", result);
+    //     console.warn(result.file);
+
+    // }
+
+    const uploadData = async () => {
         const studentId = JSON.parse(localStorage.getItem("student"))._id;
-        let result = await fetch("http://localhost:5000/upload-file", {
+        const stdprofile = JSON.parse(localStorage.getItem("stdprofile"));
+        const stdperadd = JSON.parse(localStorage.getItem("stdperaddress"));
+        const stdtempadd = JSON.parse(localStorage.getItem("stdtempaddress"));
+        const stdeducat = JSON.parse(localStorage.getItem("stdqualify"));
+        await fetch("http://localhost:5000/add-data", {
             method: 'post',
             body: JSON.stringify({
-                file, studentId
+                studentId, stdprofile, stdperadd, stdtempadd, stdeducat
             }),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-
-        result = await result.json();
-        localStorage.setItem("upload", result);
-        console.warn(result.file);
-
     }
     const save_update = () => {
         if (localStorage.getItem("profile")) {
-            return <Link to='/student/stdqualify'><MDBBtn type='submit' onClick={() => uploadFile()}>Save</MDBBtn></Link>
+            return <Link to='/student/stdqualify'><MDBBtn type='submit'>Save</MDBBtn></Link>
         }
         else {
             return <MDBRow>
-                <MDBCol><MDBBtn type='submit' onClick={uploadFile}>Save</MDBBtn></MDBCol>
-                <MDBCol><Link to='/'><MDBBtn>Submit</MDBBtn></Link></MDBCol>
+                <MDBCol><MDBBtn type='submit'>Save</MDBBtn></MDBCol>
+                <MDBCol><MDBBtn onClick={uploadData}>Submit</MDBBtn></MDBCol>
             </MDBRow>
         }
     }

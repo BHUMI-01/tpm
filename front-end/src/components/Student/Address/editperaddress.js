@@ -37,9 +37,9 @@ function EditPeraddress() {
   };
   const idd = JSON.parse(localStorage.getItem("student"))._id;
   const getPerAddressDetails = async () => {
-    let result = await fetch(`http://localhost:5000/peraddresses/${idd}`);
-    result = await result.json();
-    if (result.result === "No User Found") {
+    let result = JSON.parse(localStorage.getItem("stdperaddress"));
+    console.log(result);
+    if (!result) {
       setEmpty();
     } else {
       setflatNo(result.flatNo);
@@ -52,88 +52,7 @@ function EditPeraddress() {
       setprovince(result.province);
     }
   };
-  const add_studentper_address = async () => {
-    const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    await fetch("http://localhost:5000/add-stdper-address", {
-      method: "post",
-      body: JSON.stringify({
-        flatNo,
-        area,
-        landmark,
-        locality,
-        city,
-        postalCode,
-        country,
-        province,
-        studentId,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    // result = await result.json();
-  };
 
-  const update_address = async () => {
-    const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    await fetch(`http://localhost:5000/add-per-address/${idd}`, {
-      method: "put",
-      body: JSON.stringify({
-        flatNo,
-        area,
-        landmark,
-        locality,
-        city,
-        postalCode,
-        country,
-        province,
-        studentId,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    // result = await result.json();
-  };
-
-  const save_update = () => {
-    if (localStorage.getItem("profile")) {
-      const auth = JSON.parse(localStorage.getItem("peraddress"))._id;
-      const authh = JSON.parse(localStorage.getItem("peraddress")).result;
-      if (auth) {
-        return (
-          <Link to="/student/stdaddress">
-            <MDBBtn type="submit" onClick={() => update_address()}>
-              Update
-            </MDBBtn>
-          </Link>
-        );
-      } else if (authh) {
-        return (
-          <Link to="/student/stdaddress">
-            <MDBBtn type="submit" onClick={() => add_studentper_address()}>
-              Save
-            </MDBBtn>
-          </Link>
-        );
-      }
-    } else {
-      return (
-        <MDBRow>
-          <MDBCol>
-            <MDBBtn type="submit" onClick={() => add_studentper_address()}>
-              Save
-            </MDBBtn>
-          </MDBCol>
-          <MDBCol>
-            <Link to="/student/addstdqualify">
-              <MDBBtn>Next</MDBBtn>
-            </Link>
-          </MDBCol>
-        </MDBRow>
-      );
-    }
-  };
   const CountryVar = Country.getAllCountries();
   const StateVar = State.getStatesOfCountry(country);
   const CityVar = City.getCitiesOfState(country, province);
@@ -300,12 +219,21 @@ function EditPeraddress() {
 
               <MDBRow style={{ height: "20px" }}></MDBRow>
               <MDBRow>
-                <MDBCol>{save_update()}</MDBCol>
-                <MDBCol>
-                  <Link to="/student/stdaddress">
-                    <MDBBtn>Back</MDBBtn>
-                  </Link>
-                </MDBCol>
+              <MDBRow>
+                  <MDBCol>
+                    <MDBBtn
+                      type="submit"
+                      onClick={() => {
+                        getPerAddressDetails();
+                      }}
+                    >
+                      Update
+                    </MDBBtn>
+                  </MDBCol>
+                  <MDBCol>
+                      <MDBBtn>Back</MDBBtn>
+                  </MDBCol>
+                </MDBRow>
               </MDBRow>
             </form>
           </MDBRow>

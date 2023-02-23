@@ -18,6 +18,12 @@ import StudentQualify from './containers/Student/Qualification';
 import EditStudentQualify from './containers/Student/EditQualify';
 import AddStudentQualify from './containers/Student/AddQualify';
 import EditTempAddress from './containers/Student/EditTempAddress';
+
+import AddStudentProfile from './containers/Student/AddProfile';
+import AddPerStudentAddress from './containers/Student/AddPerAddress';
+import AddTempAddress from './containers/Student/AddTempAddress';
+import AddStudentEducat from './containers/Student/AddEducat';
+
 import Admin from './containers/Admin/Admn';
 import Recruiter from './containers/Recruiter';
 
@@ -44,6 +50,11 @@ function App() {
           <Route path="editstdtempaddress" element={<EditTempAddress />} />
           <Route path="editstdqualify/:id" element={<EditStudentQualify />} />
           <Route path="addstdqualify" element={<AddStudentQualify />} />
+
+          <Route path="addstdprofile" element={<AddStudentProfile />} />
+          <Route path="addstdperaddress" element={<AddPerStudentAddress />} />
+          <Route path="addstdtempaddress" element={<AddTempAddress />} />
+          <Route path="addstdeducat" element={<AddStudentEducat />} />
         </Route>
 
         <Route path="/admin" element={<Admin />} />
