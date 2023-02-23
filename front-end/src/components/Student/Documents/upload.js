@@ -21,23 +21,6 @@ function Student() {
         file = base64;
         console.warn(file);
     }
-    // const uploadFile = async () => {
-    //     const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    //     let result = await fetch("http://localhost:5000/upload-file", {
-    //         method: 'post',
-    //         body: JSON.stringify({
-    //             file, studentId
-    //         }),
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     });
-
-    //     result = await result.json();
-    //     localStorage.setItem("upload", result);
-    //     console.warn(result.file);
-
-    // }
 
     const uploadData = async () => {
         const studentId = JSON.parse(localStorage.getItem("student"))._id;
@@ -56,13 +39,16 @@ function Student() {
         });
     }
     const save_update = () => {
-        if (localStorage.getItem("profile")) {
-            return <Link to='/student/stdqualify'><MDBBtn type='submit'>Save</MDBBtn></Link>
+        if (localStorage.getItem("upload")) {
+            return <MDBRow>
+                <MDBCol><MDBBtn type='submit'>Save</MDBBtn></MDBCol>
+                <MDBCol><Link to="/"><MDBBtn >Back</MDBBtn></Link></MDBCol>
+            </MDBRow>
         }
         else {
             return <MDBRow>
                 <MDBCol><MDBBtn type='submit'>Save</MDBBtn></MDBCol>
-                <MDBCol><MDBBtn onClick={uploadData}>Submit</MDBBtn></MDBCol>
+                <MDBCol><Link to="/"><MDBBtn onClick={uploadData}>Submit</MDBBtn></Link></MDBCol>
             </MDBRow>
         }
     }
