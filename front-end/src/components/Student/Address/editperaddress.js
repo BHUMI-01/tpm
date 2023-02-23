@@ -70,7 +70,7 @@ function EditPeraddress() {
     localStorage.setItem("stdperaddress", profi);
   };
   const update_peraddress= async () => {
-    const result =await fetch(`http://localhost:5000/update-data/${idd}`, {
+    await fetch(`http://localhost:5000/update-data/${idd}`, {
       method: "put",
       body: JSON.stringify({stdperadd:{
         flatNo,
@@ -87,7 +87,6 @@ function EditPeraddress() {
       },
       
     });
-    result= await result.json();
     
   };
   const CountryVar = Country.getAllCountries();
