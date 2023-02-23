@@ -8,7 +8,7 @@ import {
   MDBCardBody,
   MDBInput,
 } from "mdb-react-ui-kit";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { Country, State, City } from "country-state-city";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -32,13 +32,12 @@ const Editstdprofile = () => {
   const firstN = JSON.parse(localStorage.getItem("student")).firstName;
   const middleN = JSON.parse(localStorage.getItem("student")).middleName;
   const lastN = JSON.parse(localStorage.getItem("student")).lastName;
-  let dataval;
   useEffect(() => {
     const auth = localStorage.getItem("stdprofile");
     if (auth) {
-      getProductDetails();
+      getProfileDetails();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, []);
 
   const setEmpty = () => {
@@ -58,29 +57,79 @@ const Editstdprofile = () => {
     setstate("");
     setcity("");
   };
-  const getProductDetails = async () => {
-    let result = JSON.parse(localStorage.getItem("stdprofile"));
+  const idd = JSON.parse(localStorage.getItem("student"))._id;
+  const getProfileDetails = async () => {
+    let result = await fetch(`http://localhost:5000/add-data/${idd}`);
+    result = await result.json();
     console.log(result);
 
     if (!result) {
       setEmpty();
     } else {
-      setfatherName(result.fatherName);
-      setmotherName(result.motherName);
-      setDisability(result.disability);
-      setaadharNum(result.aadharNum);
-      setalternateNum(result.alternateNum);
-      setmobNum(result.mobNum);
-      setenrollNum(result.enrollNum);
-      setbloodGroup(result.bloodGroup);
-      setcaste(result.caste);
-      setdob(result.dob);
-      setgender(result.gender);
-      setnationality(result.nationality);
-      setreligion(result.religion);
-      setstate(result.state);
-      setcity(result.city);
+      setfatherName(result.stdprofile.fatherName);
+      setmotherName(result.stdprofile.motherName);
+      setDisability(result.stdprofile.disability);
+      setaadharNum(result.stdprofile.aadharNum);
+      setalternateNum(result.stdprofile.alternateNum);
+      setmobNum(result.stdprofile.mobNum);
+      setenrollNum(result.stdprofile.enrollNum);
+      setbloodGroup(result.stdprofile.bloodGroup);
+      setcaste(result.stdprofile.caste);
+      setdob(result.stdprofile.dob);
+      setgender(result.stdprofile.gender);
+      setnationality(result.stdprofile.nationality);
+      setreligion(result.stdprofile.religion);
+      setstate(result.stdprofile.state);
+      setcity(result.stdprofile.city);
     }
+  };
+  const set_student_profile = async () => {
+    const profi = JSON.stringify({
+      fatherName,
+      motherName,
+      gender,
+      dob,
+      enrollNum,
+      mobNum,
+      alternateNum,
+      disability,
+      aadharNum,
+      bloodGroup,
+      caste,
+      religion,
+      nationality,
+      state,
+      city,
+    });
+    localStorage.setItem("stdprofile", profi);
+  };
+  const update_profile = async () => {
+    const result =await fetch(`http://localhost:5000/update-data/${idd}`, {
+      method: "put",
+      body: JSON.stringify({stdprofile:{
+        fatherName,
+        motherName,
+        gender,
+        dob,
+        enrollNum,
+        mobNum,
+        alternateNum,
+        disability,
+        aadharNum,
+        bloodGroup,
+        caste,
+        religion,
+        nationality,
+        state,
+        city,}
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+    });
+    result= await result.json();
+    
   };
 
   const CountryVar = Country.getAllCountries();
@@ -389,21 +438,22 @@ const Editstdprofile = () => {
 
             <MDBRow style={{ height: "20px" }}></MDBRow>
             <MDBRow>
-                <MDBRow>
-                  <MDBCol>
-                    <MDBBtn
-                      type="submit"
-                      onClick={() => {
-                        getProductDetails();
-                      }}
-                    >
-                      Update
-                    </MDBBtn>
-                  </MDBCol>
-                  <MDBCol>
-                      <MDBBtn>Back</MDBBtn>
-                  </MDBCol>
-                </MDBRow>
+              <MDBRow>
+                <MDBCol>
+                  <MDBBtn
+                    type="submit"
+                    onClick={() => {
+                      set_student_profile();
+                      update_profile();
+                    }}
+                  >
+                    Update
+                  </MDBBtn>
+                </MDBCol>
+                <MDBCol>
+                <Link to='/student/stdprofile'><MDBBtn>Back</MDBBtn></Link>
+                </MDBCol>
+              </MDBRow>
             </MDBRow>
           </form>
         </MDBCardBody>

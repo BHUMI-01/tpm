@@ -121,6 +121,16 @@ app.get("/add-data/:id", async (req, resp) => {
     }
 })
 
+app.put("/update-data/:id", async (req, resp) => {
+    const result = await Student_Data.updateOne(
+        { studentId: req.params.id },
+        {
+            $set: req.body
+        }
+        );
+    resp.send(result);
+})
+
 //ADD AND UPDATE PROFILE
 // app.post("/add-prof", async (req, resp) => {
 //     let student_prof = new Student_prof(req.body);

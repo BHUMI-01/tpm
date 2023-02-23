@@ -19,18 +19,19 @@ const Profile = () => {
     const lastN = JSON.parse(localStorage.getItem("student")).lastName;
     const [profiles, setProfiles] = useState([]);
     useEffect(() => {
-        getProfiles();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+          getProfiles();
+
     }, []);
 
     const getProfiles = async () => {
-        let result = await fetch(`http://localhost:5000/profiles/${idd}`);
+        let result = await fetch(`http://localhost:5000/add-data/${idd}`);
         result = await result.json();
-        // console.warn(result);
-        setProfiles(result);
-        localStorage.setItem("profile", JSON.stringify(result));
+        //  console.warn(result.stdprofile);
+        setProfiles(result.stdprofile);
+        localStorage.setItem("stdprofile", JSON.stringify(result.stdprofile));
+        
     }
-    
+    console.log(profiles);
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>

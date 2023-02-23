@@ -21,8 +21,10 @@ function EditPeraddress() {
   const [province, setprovince] = useState("");
 
   useEffect(() => {
-    getPerAddressDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const auth = localStorage.getItem("stdperaddress");
+    if (auth) {
+      getPerAddressDetails();
+    }
   }, []);
 
   const setEmpty = () => {
@@ -37,22 +39,57 @@ function EditPeraddress() {
   };
   const idd = JSON.parse(localStorage.getItem("student"))._id;
   const getPerAddressDetails = async () => {
-    let result = JSON.parse(localStorage.getItem("stdperaddress"));
+    let result = await fetch(`http://localhost:5000/add-data/${idd}`);
+    result = await result.json();
     console.log(result);
+
     if (!result) {
       setEmpty();
     } else {
-      setflatNo(result.flatNo);
-      setarea(result.area);
-      setlandmark(result.landmark);
-      setlocality(result.locality);
-      setcity(result.city);
-      setpostalCode(result.postalCode);
-      setcountry(result.country);
-      setprovince(result.province);
+      setflatNo(result.stdperadd.flatNo);
+      setarea(result.stdperadd.area);
+      setlandmark(result.stdperadd.landmark);
+      setlocality(result.stdperadd.locality);
+      setcity(result.stdperadd.city);
+      setpostalCode(result.stdperadd.postalCode);
+      setcountry(result.stdperadd.country);
+      setprovince(result.stdperadd.province);
     }
   };
-
+  const set_student_peraddress = async () => {
+    const profi = JSON.stringify({
+      flatNo,
+      area,
+      landmark,
+      locality,
+      city,
+      postalCode,
+      country,
+      province,
+    });
+    localStorage.setItem("stdperaddress", profi);
+  };
+  const update_peraddress= async () => {
+    const result =await fetch(`http://localhost:5000/update-data/${idd}`, {
+      method: "put",
+      body: JSON.stringify({stdperadd:{
+        flatNo,
+      area,
+      landmark,
+      locality,
+      city,
+      postalCode,
+      country,
+      province,}
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+    });
+    result= await result.json();
+    
+  };
   const CountryVar = Country.getAllCountries();
   const StateVar = State.getStatesOfCountry(country);
   const CityVar = City.getCitiesOfState(country, province);
@@ -224,14 +261,15 @@ function EditPeraddress() {
                     <MDBBtn
                       type="submit"
                       onClick={() => {
-                        getPerAddressDetails();
+                        set_student_peraddress();
+                        update_peraddress();
                       }}
                     >
                       Update
                     </MDBBtn>
                   </MDBCol>
                   <MDBCol>
-                      <MDBBtn>Back</MDBBtn>
+                  <Link to='/student/stdaddress'><MDBBtn>Back</MDBBtn></Link>
                   </MDBCol>
                 </MDBRow>
               </MDBRow>
