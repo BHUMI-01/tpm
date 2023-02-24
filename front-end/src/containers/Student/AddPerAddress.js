@@ -14,7 +14,7 @@ import { Country, State, City } from "country-state-city";
 import AddTempaddress from "./AddTempAddress";
 
 function AddPeraddress() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [flatNo, setflatNo] = useState("");
   const [area, setarea] = useState("");
   const [landmark, setlandmark] = useState("");
@@ -26,12 +26,18 @@ function AddPeraddress() {
   console.log(show);
   useEffect(() => {
     const auth = localStorage.getItem("stdperaddress");
+    const author = localStorage.getItem("stdtempaddress");
     if (auth) {
       getPerAddressDetails();
     }
+    if(auth==author)
+    {
+      setShow(true);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+ 
   const setEmpty = () => {
     setflatNo("");
     setarea("");
@@ -72,7 +78,7 @@ function AddPeraddress() {
       province,
     });
     localStorage.setItem("stdperaddress", profi);
-    if (!show) {
+    if (show) {
       localStorage.setItem("stdtempaddress", profi);
     }
   };
@@ -270,7 +276,7 @@ function AddPeraddress() {
                   <MDBRadio
                     name="flexRadioDefault"
                     checked={show}
-                    onclick={() => setShow(!show)}
+                    onClick={() => setShow(!show)}
                     style={{ fontsize: "16px", fontweight: "bold"}}
                     id="flexRadioDefault1"
                     label="SAME AS CORRESSPONDING ADDRESS"
@@ -281,8 +287,7 @@ function AddPeraddress() {
           </MDBCardBody>
         </MDBCard>
       </MDBContainer>
-
-      {show ? <AddTempaddress /> : null}
+      {show ? null : <AddTempaddress />}
     </>
   );
 }
