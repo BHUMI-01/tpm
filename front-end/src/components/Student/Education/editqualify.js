@@ -40,6 +40,19 @@ const Editqualify = () => {
     setGrade(resu.stdeducat.grade);
   };
 
+  const set_student_qualify = async () => {
+    const profi = JSON.stringify({
+      qualifyLevel,
+          qualifyName,
+          passYear,
+          board,
+          rollNum,
+          resultStatus,
+          gradeSys,
+          grade,
+    });
+    localStorage.setItem("stdqualify", profi);
+  };
   const update_qualify = async () => {
     await fetch(
       `http://localhost:5000/update-data/${idd}`,
@@ -87,10 +100,10 @@ const Editqualify = () => {
                   <option value="High School">High School</option>
                   <option value="Intermediate">Intermediate</option>
                   <option value="Diploma">Diploma</option>
-                  <option value="Undergraduation(B.Tech)">
-                    Undergraduation(B.Tech)
+                  <option value="B.Tech">
+                  B.Tech
                   </option>
-                  <option value="Graduation(M.Tech)">Graduation(M.Tech)</option>
+                  <option value="M.Tech">M.Tech</option>
                 </select>
               </MDBCol>
               <MDBCol>
@@ -199,7 +212,7 @@ const Editqualify = () => {
             </MDBRow>
             <MDBRow>
               <MDBCol>
-                <MDBBtn type="submit" onClick={() => update_qualify()}>
+                <MDBBtn type="submit" onClick={() => {set_student_qualify();update_qualify();}}>
                   Update
                 </MDBBtn>
               </MDBCol>

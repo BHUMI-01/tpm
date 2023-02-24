@@ -100,9 +100,9 @@ const Editqualify2 = () => {
                   <option value="Intermediate">Intermediate</option>
                   <option value="Diploma">Diploma</option>
                   <option value="B.Tech">
-                    Undergraduation(B.Tech)
+                    B.Tech
                   </option>
-                  <option value="M.Tech">Graduation(M.Tech)</option>
+                  <option value="M.Tech">M.Tech</option>
                 </select>
               </MDBCol>
               <MDBCol>

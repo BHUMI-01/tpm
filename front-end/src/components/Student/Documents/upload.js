@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   MDBBtn,
   MDBContainer,
@@ -20,7 +20,13 @@ function Student() {
     file = base64;
     console.warn(file);
   };
-  const auth = localStorage.getItem("stdqualify").qualifyLevel;
+
+
+    const auth = JSON.parse(localStorage.getItem("stdqualify")).qualifyLevel;
+    const authh = JSON.parse(localStorage.getItem("stdprofile")).disability;
+    console.log(auth)
+    console.log(authh)
+
   // const uploadFile = async () => {
   //     const studentId = JSON.parse(localStorage.getItem("student"))._id;
   //     let result = await fetch("http://localhost:5000/upload-file", {
@@ -84,9 +90,48 @@ function Student() {
     <MDBContainer fluid>
       <MDBCard className="text-black m-5">
         <MDBCardBody>
-          <MDBCardHeader>Upload Documents</MDBCardHeader>
+          <MDBCardHeader style={{ textAlign:"center" }}>UPLOAD DOCUMENTS</MDBCardHeader>
           <MDBRow style={{ height: "20px" }}></MDBRow>
           <form>
+            <MDBRow>
+          <MDBCol>
+            <label htmlFor="file" style={{paddingBottom:"10px"}}>Upload High School Marksheet :</label>
+            <input
+              id="file"
+              type="file"
+              accept=".png, .jpg, .jpeg, .pdf"
+              onChange={(e) => handleFileUpload(e)}
+              required
+            ></input>
+            </MDBCol>
+            <MDBCol>
+            <label htmlFor="file" style={{paddingBottom:"10px"}}>Upload Intermediate Marksheet :</label>
+            <input
+              id="file"
+              type="file"
+              accept=".png, .jpg, .jpeg, .pdf"
+              onChange={(e) => handleFileUpload(e)}
+              required
+            ></input>
+            </MDBCol>
+            
+            </MDBRow>
+            <MDBRow style={{ height: "20px" }}></MDBRow>
+            <MDBRow>
+            <MDBCol>
+            <label htmlFor="file" style={{paddingBottom:"10px"}}>Upload Diploma Marksheet :</label>
+            <input
+              id="file"
+              type="file"
+              accept=".png, .jpg, .jpeg, .pdf"
+              onChange={(e) => handleFileUpload(e)}
+              
+            ></input>
+            </MDBCol>
+            <MDBCol></MDBCol>
+            </MDBRow>
+            <hr/>
+            
             {auth=="B.Tech"?
             <>
                         <MDBRow style={{ height: "30px" }}><MDBCol>For Undergraduate:</MDBCol></MDBRow>
@@ -113,7 +158,7 @@ function Student() {
             </>
             :
             <>
-            <MDBRow style={{ height: "20px" }}></MDBRow>
+            
             <MDBRow style={{ height: "30px" }}><MDBCol>For PostGraduate:</MDBCol></MDBRow>
             <MDBRow>
                 <MDBCol>
@@ -155,6 +200,39 @@ function Student() {
               </MDBCol>
             </MDBRow>
            </>}
+           
+            <MDBRow style={{ height: "20px" }}></MDBRow>
+            <hr/>
+            <MDBRow>           {authh=="Yes"?
+            <>
+            
+            <MDBCol>
+            <label htmlFor="file" style={{paddingBottom:"10px"}}>Upload Disability Certificate :</label>
+            <input
+              id="file"
+              type="file"
+              accept=".png, .jpg, .jpeg, .pdf"
+              onChange={(e) => handleFileUpload(e)}
+              required
+            ></input>
+            </MDBCol>
+           
+            </>
+            :null
+} <MDBCol>
+            <label htmlFor="file" style={{paddingBottom:"10px"}}>Upload Internship Certificate :</label>
+            <input
+              id="file"
+              type="file"
+              accept=".png, .jpg, .jpeg, .pdf"
+              onChange={(e) => handleFileUpload(e)}
+              required
+            ></input>
+            </MDBCol></MDBRow>
+            <MDBRow style={{ height: "20px" }}></MDBRow>
+            
+            
+            
             <MDBRow style={{ height: "20px" }}></MDBRow>
           </form>
 
