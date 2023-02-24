@@ -26,42 +26,40 @@ const Editqualify = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const idd = JSON.parse(localStorage.getItem("student"))._id;
   const getQualifyDetails = async () => {
-    let resu = await fetch(`http://localhost:5000/qualifyyy/${id}`);
+    let resu = await fetch(`http://localhost:5000/add-data/${idd}`);
     resu = await resu.json();
-    setqualifyLevel(resu.qualifyLevel);
-    setqualifyName(resu.qualifyName);
-    setpassYear(resu.passYear);
-    setBoard(resu.board);
-    setrollNum(resu.rollNum);
-    setResultStatus(resu.resultStatus);
-    setgradeSys(resu.gradeSys);
-    setGrade(resu.grade);
+    setqualifyLevel(resu.stdeducat.qualifyLevel);
+    setqualifyName(resu.stdeducat.qualifyName);
+    setpassYear(resu.stdeducat.passYear);
+    setBoard(resu.stdeducat.board);
+    setrollNum(resu.stdeducat.rollNum);
+    setResultStatus(resu.stdeducat.resultStatus);
+    setgradeSys(resu.stdeducat.gradeSys);
+    setGrade(resu.stdeducat.grade);
   };
 
   const update_qualify = async () => {
-    const studentId = JSON.parse(localStorage.getItem("student"))._id;
     await fetch(
-      `http://localhost:5000/add-student-qualify/${id}`,
+      `http://localhost:5000/update-data/${idd}`,
       {
         method: "put",
-        body: JSON.stringify({
+        body: JSON.stringify({stdeducat:{
           qualifyLevel,
           qualifyName,
-          studentId,
           passYear,
           board,
           rollNum,
           resultStatus,
           gradeSys,
-          grade,
+          grade,}
         }),
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
-    // result = await result.json();
   };
 
   return (
@@ -71,12 +69,8 @@ const Editqualify = () => {
         <form>
             <MDBRow>
               <MDBCol>Qualification Details</MDBCol>
-              <MDBCol>
-                <Link to="/student/stdqualify">
-                  <MDBBtn>Back</MDBBtn>
-                </Link>
-              </MDBCol>
             </MDBRow>
+            <hr/>
             <MDBRow>
               <MDBCol>
                 <label>Qualification Level :</label>

@@ -22,12 +22,13 @@ const Qualification = () => {
     }, []);
 
     const getQualify = async () => {
-        let result = await fetch(`http://localhost:5000/qualifyEntry/${idd}`);
+        let result = await fetch(`http://localhost:5000/add-data/${idd}`);
         result = await result.json();
-        setQualify(result);
-        localStorage.setItem("qualify", JSON.stringify(result));
+        //  console.warn(result.stdeducat);
+        setQualify(result.stdeducat);
+        localStorage.setItem("stdqualify", JSON.stringify(result.stdeducat));
     }
-
+    console.log(qualifies);
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>
@@ -52,7 +53,7 @@ const Qualification = () => {
                         </MDBTableHead>
                         <MDBTableBody>
                             {
-                                qualifies.result === "No User Found" ?
+                                qualifies.result == "No User Found" ?
                                     <tr>
                                         <td>-</td>
                                         <td>-</td>
@@ -66,19 +67,30 @@ const Qualification = () => {
                                         <td>-</td>
                                     </tr>
                                     :
-                                    qualifies.map((item) =>
-                                        <tr key={item._id}>
-                                            <td>{item.qualifyLevel}</td>
-                                            <td>{item.qualifyName}</td>
-                                            <td>{item.passYear}</td>
-                                            <td>{item.rollNum}</td>
-                                            <td>{item.board}</td>
-                                            <td>{item.resultStatus}</td>
-                                            <td>{item.gradeSys}</td>
-                                            <td>{item.grade}</td>
-                                            <td><Link to={`/student/editstdqualify/${item._id}`}><MDBBtn>edit</MDBBtn></Link></td>
-                                        </tr>
-                                    )
+                                    // qualifies.map((item) =>
+                                    //     <tr key={item._id}>
+                                    //         <td>{item.qualifyLevel}</td>
+                                    //         <td>{item.qualifyName}</td>
+                                    //         <td>{item.passYear}</td>
+                                    //         <td>{item.rollNum}</td>
+                                    //         <td>{item.board}</td>
+                                    //         <td>{item.resultStatus}</td>
+                                    //         <td>{item.gradeSys}</td>
+                                    //         <td>{item.grade}</td>
+                                    //         <td><Link to={`/student/editstdqualify/${item._id}`}><MDBBtn>edit</MDBBtn></Link></td>
+                                    //     </tr>
+                                    // )
+                                    <tr >
+                                        <td>{qualifies.qualifyLevel}</td>
+                                        <td>{qualifies.qualifyName}</td>
+                                        <td>{qualifies.passYear}</td>
+                                        <td>{qualifies.rollNum}</td>
+                                        <td>{qualifies.board}</td>
+                                        <td>{qualifies.resultStatus}</td>
+                                        <td>{qualifies.gradeSys}</td>
+                                        <td>{qualifies.grade}</td>
+                                        <td><Link to={`/student/editstdqualify/${qualifies._id}`}><MDBBtn>edit</MDBBtn></Link></td>
+                                    </tr>
                             }
                         </MDBTableBody>
                     </MDBTable>
