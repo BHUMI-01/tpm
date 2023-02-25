@@ -9,7 +9,7 @@ import {
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const AddEducat = () => {
+const AddQuali = () => {
   const [qualifyLevel, setqualifyLevel] = useState("");
   const [qualifyName, setqualifyName] = useState("");
   const [passYear, setpassYear] = useState("");
@@ -66,8 +66,8 @@ const AddEducat = () => {
 
   return (
     <>
-      <MDBContainer fluid>
-        <form>
+     
+        
           <hr/>
           <MDBRow>
             <MDBCol>
@@ -190,10 +190,9 @@ const AddEducat = () => {
             </MDBCol>
           </MDBRow>
           <MDBRow style={{ height: "20px" }}></MDBRow>
-        </form>
-      </MDBContainer>
+ 
     </>
   );
 };
 
-export default AddEducat;
+export default AddQuali;

@@ -10,11 +10,12 @@ import {
   MDBRadio,
 } from "mdb-react-ui-kit";
 import { useState, useEffect } from "react";
+import { Button } from "../../components/Student/Education/Button";
 import { Link } from "react-router-dom";
 import AddQualify from "../../components/Student/Education/addqualify";
 
 const AddEducat = () => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(["Sample"]);
   const [qualifyLevel, setqualifyLevel] = useState("");
   const [qualifyName, setqualifyName] = useState("");
   const [passYear, setpassYear] = useState("");
@@ -84,11 +85,7 @@ const AddEducat = () => {
   //     </MDBCard>
   //   </MDBContainer>
   const shootdiv = () => {
-    // return <>
-    //   <AddQualify />
-    //   <MDBBtn onClick={shootdiv}>Add Education</MDBBtn>
-    // </>
-    return <AddQualify/>;
+    setShow([...show, "Sample"])
   }
   return (
     <>
@@ -97,10 +94,12 @@ const AddEducat = () => {
           <MDBCardBody>
             <form>
               <h2>Qualification Details</h2>
-              <AddQualify />
+              {/* <AddQualify /> */}
               <MDBRow style={{ height: "20px" }}></MDBRow>
               <MDBRow>
-                <div onClick={()=> {shootdiv()}}>Add Education</div>
+              
+                <Button onClick={shootdiv} text="Call Component"/>
+                {show.map((item, i)=>(<AddQualify text={item}/>))}
               </MDBRow>
             </form>
             <MDBRow style={{ height: "50px" }}></MDBRow>
