@@ -166,7 +166,8 @@ const Editstdprofile = () => {
                   type="text"
                   value={fatherName}
                   onChange={(e) => setfatherName(e.target.value)}
-                  pattern="[a-zA-Z][a-zA-Z ]+"
+                  pattern="[A-Z][a-zA-Z ]+"
+                  title="For example: Ramesh, First letter should be capital"
                   required
                 ></MDBInput>
               </MDBCol>
@@ -177,7 +178,8 @@ const Editstdprofile = () => {
                   type="text"
                   value={motherName}
                   onChange={(e) => setmotherName(e.target.value)}
-                  pattern="[a-zA-Z][a-zA-Z ]+"
+                  pattern="[A-Z][a-zA-Z ]+"
+                  title="For example: Anita, First letter should be capital"
                   required
                 ></MDBInput>
               </MDBCol>
@@ -188,7 +190,8 @@ const Editstdprofile = () => {
                   type="text"
                   value={bloodGroup}
                   onChange={(e) => setbloodGroup(e.target.value)}
-                  pattern="(A|B|AB|0)[+-]$"
+                  pattern="(A|B|AB|O)[+-]$"
+                  title="For example: B+, There should be no gap b/w letter & +/-"
                   required
                 ></MDBInput>
               </MDBCol>
@@ -215,6 +218,7 @@ const Editstdprofile = () => {
                   onChange={(e) => setenrollNum(e.target.value)}
                   maxLength="6"
                   pattern="[A-Z][A-Z]+[0-9]{4}"
+                  title="For example: GY6389, First two letters should be capital!"
                   required
                 ></MDBInput>
               </MDBCol>
@@ -228,6 +232,7 @@ const Editstdprofile = () => {
                   onChange={(e) => setaadharNum(e.target.value)}
                   pattern="[0-9]+"
                   maxLength="12"
+                  title="Aadhar Number should be of 16 continuous digits."
                   required
                 ></MDBInput>
               </MDBCol>
