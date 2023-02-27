@@ -1,7 +1,9 @@
 import React from 'react';
+import { MDBBtn } from 'mdb-react-ui-kit';
+
 const Button =(props)=>{
     return (
-<button className='AddButton' onClick={props.onClick}>{props.text}</button>
+        <MDBBtn className='AddButton' onClick={props.onClick}>{props.text}</MDBBtn>
     );
 }
 
