@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 require("./db/config");
 const Student = require("./models/students/Student");
 const Recruiter = require('./models/recruiters/Recruiter');
-const Student_Data = require('./models/students/Student_Data2');
+const Student_Data = require('./models/students/Student_Data');
 
 // const Student_prof = require("./models/students/Student_profile");
 // const Student_Per_Address = require("./models/students/Student_Per_Address");
@@ -131,160 +131,15 @@ app.put("/update-data/:id", async (req, resp) => {
     resp.send(result);
 })
 
-//ADD AND UPDATE PROFILE
-// app.post("/add-prof", async (req, resp) => {
-//     let student_prof = new Student_prof(req.body);
-//     let result = await student_prof.save();
-//     resp.send(result);
-
-// })
-
-// app.put("/add-student-prof/:id", async (req, resp) => {
-//     let result = await Student_prof.updateOne(
-//         { studentId: req.params.id },
-//         {
-//             $set: req.body
-//         }
-//     )
-//     resp.send(result);
-// })
-// app.get("/profiles/:id", async (req, resp) => {
-//     const data = await Student_prof.findOne({ studentId: req.params.id });
-//     if (data) {
-//         resp.send(data)
-//     }
-//     else {
-//         resp.send({ result: "No User Found" })
-//     }
-
-// })
-
-//ADD AND UPDATE PROFILE
-// app.post("/add-prof", async (req, resp) => {
-//     let student_prof = new Student_prof(req.body);
-//     let result = await student_prof.save();
-//     resp.send(result);
-
-// })
-
-// app.put("/add-student-prof/:id", async (req, resp) => {
-//     let result = await Student_prof.updateOne(
-//         { studentId: req.params.id },
-//         {
-//             $set: req.body
-//         }
-//     )
-//     resp.send(result);
-// })
-// app.get("/profiles/:id", async (req, resp) => {
-//     const data = await Student_prof.findOne({ studentId: req.params.id });
-//     if (data) {
-//         resp.send(data)
-//     }
-//     else {
-//         resp.send({ result: "No User Found" })
-//     }
-// })
-
-//add and update permanent address
-// app.post("/add-stdper-address", async (req, resp) => {
-//     let student_address = new Student_Per_Address(req.body);
-//     let result = await student_address.save();
-//     resp.send(result);
-// })
-// app.put("/add-per-address/:id", async (req, resp) => {
-//     let result = await Student_Per_Address.updateOne(
-//         { studentId: req.params.id },
-//         {
-//             $set: req.body
-//         }
-//     )
-//     resp.send(result);
-// })
-
-// app.get("/peraddresses/:id", async (req, resp) => {
-//     const data = await Student_Per_Address.findOne({ studentId: req.params.id });
-//     if (data) {
-//         resp.send(data)
-//     }
-//     else {
-//         resp.send({ result: "No User Found" })
-//     }
-
-// })
-
-//add and update temporary address
-// app.get("/tempaddresses/:id", async (req, resp) => {
-//     const data = await Student_Temp_Address.findOne({ studentId: req.params.id });
-//     if (data) {
-//         resp.send(data)
-//     }
-//     else {
-//         resp.send({ result: "No User Found" })
-//     }
-
-// })
-
-// app.post("/add-temp-address", async (req, resp) => {
-//     let student_address = new Student_Temp_Address(req.body);
-//     let result = await student_address.save();
-//     resp.send(result);
-// })
-// app.put("/add-temp-address/:id", async (req, resp) => {
-//     let result = await Student_Temp_Address.updateOne(
-//         { studentId: req.params.id },
-//         {
-//             $set: req.body
-//         }
-//     )
-//     resp.send(result);
-// })
-
-//add and update qualification 
-// app.get("/qualifyyy/:id", async (req, resp) => {
-//     const data = await Student_quali.findOne({ _id: req.params.id });
-//     if (data) {
-//         resp.send(data)
-//     }
-//     else {
-//         resp.send({ result: "No User Found" })
-//     }
-// })
-
-// app.get("/qualifyEntry/:id", async (req, resp) => {
-//     const data = await Student_quali.find({ studentId: req.params.id });
-//     if (data) {
-//         resp.send(data)
-//     }
-//     else {
-//         resp.send({ result: "No User Found" })
-//     }
-// })
-
-// app.put("/add-student-qualify/:id", async (req, resp) => {
-//     let result = await Student_quali.updateOne(
-//         { _id: req.params.id },
-//         {
-//             $set: req.body
-//         }
-//     )
-//     resp.send(result);
-// })
-
-// app.post("/add-qualify", async (req, resp) => {
-//     let student_qualify = new Student_quali(req.body);
-//     let result = await student_qualify.save();
-//     resp.send(result);
-// })
-
-// app.post("/upload-file", async (req, resp) => {
-//     let student_file = await Student_File_Uplod.create(req.body);
-//     let result = await student_file.save();
-//     resp.send(result);
-// })
-
-
-
-
+app.get("/add-data-qualify/:id", async (req, resp) => {
+const data = await Student_Data.find({"stdeducat._id":req.params.id});
+console.log(data);
+if (data) {
+    resp.send(data);
+}
+else {
+    resp.send({ result: "No User Found" })
+}
+})
 
 app.listen(5000)

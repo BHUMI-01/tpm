@@ -2,7 +2,6 @@ import React from 'react';
 import {
     MDBBtn,
     MDBContainer,
-    MDBRow,
     MDBCard,
     MDBCardBody,
     MDBTable,
@@ -67,30 +66,30 @@ const Qualification = () => {
                                         <td>-</td>
                                     </tr>
                                     :
-                                    // qualifies.map((item) =>
-                                    //     <tr key={item._id}>
-                                    //         <td>{item.qualifyLevel}</td>
-                                    //         <td>{item.qualifyName}</td>
-                                    //         <td>{item.passYear}</td>
-                                    //         <td>{item.rollNum}</td>
-                                    //         <td>{item.board}</td>
-                                    //         <td>{item.resultStatus}</td>
-                                    //         <td>{item.gradeSys}</td>
-                                    //         <td>{item.grade}</td>
-                                    //         <td><Link to={`/student/editstdqualify/${item._id}`}><MDBBtn>edit</MDBBtn></Link></td>
-                                    //     </tr>
-                                    // )
-                                    <tr >
-                                        <td>{qualifies.qualifyLevel}</td>
-                                        <td>{qualifies.qualifyName}</td>
-                                        <td>{qualifies.passYear}</td>
-                                        <td>{qualifies.rollNum}</td>
-                                        <td>{qualifies.board}</td>
-                                        <td>{qualifies.resultStatus}</td>
-                                        <td>{qualifies.gradeSys}</td>
-                                        <td>{qualifies.grade}</td>
-                                        <td><Link to={`/student/editstdqualify/${qualifies._id}`}><MDBBtn>edit</MDBBtn></Link></td>
-                                    </tr>
+                                    qualifies.map((item) =>
+                                        <tr key={item._id}>
+                                            <td>{item.qualifyLevel}</td>
+                                            <td>{item.qualifyName}</td>
+                                            <td>{item.passYear}</td>
+                                            <td>{item.rollNum}</td>
+                                            <td>{item.board}</td>
+                                            <td>{item.resultStatus}</td>
+                                            <td>{item.gradeSys}</td>
+                                            <td>{item.grade}</td>
+                                            <td><Link to={`/student/editstdqualify/${item._id}`}><MDBBtn>edit</MDBBtn></Link></td>
+                                        </tr>
+                                    )
+                                    // <tr >
+                                    //     <td>{qualifies.qualifyLevel}</td>
+                                    //     <td>{qualifies.qualifyName}</td>
+                                    //     <td>{qualifies.passYear}</td>
+                                    //     <td>{qualifies.rollNum}</td>
+                                    //     <td>{qualifies.board}</td>
+                                    //     <td>{qualifies.resultStatus}</td>
+                                    //     <td>{qualifies.gradeSys}</td>
+                                    //     <td>{qualifies.grade}</td>
+                                    //     <td><Link to={`/student/editstdqualify/${qualifies._id}`}><MDBBtn>edit</MDBBtn></Link></td>
+                                    // </tr>
                             }
                         </MDBTableBody>
                     </MDBTable>
