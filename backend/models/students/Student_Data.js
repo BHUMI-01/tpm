@@ -23,12 +23,6 @@ const stdQualifySchema = new mongoose.Schema({
     grade: { type: String, required: true },
 });
 
-const stdma = new mongoose.Schema({
-    qualifying: [
-        stdQualifySchema
-    ],
-});
-
 const stdTempAddressSchema = new mongoose.Schema({
     flatNo: { type: String, required: true },
     area: { type: String, required: true },
@@ -63,7 +57,7 @@ const studentData = new mongoose.Schema({
     stdprofile: stdProfileSchema,
     stdperadd: stdPerAddressSchema,
     stdtempadd: stdTempAddressSchema,
-    stdeducat: stdma,
+    stdeducat: [stdQualifySchema],
 })
 
 module.exports = mongoose.model("student_data", studentData);

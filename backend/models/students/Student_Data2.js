@@ -57,7 +57,7 @@ const studentData = new mongoose.Schema({
     stdprofile: {type: stdProfileSchema, required: true},
     stdperadd: {type: stdPerAddressSchema, required: true},
     stdtempadd: {type: stdTempAddressSchema, required:true},
-    stdeducat: {type: stdQualifySchema, required: true}
+    stdeducat: [stdQualifySchema]
 })
 
 module.exports = mongoose.model("student_data", studentData);

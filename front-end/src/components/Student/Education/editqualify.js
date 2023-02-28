@@ -21,23 +21,36 @@ const Editqualify = () => {
   const [gradeSys, setgradeSys] = useState("");
   const [grade, setGrade] = useState("");
   const { id } = useParams();
+  let i=0;
+  let varvalue;
   useEffect(() => {
     getQualifyDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const setvalue = () =>{
+    setqualifyLevel(varvalue[i].qualifyLevel);
+    setpassYear(varvalue[i].passYear);
+    setqualifyName(varvalue[i].qualifyName);
+    setBoard(varvalue[i].board);
+    setrollNum(varvalue[i].rollNum);
+    setResultStatus(varvalue[i].resultStatus);
+    setgradeSys(varvalue[i].gradeSys);
+    setGrade(varvalue[i].grade);
+  }
   const idd = JSON.parse(localStorage.getItem("student"))._id;
   const getQualifyDetails = async () => {
     let resu = await fetch(`http://localhost:5000/add-data/${idd}`);
     resu = await resu.json();
-    setqualifyLevel(resu.stdeducat.qualifyLevel);
-    setqualifyName(resu.stdeducat.qualifyName);
-    setpassYear(resu.stdeducat.passYear);
-    setBoard(resu.stdeducat.board);
-    setrollNum(resu.stdeducat.rollNum);
-    setResultStatus(resu.stdeducat.resultStatus);
-    setgradeSys(resu.stdeducat.gradeSys);
-    setGrade(resu.stdeducat.grade);
+    varvalue = resu.stdeducat;
+    let len = varvalue.length;
+    
+    for(i=0; i<len; i++){
+      if(varvalue[i]._id == id){
+        setvalue();
+      }
+    }
+    
   };
 
   const set_student_qualify = async () => {
