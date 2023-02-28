@@ -15,6 +15,7 @@ const Stdregister = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     const auth = localStorage.getItem("student");
@@ -26,7 +27,7 @@ const Stdregister = () => {
   const collectData = async () => {
     let result = await fetch("http://localhost:5000/register", {
       method: 'post',
-      body: JSON.stringify({ firstName, middleName, lastName, email, password }),
+      body: JSON.stringify({ firstName, middleName, lastName, email, password, passwordConfirm }),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -110,6 +111,17 @@ const Stdregister = () => {
                     placeholder="Enter password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label>Confirm Password</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Enter password"
+                    value={passwordConfirm}
+                    onChange={(e) => setPasswordConfirm(e.target.value)}
                     required
                   />
                 </div>
