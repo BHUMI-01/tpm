@@ -23,6 +23,7 @@ import AddStudentProfile from './containers/Student/AddProfile';
 import AddPerStudentAddress from './containers/Student/AddPerAddress';
 import AddTempAddress from './containers/Student/AddTempAddress';
 import AddStudentEducat from './containers/Student/AddEducat';
+import Reviewform from './containers/Student/ReviewForm';
 
 import Admin from './containers/Admin/Admn';
 import Recruiter from './containers/Recruiter';
@@ -55,6 +56,7 @@ function App() {
           <Route path="addstdperaddress" element={<AddPerStudentAddress />} />
           <Route path="addstdtempaddress" element={<AddTempAddress />} />
           <Route path="addstdeducat" element={<AddStudentEducat />} />
+          <Route path="reviewform" element={<Reviewform />} />
         </Route>
 
         <Route path="/admin" element={<Admin />} />

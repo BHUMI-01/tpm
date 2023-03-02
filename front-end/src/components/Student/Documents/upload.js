@@ -21,11 +21,10 @@ function Student() {
     console.warn(file);
   };
 
-
-    const auth = JSON.parse(localStorage.getItem("stdqualify")).qualifyLevel;
-    const authh = JSON.parse(localStorage.getItem("stdprofile")).disability;
-    console.log(auth)
-    console.log(authh)
+  const auth = JSON.parse(localStorage.getItem("stdqualify")).qualifyLevel;
+  const authh = JSON.parse(localStorage.getItem("stdprofile")).disability;
+  console.log(auth);
+  console.log(authh);
 
   // const uploadFile = async () => {
   //     const studentId = JSON.parse(localStorage.getItem("student"))._id;
@@ -65,178 +64,186 @@ function Student() {
       },
     });
   };
-  const save_update = () => {
-    if (localStorage.getItem("profile")) {
-      return (
-        <Link to="/student/stdqualify">
-          <MDBBtn type="submit">Save</MDBBtn>
-        </Link>
-      );
-    } else {
-      return (
-        <MDBRow>
-          <MDBCol>
-            <MDBBtn type="submit">Save</MDBBtn>
-          </MDBCol>
-          <MDBCol>
-            <MDBBtn onClick={uploadData}>Submit</MDBBtn>
-          </MDBCol>
-        </MDBRow>
-      );
-    }
-  };
 
   return (
     <MDBContainer fluid>
       <MDBCard className="text-black m-5">
         <MDBCardBody>
-          <MDBCardHeader style={{ textAlign:"center" }}>UPLOAD DOCUMENTS</MDBCardHeader>
+          <MDBCardHeader style={{ textAlign: "center" }}>
+            UPLOAD DOCUMENTS
+          </MDBCardHeader>
           <MDBRow style={{ height: "20px" }}></MDBRow>
           <form>
             <MDBRow>
-          <MDBCol>
-            <label htmlFor="file" style={{paddingBottom:"10px"}}>Upload High School Marksheet :</label>
-            <input
-              id="file"
-              type="file"
-              accept=".png, .jpg, .jpeg, .pdf"
-              onChange={(e) => handleFileUpload(e)}
-              required
-            ></input>
-            </MDBCol>
-            <MDBCol>
-            <label htmlFor="file" style={{paddingBottom:"10px"}}>Upload Intermediate Marksheet :</label>
-            <input
-              id="file"
-              type="file"
-              accept=".png, .jpg, .jpeg, .pdf"
-              onChange={(e) => handleFileUpload(e)}
-              required
-            ></input>
-            </MDBCol>
-            
+              <MDBCol>
+                <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                  Upload High School Marksheet :
+                </label>
+                <input
+                  id="file"
+                  type="file"
+                  accept=".png, .jpg, .jpeg, .pdf"
+                  onChange={(e) => handleFileUpload(e)}
+                  required
+                ></input>
+              </MDBCol>
+              <MDBCol>
+                <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                  Upload Intermediate Marksheet :
+                </label>
+                <input
+                  id="file"
+                  type="file"
+                  accept=".png, .jpg, .jpeg, .pdf"
+                  onChange={(e) => handleFileUpload(e)}
+                  required
+                ></input>
+              </MDBCol>
             </MDBRow>
             <MDBRow style={{ height: "20px" }}></MDBRow>
             <MDBRow>
-            <MDBCol>
-            <label htmlFor="file" style={{paddingBottom:"10px"}}>Upload Diploma Marksheet :</label>
-            <input
-              id="file"
-              type="file"
-              accept=".png, .jpg, .jpeg, .pdf"
-              onChange={(e) => handleFileUpload(e)}
-              
-            ></input>
-            </MDBCol>
-            <MDBCol></MDBCol>
-            </MDBRow>
-            <hr/>
-            
-            {auth=="B.Tech"?
-            <>
-                        <MDBRow style={{ height: "30px" }}><MDBCol>For Undergraduate:</MDBCol></MDBRow>
-            <MDBRow >
               <MDBCol>
-                <label htmlFor="Btech_marksheets">Btech Marksheets (Semester Wise)</label>
-                <select
-                  className="form-control"
-                  name="Btech_marksheets"
-                  id="Btech_marksheets"
-                  required
-                >
-                  <option>--Select Semester--</option>
-                  <option value="1st SEM"> 1st SEMESTER Marksheet</option>
-                  <option value="2nd SEM"> 2nd SEMESTER Marksheet</option>
-                  <option value="3rd SEM"> 3rd SEMESTER Marksheet</option>
-                  <option value="4th SEM"> 4th SEMESTER Marksheet</option>
-                  <option value="5th SEM"> 5th SEMESTER Marksheet</option>
-                  <option value="6th SEM"> 6th SEMESTER Marksheet</option>
-                  <option value="7th SEM"> 7th SEMESTER Marksheet</option>
-                </select>
+                <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                  Upload Diploma Marksheet :
+                </label>
+                <input
+                  id="file"
+                  type="file"
+                  accept=".png, .jpg, .jpeg, .pdf"
+                  onChange={(e) => handleFileUpload(e)}
+                ></input>
               </MDBCol>
+              <MDBCol></MDBCol>
             </MDBRow>
-            </>
-            :
-            <>
-            
-            <MDBRow style={{ height: "30px" }}><MDBCol>For PostGraduate:</MDBCol></MDBRow>
+            <hr />
+
+            {auth == "B.Tech" ? (
+              <>
+                <MDBRow style={{ height: "30px" }}>
+                  <MDBCol>For Undergraduate:</MDBCol>
+                </MDBRow>
+                <MDBRow>
+                  <MDBCol>
+                    <label htmlFor="Btech_marksheets">
+                      Btech Marksheets (Semester Wise)
+                    </label>
+                    <select
+                      className="form-control"
+                      name="Btech_marksheets"
+                      id="Btech_marksheets"
+                      required
+                    >
+                      <option>--Select Semester--</option>
+                      <option value="1st SEM"> 1st SEMESTER Marksheet</option>
+                      <option value="2nd SEM"> 2nd SEMESTER Marksheet</option>
+                      <option value="3rd SEM"> 3rd SEMESTER Marksheet</option>
+                      <option value="4th SEM"> 4th SEMESTER Marksheet</option>
+                      <option value="5th SEM"> 5th SEMESTER Marksheet</option>
+                      <option value="6th SEM"> 6th SEMESTER Marksheet</option>
+                      <option value="7th SEM"> 7th SEMESTER Marksheet</option>
+                    </select>
+                  </MDBCol>
+                </MDBRow>
+              </>
+            ) : (
+              <>
+                <MDBRow style={{ height: "30px" }}>
+                  <MDBCol>For PostGraduate:</MDBCol>
+                </MDBRow>
+                <MDBRow>
+                  <MDBCol>
+                    <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                      Upload Btech-Degree :
+                    </label>
+                    <input
+                      id="file"
+                      type="file"
+                      accept=".png, .jpg, .jpeg, .pdf"
+                      onChange={(e) => handleFileUpload(e)}
+                      required
+                    ></input>
+                  </MDBCol>
+                  <MDBCol>
+                    <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                      Upload Final Btech-Marksheet :
+                    </label>
+                    <input
+                      id="file"
+                      type="file"
+                      accept=".png, .jpg, .jpeg, .pdf"
+                      onChange={(e) => handleFileUpload(e)}
+                      required
+                    ></input>
+                  </MDBCol>
+                </MDBRow>
+                <MDBRow style={{ height: "20px" }}></MDBRow>
+                <MDBRow>
+                  <MDBCol>
+                    <label htmlFor="mtech_marksheets">
+                      Mtech Marksheets (Semester Wise)
+                    </label>
+                    <select
+                      className="form-control"
+                      name="mtech_marksheets"
+                      id="mtech_marksheets"
+                      required
+                    >
+                      <option>--Select Semester--</option>
+                      <option value="1st SEM"> 1st SEMESTER Marksheet</option>
+                      <option value="2nd SEM"> 2nd SEMESTER Marksheet</option>
+                      <option value="3rd SEM"> 3rd SEMESTER Marksheet</option>
+                    </select>
+                  </MDBCol>
+                </MDBRow>
+              </>
+            )}
+
+            <MDBRow style={{ height: "20px" }}></MDBRow>
+            <hr />
             <MDBRow>
-                <MDBCol>
-            <label htmlFor="file" style={{paddingBottom:"10px"}}>Upload Btech-Degree :</label>
-            <input
-              id="file"
-              type="file"
-              accept=".png, .jpg, .jpeg, .pdf"
-              onChange={(e) => handleFileUpload(e)}
-              required
-            ></input>
-            </MDBCol>
-            <MDBCol>
-            <label htmlFor="file" style={{paddingBottom:"10px"}}>Upload Final Btech-Marksheet :</label>
-            <input
-              id="file"
-              type="file"
-              accept=".png, .jpg, .jpeg, .pdf"
-              onChange={(e) => handleFileUpload(e)}
-              required
-            ></input>
-            </MDBCol>
-            </MDBRow>
-            <MDBRow style={{ height: "20px" }}></MDBRow>
-            <MDBRow >
+              {" "}
+              {authh == "Yes" ? (
+                <>
+                  <MDBCol>
+                    <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                      Upload Disability Certificate :
+                    </label>
+                    <input
+                      id="file"
+                      type="file"
+                      accept=".png, .jpg, .jpeg, .pdf"
+                      onChange={(e) => handleFileUpload(e)}
+                      required
+                    ></input>
+                  </MDBCol>
+                </>
+              ) : null}{" "}
               <MDBCol>
-                <label htmlFor="mtech_marksheets">Mtech Marksheets (Semester Wise)</label>
-                <select
-                  className="form-control"
-                  name="mtech_marksheets"
-                  id="mtech_marksheets"
+                <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                  Upload Internship Certificate :
+                </label>
+                <input
+                  id="file"
+                  type="file"
+                  accept=".png, .jpg, .jpeg, .pdf"
+                  onChange={(e) => handleFileUpload(e)}
                   required
-                >
-                  <option>--Select Semester--</option>
-                  <option value="1st SEM"> 1st SEMESTER Marksheet</option>
-                  <option value="2nd SEM"> 2nd SEMESTER Marksheet</option>
-                  <option value="3rd SEM"> 3rd SEMESTER Marksheet</option>
-                </select>
+                ></input>
               </MDBCol>
             </MDBRow>
-           </>}
-           
             <MDBRow style={{ height: "20px" }}></MDBRow>
-            <hr/>
-            <MDBRow>           {authh=="Yes"?
-            <>
-            
-            <MDBCol>
-            <label htmlFor="file" style={{paddingBottom:"10px"}}>Upload Disability Certificate :</label>
-            <input
-              id="file"
-              type="file"
-              accept=".png, .jpg, .jpeg, .pdf"
-              onChange={(e) => handleFileUpload(e)}
-              required
-            ></input>
-            </MDBCol>
-           
-            </>
-            :null
-} <MDBCol>
-            <label htmlFor="file" style={{paddingBottom:"10px"}}>Upload Internship Certificate :</label>
-            <input
-              id="file"
-              type="file"
-              accept=".png, .jpg, .jpeg, .pdf"
-              onChange={(e) => handleFileUpload(e)}
-              required
-            ></input>
-            </MDBCol></MDBRow>
-            <MDBRow style={{ height: "20px" }}></MDBRow>
-            
-            
-            
+
             <MDBRow style={{ height: "20px" }}></MDBRow>
           </form>
 
-          <MDBRow>{save_update()}</MDBRow>
+          <MDBRow>
+            <MDBCol>
+              <MDBBtn type="submit">Save</MDBBtn>
+            </MDBCol>
+            <MDBCol>
+              <MDBBtn onClick={uploadData}>Submit</MDBBtn>
+            </MDBCol>
+          </MDBRow>
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>

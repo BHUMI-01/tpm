@@ -8,12 +8,14 @@ import {
   MDBCardBody,
   MDBInput,
 } from "mdb-react-ui-kit";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import { Country, State, City } from "country-state-city";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
 const Editstdprofile = () => {
+  const navigate = useNavigate();
+  const [nextButton, setnextbutton] = useState(true);
   const [fatherName, setfatherName] = useState("");
   const [motherName, setmotherName] = useState("");
   const [gender, setgender] = useState("");
@@ -36,34 +38,24 @@ const Editstdprofile = () => {
     const auth = localStorage.getItem("stdprofile");
     if (auth) {
       getProductDetails();
+      const details = JSON.parse(auth);
+      delete details.alternateNum;
+      const isEmpty = Object.values(details).some(
+        (x) => x === null || x === ""
+      );
+      if (isEmpty) {
+        setnextbutton(true);
+      } else {
+        setnextbutton(false);
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const setEmpty = () => {
-    setfatherName("");
-    setmotherName("");
-    setDisability("");
-    setaadharNum("");
-    setalternateNum("");
-    setmobNum("");
-    setenrollNum("");
-    setbloodGroup("");
-    setcaste("");
-    setdob("");
-    setgender("");
-    setnationality("");
-    setreligion("");
-    setstate("");
-    setcity("");
-  };
   const getProductDetails = async () => {
     let result = JSON.parse(localStorage.getItem("stdprofile"));
     console.log(result);
 
-    if (!result) {
-      setEmpty();
-    } else {
+    if (result) {
       setfatherName(result.fatherName);
       setmotherName(result.motherName);
       setDisability(result.disability);
@@ -102,6 +94,11 @@ const Editstdprofile = () => {
     });
     localStorage.setItem("stdprofile", profi);
   };
+
+  const NextButton = () => {
+    navigate("/student/addstdperaddress");
+  };
+
 
   const CountryVar = Country.getAllCountries();
   const StateVar = State.getStatesOfCountry(nationality);
@@ -414,25 +411,31 @@ const Editstdprofile = () => {
 
             <MDBRow style={{ height: "20px" }}></MDBRow>
             <MDBRow>
-                <MDBRow>
+              <MDBRow>
+                <MDBCol>
+                  <MDBBtn
+                    type="submit"
+                    onClick={() => {
+                      set_student_profile();
+                    }}
+                  >
+                    Save
+                  </MDBBtn>
+                </MDBCol>
+                {/* {nextButton ? ( */}
                   <MDBCol>
                     <MDBBtn
-                      type="submit"
+                      type="button"
                       onClick={() => {
-                        set_student_profile();
-                        getProductDetails();
+                        NextButton();
                       }}
+                      disabled={nextButton}
                     >
-                      Save
-                    </MDBBtn>
-                  </MDBCol>
-                  <MDBCol>
-                    <Link to="/student/addstdperaddress"><MDBBtn type="submit">
                       Next
                     </MDBBtn>
-                    </Link>
                   </MDBCol>
-                </MDBRow>
+                {/* ) : null} */}
+              </MDBRow>
             </MDBRow>
           </form>
         </MDBCardBody>
@@ -442,4 +445,3 @@ const Editstdprofile = () => {
 };
 
 export default Editstdprofile;
-

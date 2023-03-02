@@ -9,22 +9,35 @@ import {
 } from "mdb-react-ui-kit";
 import { useState } from "react";
 import { Button } from "../../components/Student/Education/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddQualify from "../../components/Student/Education/addqualify";
 
 const AddEducat = () => {
+  const navigate = useNavigate();
   const [show, setShow] = useState(["Sample"]);
 
   const shootdiv = () => {
     setShow([...show, "Sample"]);
-  }
+  };
+  const NextButton = () => {
+    navigate("/student/reviewform");
+  };
   return (
     <>
       <MDBContainer fluid>
         <MDBCard className="text-black m-5">
           <MDBCardBody>
+          <MDBRow style={{ height: "20px" }}></MDBRow>
+            <MDBRow>
+              <MDBCol>
+                <Link to="/student/addstdperaddress">
+                  <MDBBtn type="button">Back</MDBBtn>
+                </Link>
+              </MDBCol>
+            </MDBRow>
+            <MDBRow style={{ height: "20px" }}></MDBRow>
             <form>
-              <h2>Qualification Details</h2>
+              <h3>Qualification Details</h3>
               <MDBRow style={{ height: "20px" }}></MDBRow>
               {show.map((item, i) => (
                 <MDBRow key={item}>
@@ -39,7 +52,16 @@ const AddEducat = () => {
             <MDBRow style={{ height: "50px" }}></MDBRow>
             <MDBRow>
               <MDBRow>
-                <Link to="/student/uploaddoc"><MDBBtn type="submit">Next</MDBBtn></Link>
+                <MDBCol>
+                  <MDBBtn
+                    type="submit"
+                    onClick={() => {
+                      NextButton();
+                    }}
+                  >
+                    Next
+                  </MDBBtn>
+                </MDBCol>
               </MDBRow>
             </MDBRow>
           </MDBCardBody>
