@@ -523,7 +523,7 @@ const Review = () => {
                   }}
                     disabled={nextButton}
                 >
-                  Next
+                  Submit
                 </MDBBtn>
               </MDBCol>
             </MDBRow>
