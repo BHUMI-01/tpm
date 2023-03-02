@@ -7,14 +7,8 @@ require("./db/config");
 const Student = require("./models/students/Student");
 const Recruiter = require('./models/recruiters/Recruiter');
 const Student_Data = require('./models/students/Student_Data');
-
-// const Student_prof = require("./models/students/Student_profile");
-// const Student_Per_Address = require("./models/students/Student_Per_Address");
-// const Student_Temp_Address = require("./models/students/Student_Temp_Address");
-// const Student_quali = require('./models/students/Student_qualify');
 // const Student_File_Uplod = require('./models/students/Student_File_Upload');
-
-
+s
 // middlewares
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
