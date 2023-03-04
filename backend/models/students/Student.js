@@ -30,12 +30,11 @@ const studentSchema = new mongoose.Schema({
   },
 });
 
-studentSchema.plugin(uniqueValidator);
+studentSchema.pre('save', async function(next){
+	if(!this.isModified('password')) return next();
+	// this.password = await bcrypt.hash(this.password, 12);
+  this.passwordConfirm = undefined;
+  next();
+})
 
-// studentSchema.pre('save', async function(next){
-// 	let user= this
-// 	if(!user.isModified('password')) return next();
-// 	user.password = await bcrypt.hash(user.password, 16)
-// 	user.passwordConfirm= undefined;
-// })
 module.exports = mongoose.model("students", studentSchema);

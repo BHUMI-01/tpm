@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     MDBContainer,
     MDBRow,
     MDBCol,
     MDBBtnGroup
 } from 'mdb-react-ui-kit';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 function Student() {
+    const authorize = JSON.parse(localStorage.getItem("token"));
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!authorize) {
+          navigate('/');
+        }
+      }, [])
+    
     return (
         <MDBContainer className="my-5 gradient-form">
             <MDBRow>

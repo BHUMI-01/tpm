@@ -15,7 +15,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   useEffect(() => { 
-    const auth = localStorage.getItem("student");
+    const auth = localStorage.getItem("token");
     if (auth) {
       navigate('/student');
     }
@@ -31,7 +31,8 @@ const Login = () => {
     });
     result = await result.json();
     if (result.result != "No User Found") {
-      localStorage.setItem("student", JSON.stringify(result));
+      localStorage.setItem("student", JSON.stringify(result.student));
+      localStorage.setItem("student", JSON.stringify(result.auth));
       navigate('/student');
     }
     else{

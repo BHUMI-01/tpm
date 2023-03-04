@@ -21,7 +21,11 @@ const Qualification = () => {
     }, []);
 
     const getQualify = async () => {
-        let result = await fetch(`http://localhost:5000/add-data/${idd}`);
+        let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+            headers: {
+                "authorization": JSON.parse(localStorage.getItem("token")),
+            },
+        });
         result = await result.json();
         //  console.warn(result.stdeducat);
         setQualify(result.stdeducat);

@@ -20,14 +20,22 @@ function Address() {
     }, []);
 
     const getPerAddress = async () => {
-        let result = await fetch(`http://localhost:5000/add-data/${idd}`);
+        let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+            headers: {
+                "authorization": JSON.parse(localStorage.getItem("token")),
+            },
+        });
         result = await result.json();
         setPeraddress(result.stdperadd);
         localStorage.setItem("stdperaddress", JSON.stringify(result.stdperadd));
     }
     
     const getTempAddress = async () => {
-        let result = await fetch(`http://localhost:5000/add-data/${idd}`);
+        let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+            headers: {
+                "authorization": JSON.parse(localStorage.getItem("token")),
+            },
+        });
         result = await result.json();
         setTempaddress(result.stdtempadd);
         localStorage.setItem("stdperaddress", JSON.stringify(result.stdtempadd));

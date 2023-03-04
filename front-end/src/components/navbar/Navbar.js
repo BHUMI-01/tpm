@@ -17,11 +17,11 @@ function navbar() {
   const navigate = useNavigate;
 
   const shoot = () => {
-
     if (localStorage.getItem("student")) {
       const name = JSON.parse(localStorage.getItem("student")).firstName;
-      return <div className="menu2">
-          <MDBDropdown>
+      return <div className="menu">
+        <Link to='/student'><i className="fa-solid fa-user"></i> {name}</Link>
+        {/* <MDBDropdown>
             <MDBDropdownToggle variant="success">
               <i className="fa-solid fa-user"></i> {name}
             </MDBDropdownToggle>
@@ -39,7 +39,7 @@ function navbar() {
                 <Link to="/student/uploaddoc" style={{color: "black"}}>Upload</Link>
               </MDBDropdownItem>
             </MDBDropdownMenu>
-          </MDBDropdown>
+          </MDBDropdown> */}
       </div>
     }
     else if (localStorage.getItem("recruiter")) {

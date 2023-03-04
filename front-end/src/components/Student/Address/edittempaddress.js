@@ -25,7 +25,7 @@ function EditTempaddress() {
     if (auth) {
       getTempAddressDetails();
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -41,7 +41,11 @@ function EditTempaddress() {
   };
   const idd = JSON.parse(localStorage.getItem("student"))._id;
   const getTempAddressDetails = async () => {
-    let result = await fetch(`http://localhost:5000/add-data/${idd}`);
+    let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+      headers: {
+        "authorization": JSON.parse(localStorage.getItem("token")),
+      },
+    });
     result = await result.json();
     console.log(result);
     if (!result) {
@@ -70,26 +74,29 @@ function EditTempaddress() {
     });
     localStorage.setItem("stdtempaddress", profi);
   };
-  const update_tempaddress= async () => {
-    const result =await fetch(`http://localhost:5000/update-data/${idd}`, {
+  const update_tempaddress = async () => {
+    const result = await fetch(`http://localhost:5000/update-data/${idd}`, {
       method: "put",
-      body: JSON.stringify({stdtempadd:{
-        flatNo,
-      area,
-      landmark,
-      locality,
-      city,
-      postalCode,
-      country,
-      province,}
+      body: JSON.stringify({
+        stdtempadd: {
+          flatNo,
+          area,
+          landmark,
+          locality,
+          city,
+          postalCode,
+          country,
+          province,
+        }
       }),
       headers: {
         "Content-Type": "application/json",
+        "authorization": JSON.parse(localStorage.getItem("token")),
       },
-      
+
     });
-    result= await result.json();
-    
+    result = await result.json();
+
   };
   const CountryVar = Country.getAllCountries();
   const StateVar = State.getStatesOfCountry(country);
@@ -257,7 +264,7 @@ function EditTempaddress() {
 
               <MDBRow style={{ height: "20px" }}></MDBRow>
               <MDBRow>
-              <MDBRow>
+                <MDBRow>
                   <MDBCol>
                     <MDBBtn
                       type="submit"
@@ -270,7 +277,7 @@ function EditTempaddress() {
                     </MDBBtn>
                   </MDBCol>
                   <MDBCol>
-                  <Link to='/student/stdaddress'><MDBBtn>Back</MDBBtn></Link>
+                    <Link to='/student/stdaddress'><MDBBtn>Back</MDBBtn></Link>
                   </MDBCol>
                 </MDBRow>
               </MDBRow>

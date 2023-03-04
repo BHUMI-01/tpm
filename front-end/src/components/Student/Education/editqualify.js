@@ -40,7 +40,11 @@ const Editqualify = () => {
   }
   const idd = JSON.parse(localStorage.getItem("student"))._id;
   const getQualifyDetails = async () => {
-    let resu = await fetch(`http://localhost:5000/add-data/${idd}`);
+    let resu = await fetch(`http://localhost:5000/add-data/${idd}`, {
+      headers: {
+          "authorization": JSON.parse(localStorage.getItem("token")),
+      },
+  });
     resu = await resu.json();
     varvalue = resu.stdeducat;
     let len = varvalue.length;
@@ -83,6 +87,7 @@ const Editqualify = () => {
         }),
         headers: {
           "Content-Type": "application/json",
+          "authorization": JSON.parse(localStorage.getItem("token")),
         },
       }
     );

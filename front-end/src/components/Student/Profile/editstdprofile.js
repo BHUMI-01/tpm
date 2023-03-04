@@ -59,7 +59,11 @@ const Editstdprofile = () => {
   };
   const idd = JSON.parse(localStorage.getItem("student"))._id;
   const getProfileDetails = async () => {
-    let result = await fetch(`http://localhost:5000/add-data/${idd}`);
+    let result = await fetch(`http://localhost:5000/add-data/${idd}`,{
+      headers: {
+        "authorization": JSON.parse(localStorage.getItem("token")),
+      },
+    });
     result = await result.json();
     console.log(result);
 
@@ -125,6 +129,7 @@ const Editstdprofile = () => {
       }),
       headers: {
         "Content-Type": "application/json",
+        "authorization": JSON.parse(localStorage.getItem("token")),
       },
       
     });

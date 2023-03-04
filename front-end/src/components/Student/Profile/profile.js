@@ -19,17 +19,20 @@ const Profile = () => {
     const lastN = JSON.parse(localStorage.getItem("student")).lastName;
     const [profiles, setProfiles] = useState([]);
     useEffect(() => {
-          getProfiles();
-
+        getProfiles();
     }, []);
 
     const getProfiles = async () => {
-        let result = await fetch(`http://localhost:5000/add-data/${idd}`);
+        let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+            headers: {
+                "authorization": JSON.parse(localStorage.getItem("token")),
+            },
+        });
         result = await result.json();
-        //  console.warn(result.stdprofile);
+        console.warn(result.stdprofile);
         setProfiles(result.stdprofile);
         localStorage.setItem("stdprofile", JSON.stringify(result.stdprofile));
-        
+
     }
     console.log(profiles);
     return (
@@ -62,7 +65,7 @@ const Profile = () => {
                             </tr>
                             <tr>
                                 <td>4</td>
-                                <td>Father's Name</td>                
+                                <td>Father's Name</td>
                                 <td>{profiles.fatherName}</td>
                             </tr>
                             <tr>

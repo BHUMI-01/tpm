@@ -18,11 +18,11 @@ const Stdregister = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
-    const auth = localStorage.getItem("student");
+    const auth = localStorage.getItem("token");
     if (auth) {
       navigate('/student/addstdprofile');
     }
-  })
+  }, [])
 
   const collectData = async () => {
     let result = await fetch("http://localhost:5000/register", {
@@ -32,14 +32,19 @@ const Stdregister = () => {
         'Content-Type': 'application/json'
       }
     });
+    console.log(result);
     result = await result.json();
     console.log(result);
+    console.log("it worked...");
     if (result.result == "user already enrolled") {
-      alert("User Already Registered");
-      
+      alert("User Already Registered"); 
+    }
+    else if(result.result == "Something is wrong!"){
+      alert("Something is wrong! Please try it again!!"); 
     }
     else {
-      localStorage.setItem("student", JSON.stringify(result));
+      localStorage.setItem("student", JSON.stringify(result.result));
+      localStorage.setItem("token", JSON.stringify(result.auth));
       navigate('/student/addstdprofile');
     }
   }
