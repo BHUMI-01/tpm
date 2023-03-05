@@ -2,12 +2,6 @@ import React from 'react';
 import './Navbar.css';
 import { Container } from 'react-bootstrap'
 import {
-  MDBDropdown,
-  MDBDropdownMenu,
-  MDBDropdownToggle,
-  MDBDropdownItem
-} from 'mdb-react-ui-kit';
-import {
   Link, useNavigate
 } from 'react-router-dom';
 
@@ -19,38 +13,13 @@ function navbar() {
   const shoot = () => {
     if (localStorage.getItem("student")) {
       const name = JSON.parse(localStorage.getItem("student")).firstName;
-      return <div className="menu">
-        <Link to='/student'><i className="fa-solid fa-user"></i> {name}</Link>
-        {/* <MDBDropdown>
-            <MDBDropdownToggle variant="success">
-              <i className="fa-solid fa-user"></i> {name}
-            </MDBDropdownToggle>
-            <MDBDropdownMenu>
-              <MDBDropdownItem>
-                <Link to="/student/stdprofile" style={{color: "black"}}>Profile</Link>
-              </MDBDropdownItem>
-              <MDBDropdownItem>
-                <Link to="/student/stdaddress" style={{color: "black"}}>Address</Link>
-              </MDBDropdownItem>
-              <MDBDropdownItem>
-                <Link to="/student/stdqualify" style={{color: "black"}}>Qualification</Link>
-              </MDBDropdownItem>
-              <MDBDropdownItem>
-                <Link to="/student/uploaddoc" style={{color: "black"}}>Upload</Link>
-              </MDBDropdownItem>
-            </MDBDropdownMenu>
-          </MDBDropdown> */}
-      </div>
+      return <li><Link to='/student'><i className="fa-solid fa-user"></i> {name}</Link></li>
     }
     else if (localStorage.getItem("recruiter")) {
-      return <ul>
-        <li><Link to="/recruiter">Profile</Link></li>
-      </ul>
+      return <li><Link to="/recruiter">Profile</Link></li>
     }
     else {
-      return <ul>
-        <li><Link to="/admin">Profile</Link></li>
-      </ul>
+      return <li><Link to="/admin">Profile</Link></li>
     }
   }
 

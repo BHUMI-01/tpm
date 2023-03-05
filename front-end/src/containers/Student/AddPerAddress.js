@@ -6,9 +6,7 @@ import {
   MDBCol,
   MDBCard,
   MDBCardBody,
-  MDBCheckbox,
   MDBRadio,
-  MDBRange,
 } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import { Country, State, City } from "country-state-city";

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
   MDBBtn,
-  MDBContainer,
   MDBRow,
   MDBCol,
-  MDBCard,
-  MDBCardBody,
 } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import { Country, State, City } from "country-state-city";
@@ -24,7 +21,6 @@ function AddTempaddress() {
 
   useEffect(() => {
     const auth = localStorage.getItem("stdtempaddress");
-
     if (auth) {
       getTempAddressDetails();
       const details = JSON.parse(auth);

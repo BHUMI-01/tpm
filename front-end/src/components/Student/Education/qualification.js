@@ -9,11 +9,12 @@ import {
     MDBTableBody
 }
     from 'mdb-react-ui-kit';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const Qualification = () => {
-    const idd = JSON.parse(localStorage.getItem("student"))._id;
+    const authorize = JSON.parse(localStorage.getItem("token"));
+    const navigate = useNavigate();
     const [qualifies, setQualify] = useState([]);
     useEffect(() => {
         getQualify();
@@ -21,17 +22,22 @@ const Qualification = () => {
     }, []);
 
     const getQualify = async () => {
-        let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
-            headers: {
-                "authorization": JSON.parse(localStorage.getItem("token")),
-            },
-        });
-        result = await result.json();
-        //  console.warn(result.stdeducat);
-        setQualify(result.stdeducat);
-        localStorage.setItem("stdqualify", JSON.stringify(result.stdeducat));
+        if (authorize) {
+            const idd = JSON.parse(localStorage.getItem("student"))._id;
+            let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+                headers: {
+                    "authorization": JSON.parse(localStorage.getItem("token")),
+                },
+            });
+            result = await result.json();
+            setQualify(result.stdeducat);
+            localStorage.setItem("stdqualify", JSON.stringify(result.stdeducat));
+        }
+        else {
+            navigate("/");
+        }
     }
-    console.log(qualifies);
+
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>
@@ -83,17 +89,6 @@ const Qualification = () => {
                                             <td><Link to={`/student/editstdqualify/${item._id}`}><MDBBtn>edit</MDBBtn></Link></td>
                                         </tr>
                                     )
-                                    // <tr >
-                                    //     <td>{qualifies.qualifyLevel}</td>
-                                    //     <td>{qualifies.qualifyName}</td>
-                                    //     <td>{qualifies.passYear}</td>
-                                    //     <td>{qualifies.rollNum}</td>
-                                    //     <td>{qualifies.board}</td>
-                                    //     <td>{qualifies.resultStatus}</td>
-                                    //     <td>{qualifies.gradeSys}</td>
-                                    //     <td>{qualifies.grade}</td>
-                                    //     <td><Link to={`/student/editstdqualify/${qualifies._id}`}><MDBBtn>edit</MDBBtn></Link></td>
-                                    // </tr>
                             }
                         </MDBTableBody>
                     </MDBTable>

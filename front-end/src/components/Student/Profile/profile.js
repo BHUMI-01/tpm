@@ -10,31 +10,38 @@ import {
 }
     from 'mdb-react-ui-kit';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-    const idd = JSON.parse(localStorage.getItem("student"))._id;
-    const firstN = JSON.parse(localStorage.getItem("student")).firstName;
-    const middleN = JSON.parse(localStorage.getItem("student")).middleName;
-    const lastN = JSON.parse(localStorage.getItem("student")).lastName;
+    const auth = JSON.parse(localStorage.getItem("token"));
+    const navigate = useNavigate();
     const [profiles, setProfiles] = useState([]);
+    const [firstN, setFirst] = useState("");
+    const [middleN, setMiddle] = useState("");
+    const [lastN, setLast] = useState("");
     useEffect(() => {
         getProfiles();
     }, []);
 
     const getProfiles = async () => {
-        let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+        if (auth) {
+            const idd = JSON.parse(localStorage.getItem("student"))._id;
+            setFirst(JSON.parse(localStorage.getItem("student")).firstName);
+            setMiddle(JSON.parse(localStorage.getItem("student")).middleName);
+            setLast(JSON.parse(localStorage.getItem("student")).lastName);
+            let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
             headers: {
                 "authorization": JSON.parse(localStorage.getItem("token")),
             },
         });
         result = await result.json();
-        console.warn(result.stdprofile);
         setProfiles(result.stdprofile);
         localStorage.setItem("stdprofile", JSON.stringify(result.stdprofile));
-
+        }
+        else{
+            navigate("/");
+        }
     }
-    console.log(profiles);
     return (
         <MDBContainer fluid>
             <MDBCard className='text-black m-5'>
@@ -122,21 +129,6 @@ const Profile = () => {
                                 <td>15</td>
                                 <td>Religion</td>
                                 <td>{profiles.religion}</td>
-                            </tr>
-                            <tr>
-                                <td>16</td>
-                                <td>Nationality</td>
-                                <td>{profiles.nationality}</td>
-                            </tr>
-                            <tr>
-                                <td>17</td>
-                                <td>Province</td>
-                                <td>{profiles.state}</td>
-                            </tr>
-                            <tr>
-                                <td>18</td>
-                                <td>City</td>
-                                <td>{profiles.city}</td>
                             </tr>
                         </tbody>
                     </Table>

@@ -54,7 +54,7 @@ app.post("/register", async (req, resp) => {
     }
     catch (err) {
         console.log(err);
-        resp.send({result: "Something is wrong!"});
+        resp.send({ result: "Something is wrong!" });
     }
 })
 
@@ -122,23 +122,30 @@ app.post("/comp-login", async (req, resp) => {
 
 
 //Experimental nested scheme
-app.post("/add-data",verifyToken, async (req, resp) => {
+app.post("/add-data", verifyToken, async (req, resp) => {
     let student = new Student_Data(req.body);
     let result = await student.save();
     resp.send(result);
 })
 
 app.get("/add-data/:id",verifyToken, async (req, resp) => {
-    const data = await Student_Data.findOne({ studentId: req.params.id });
-    if (data) {
-        resp.send(data)
+    try {
+        const data = await Student_Data.findOne({ studentId: req.params.id });
+        console.log(data);
+        if (data) {
+            resp.send(data)
+            console.log("data send done");
+        }
+        else {
+            resp.send({ result: "No User Found" })
+        }
     }
-    else {
-        resp.send({ result: "No User Found" })
+    catch (err) {
+        resp.send(err);
     }
 })
 
-app.put("/update-data/:id",verifyToken, async (req, resp) => {
+app.put("/update-data/:id", verifyToken, async (req, resp) => {
     const result = await Student_Data.updateOne(
         { studentId: req.params.id },
         {
@@ -148,7 +155,7 @@ app.put("/update-data/:id",verifyToken, async (req, resp) => {
     resp.send(result);
 })
 
-app.get("/add-data-qualify/:id",verifyToken, async (req, resp) => {
+app.get("/add-data-qualify/:id", verifyToken, async (req, resp) => {
     const data = await Student_Data.find({ "stdeducat._id": req.params.id });
     console.log(data);
     if (data) {
@@ -159,20 +166,21 @@ app.get("/add-data-qualify/:id",verifyToken, async (req, resp) => {
     }
 })
 
-function verifyToken(req, resp, next){
+function verifyToken(req, resp, next) {
     let token = req.headers['authorization'];
-    if(token){
-        Jwt.verify(token, jwtKey, (err, valid) =>{
-            if(err){
-                resp.status(401).send({result: "Please enter a valid token!"});
+    console.log(token);
+    if (token) {
+        Jwt.verify(token, jwtKey, (err, valid) => {
+            if (err) {
+                resp.status(401).send({ result: "Please enter a valid token!" });
             }
-            else{
+            else {
                 next();
             }
         })
     }
-    else{
-        resp.status(403).send({result: "Please enter a token!"});
+    else {
+        resp.status(403).send({ result: "Please enter a token!" });
     }
 }
 

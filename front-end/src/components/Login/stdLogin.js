@@ -14,7 +14,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  useEffect(() => { 
+  useEffect(() => {
     const auth = localStorage.getItem("token");
     if (auth) {
       navigate('/student');
@@ -30,13 +30,13 @@ const Login = () => {
       }
     });
     result = await result.json();
-    if (result.result != "No User Found") {
-      localStorage.setItem("student", JSON.stringify(result.student));
-      localStorage.setItem("student", JSON.stringify(result.auth));
-      navigate('/student');
-    }
-    else{
+    if (result.result) {
       alert("Please enter correct details");
+    }
+    else {
+      localStorage.setItem("student", JSON.stringify(result.student));
+      localStorage.setItem("token", JSON.stringify(result.auth));
+      // navigate('/student');
     }
   }
 
@@ -45,6 +45,7 @@ const Login = () => {
       <MDBCard className='text-black m-5' style={{ borderRadius: '25px' }}>
         <MDBCardBody>
           <MDBRow>
+            {/* 1st half part of the login api */}
             <MDBCol col='6' className="mb-5">
               <form >
                 <h3>Sign In</h3>
@@ -95,6 +96,10 @@ const Login = () => {
                 </p>
               </form>
             </MDBCol>
+            {/* 1st half part end here */}
+
+
+            {/* 2nd half part of the login api */}
             <MDBCol col='6' className="mb-5">
               <div className="d-flex flex-column  justify-content-center gradient-custom-2 h-100 mb-4">
                 <div className="text-white px-3 py-4 p-md-5 mx-md-4">
@@ -105,6 +110,7 @@ const Login = () => {
                 </div>
               </div>
             </MDBCol>
+            {/* 2nd half part end here */}
           </MDBRow>
         </MDBCardBody>
       </MDBCard>

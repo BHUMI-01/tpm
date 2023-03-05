@@ -9,7 +9,7 @@ import {
   MDBInput,
 } from "mdb-react-ui-kit";
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 const Editqualify = () => {
   const [qualifyLevel, setqualifyLevel] = useState("");
@@ -21,14 +21,16 @@ const Editqualify = () => {
   const [gradeSys, setgradeSys] = useState("");
   const [grade, setGrade] = useState("");
   const { id } = useParams();
-  let i=0;
+  const authorize = JSON.parse(localStorage.getItem("token"));
+  const navigate = useNavigate();
+  let i = 0;
   let varvalue;
   useEffect(() => {
     getQualifyDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const setvalue = () =>{
+  const setvalue = () => {
     setqualifyLevel(varvalue[i].qualifyLevel);
     setpassYear(varvalue[i].passYear);
     setqualifyName(varvalue[i].qualifyName);
@@ -38,58 +40,43 @@ const Editqualify = () => {
     setgradeSys(varvalue[i].gradeSys);
     setGrade(varvalue[i].grade);
   }
-  const idd = JSON.parse(localStorage.getItem("student"))._id;
-  const getQualifyDetails = async () => {
-    let resu = await fetch(`http://localhost:5000/add-data/${idd}`, {
-      headers: {
-          "authorization": JSON.parse(localStorage.getItem("token")),
-      },
-  });
-    resu = await resu.json();
-    varvalue = resu.stdeducat;
-    let len = varvalue.length;
-    
-    for(i=0; i<len; i++){
-      if(varvalue[i]._id == id){
-        setvalue();
-      }
-    }
-    
-  };
 
-  const set_student_qualify = async () => {
-    const profi = JSON.stringify({
-      qualifyLevel,
-          qualifyName,
-          passYear,
-          board,
-          rollNum,
-          resultStatus,
-          gradeSys,
-          grade,
-    });
-    localStorage.setItem("stdqualify", profi);
-  };
-  const update_qualify = async () => {
-    await fetch(
-      `http://localhost:5000/update-data/${idd}`,
-      {
-        method: "put",
-        body: JSON.stringify({stdeducat:{
-          qualifyLevel,
-          qualifyName,
-          passYear,
-          board,
-          rollNum,
-          resultStatus,
-          gradeSys,
-          grade,}
-        }),
+  const getQualifyDetails = async () => {
+    if (authorize) {
+      const idd = JSON.parse(localStorage.getItem("student"))._id;
+      let resu = await fetch(`http://localhost:5000/add-data/${idd}`, {
         headers: {
-          "Content-Type": "application/json",
           "authorization": JSON.parse(localStorage.getItem("token")),
         },
+      });
+      resu = await resu.json();
+      varvalue = resu.stdeducat;
+      let len = varvalue.length;
+
+      for (i = 0; i < len; i++) {
+        if (varvalue[i]._id == id) {
+          setvalue();
+        }
       }
+    }
+    else {
+      navigate("/");
+    }
+  };
+
+  const update_qualify = async () => {
+    const idd = JSON.parse(localStorage.getItem("student"))._id;
+    await fetch(`http://localhost:5000/update-data/${idd}`, {
+      method: "put",
+      body: JSON.stringify({
+        stdeducat: { qualifyLevel, qualifyName, passYear, board,
+          rollNum, resultStatus, gradeSys, grade, }
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": JSON.parse(localStorage.getItem("token")),
+      },
+    }
     );
   };
 
@@ -97,11 +84,11 @@ const Editqualify = () => {
     <MDBContainer fluid>
       <MDBCard className="text-black m-5">
         <MDBCardBody>
-        <form>
+          <form>
             <MDBRow>
               <MDBCol>Qualification Details</MDBCol>
             </MDBRow>
-            <hr/>
+            <hr />
             <MDBRow>
               <MDBCol>
                 <label>Qualification Level :</label>
@@ -119,7 +106,7 @@ const Editqualify = () => {
                   <option value="Intermediate">Intermediate</option>
                   <option value="Diploma">Diploma</option>
                   <option value="B.Tech">
-                  B.Tech
+                    B.Tech
                   </option>
                   <option value="M.Tech">M.Tech</option>
                 </select>
@@ -214,7 +201,7 @@ const Editqualify = () => {
                   <option value="CPI">CPI</option>
                   <option value="CGPA">CGPA</option>
                   <option value="Percentage">Percentage</option>
-                  </select>
+                </select>
               </MDBCol>
               <MDBCol>
                 <label>Grade / % :</label>
@@ -230,7 +217,7 @@ const Editqualify = () => {
             </MDBRow>
             <MDBRow>
               <MDBCol>
-                <MDBBtn type="submit" onClick={() => {set_student_qualify();update_qualify();}}>
+                <MDBBtn type="submit" onClick={() => { update_qualify(); }}>
                   Update
                 </MDBBtn>
               </MDBCol>

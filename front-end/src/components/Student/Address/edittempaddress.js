@@ -7,7 +7,7 @@ import {
   MDBCard,
   MDBCardBody,
 } from "mdb-react-ui-kit";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Country, State, City } from "country-state-city";
 
 function EditTempaddress() {
@@ -19,38 +19,22 @@ function EditTempaddress() {
   const [postalCode, setpostalCode] = useState("");
   const [country, setcountry] = useState("");
   const [province, setprovince] = useState("");
-
+  const authorize = JSON.parse(localStorage.getItem("token"));
+  const navigate = useNavigate();
   useEffect(() => {
-    const auth = localStorage.getItem("stdperaddress");
-    if (auth) {
-      getTempAddressDetails();
-    }
-
+    getTempAddressDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const setEmpty = () => {
-    setflatNo("");
-    setarea("");
-    setlandmark("");
-    setlocality("");
-    setcity("");
-    setpostalCode("");
-    setcountry("");
-    setprovince("");
-  };
-  const idd = JSON.parse(localStorage.getItem("student"))._id;
   const getTempAddressDetails = async () => {
-    let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
-      headers: {
-        "authorization": JSON.parse(localStorage.getItem("token")),
-      },
-    });
-    result = await result.json();
-    console.log(result);
-    if (!result) {
-      setEmpty();
-    } else {
+    if (authorize) {
+      const idd = JSON.parse(localStorage.getItem("student"))._id;
+      let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+        headers: {
+          "authorization": JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      result = await result.json();
       setflatNo(result.stdtempadd.flatNo);
       setarea(result.stdtempadd.area);
       setlandmark(result.stdtempadd.landmark);
@@ -60,44 +44,28 @@ function EditTempaddress() {
       setcountry(result.stdtempadd.country);
       setprovince(result.stdtempadd.province);
     }
+    else {
+      navigate("/");
+    }
   };
-  const set_student_tempaddress = async () => {
-    const profi = JSON.stringify({
-      flatNo,
-      area,
-      landmark,
-      locality,
-      city,
-      postalCode,
-      country,
-      province,
-    });
-    localStorage.setItem("stdtempaddress", profi);
-  };
+
   const update_tempaddress = async () => {
-    const result = await fetch(`http://localhost:5000/update-data/${idd}`, {
+    const idd = JSON.parse(localStorage.getItem("student"))._id;
+    await fetch(`http://localhost:5000/update-data/${idd}`, {
       method: "put",
       body: JSON.stringify({
         stdtempadd: {
-          flatNo,
-          area,
-          landmark,
-          locality,
-          city,
-          postalCode,
-          country,
-          province,
-        }
+          flatNo, area, landmark, locality, city, postalCode, country,
+          province, }
       }),
       headers: {
         "Content-Type": "application/json",
         "authorization": JSON.parse(localStorage.getItem("token")),
       },
 
-    });
-    result = await result.json();
-
+    });;
   };
+
   const CountryVar = Country.getAllCountries();
   const StateVar = State.getStatesOfCountry(country);
   const CityVar = City.getCitiesOfState(country, province);
@@ -268,10 +236,7 @@ function EditTempaddress() {
                   <MDBCol>
                     <MDBBtn
                       type="submit"
-                      onClick={() => {
-                        set_student_tempaddress();
-                        update_tempaddress();
-                      }}
+                      onClick={() => { update_tempaddress(); }}
                     >
                       Update
                     </MDBBtn>

@@ -8,8 +8,7 @@ import {
   MDBCardBody,
   MDBInput,
 } from "mdb-react-ui-kit";
-import { Link } from "react-router-dom";
-import { Country, State, City } from "country-state-city";
+import { Link, useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -26,50 +25,27 @@ const Editstdprofile = () => {
   const [bloodGroup, setbloodGroup] = useState("");
   const [caste, setcaste] = useState("");
   const [religion, setreligion] = useState("");
-  const [nationality, setnationality] = useState("");
-  const [state, setstate] = useState("");
-  const [city, setcity] = useState("");
-  const firstN = JSON.parse(localStorage.getItem("student")).firstName;
-  const middleN = JSON.parse(localStorage.getItem("student")).middleName;
-  const lastN = JSON.parse(localStorage.getItem("student")).lastName;
+  const [firstN, setFirst] = useState("");
+  const [lastN, setLast] = useState("");
+  const [middleN, setMiddle] = useState("");
+  const authorize = JSON.parse(localStorage.getItem("token"));
+  const navigate = useNavigate();
   useEffect(() => {
-    const auth = localStorage.getItem("stdprofile");
-    if (auth) {
-      getProfileDetails();
-    }
-   
+    getProfileDetails();
   }, []);
 
-  const setEmpty = () => {
-    setfatherName("");
-    setmotherName("");
-    setDisability("");
-    setaadharNum("");
-    setalternateNum("");
-    setmobNum("");
-    setenrollNum("");
-    setbloodGroup("");
-    setcaste("");
-    setdob("");
-    setgender("");
-    setnationality("");
-    setreligion("");
-    setstate("");
-    setcity("");
-  };
-  const idd = JSON.parse(localStorage.getItem("student"))._id;
   const getProfileDetails = async () => {
-    let result = await fetch(`http://localhost:5000/add-data/${idd}`,{
-      headers: {
-        "authorization": JSON.parse(localStorage.getItem("token")),
-      },
-    });
-    result = await result.json();
-    console.log(result);
-
-    if (!result) {
-      setEmpty();
-    } else {
+    if (authorize) {
+      const idd = JSON.parse(localStorage.getItem("student"))._id;
+      setFirst(JSON.parse(localStorage.getItem("student")).firstName);
+      setMiddle(JSON.parse(localStorage.getItem("student")).middleName);
+      setLast(JSON.parse(localStorage.getItem("student")).lastName);
+      let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+        headers: {
+          "authorization": JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      result = await result.json();
       setfatherName(result.stdprofile.fatherName);
       setmotherName(result.stdprofile.motherName);
       setDisability(result.stdprofile.disability);
@@ -81,80 +57,36 @@ const Editstdprofile = () => {
       setcaste(result.stdprofile.caste);
       setdob(result.stdprofile.dob);
       setgender(result.stdprofile.gender);
-      setnationality(result.stdprofile.nationality);
       setreligion(result.stdprofile.religion);
-      setstate(result.stdprofile.state);
-      setcity(result.stdprofile.city);
+    }
+    else {
+      navigate("/");
     }
   };
-  const set_student_profile = async () => {
-    const profi = JSON.stringify({
-      fatherName,
-      motherName,
-      gender,
-      dob,
-      enrollNum,
-      mobNum,
-      alternateNum,
-      disability,
-      aadharNum,
-      bloodGroup,
-      caste,
-      religion,
-      nationality,
-      state,
-      city,
-    });
-    localStorage.setItem("stdprofile", profi);
-  };
+
   const update_profile = async () => {
-    const result =await fetch(`http://localhost:5000/update-data/${idd}`, {
+    const idd = JSON.parse(localStorage.getItem("student"))._id;
+    await fetch(`http://localhost:5000/update-data/${idd}`, {
       method: "put",
-      body: JSON.stringify({stdprofile:{
-        fatherName,
-        motherName,
-        gender,
-        dob,
-        enrollNum,
-        mobNum,
-        alternateNum,
-        disability,
-        aadharNum,
-        bloodGroup,
-        caste,
-        religion,
-        nationality,
-        state,
-        city,}
+      body: JSON.stringify({
+        stdprofile: {
+          fatherName, motherName, gender, dob, enrollNum, mobNum, alternateNum, disability, aadharNum,
+          bloodGroup, caste, religion,
+        }
       }),
       headers: {
         "Content-Type": "application/json",
         "authorization": JSON.parse(localStorage.getItem("token")),
       },
-      
     });
-    result= await result.json();
-    
   };
-
-  const CountryVar = Country.getAllCountries();
-  const StateVar = State.getStatesOfCountry(nationality);
-  const CityVar = City.getCitiesOfState(nationality, state);
 
   return (
     <MDBContainer fluid>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
         <MDBCardBody>
           <MDBRow>
-            <MDBCol
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-                fontSize: "20px",
-              }}
-            >
-              EDIT PROFILE
-            </MDBCol>
+            <MDBCol style={{ textAlign: "center", fontWeight: "bold", fontSize: "20px", }}>EDIT PROFILE</MDBCol>
           </MDBRow>
           <hr />
           <MDBRow style={{ height: "20px" }}></MDBRow>
@@ -190,7 +122,6 @@ const Editstdprofile = () => {
                 ></MDBInput>
               </MDBCol>
             </MDBRow>
-
             <MDBRow style={{ height: "20px" }}></MDBRow>
             <MDBRow>
               <MDBCol>
@@ -227,7 +158,6 @@ const Editstdprofile = () => {
                 ></MDBInput>
               </MDBCol>
             </MDBRow>
-
             <MDBRow style={{ height: "20px" }}></MDBRow>
             <MDBRow>
               <MDBCol>
@@ -266,7 +196,6 @@ const Editstdprofile = () => {
                 ></MDBInput>
               </MDBCol>
             </MDBRow>
-
             <MDBRow style={{ height: "20px" }}></MDBRow>
             <MDBRow>
               <MDBCol>
@@ -328,9 +257,7 @@ const Editstdprofile = () => {
                 </select>
               </MDBCol>
             </MDBRow>
-
             <MDBRow style={{ height: "20px" }}></MDBRow>
-
             <MDBRow>
               <MDBCol>
                 <label className="required" htmlFor="gender">
@@ -353,77 +280,6 @@ const Editstdprofile = () => {
               </MDBCol>
 
               <MDBCol>
-                <label className="required" htmlFor="country_id">
-                  Country:{" "}
-                </label>
-                <select
-                  className="form-control select2"
-                  name="country_id"
-                  id="country_id"
-                  aria-hidden="true"
-                  value={nationality}
-                  required
-                  onChange={(e) => setnationality(e.target.value)}
-                >
-                  <option>--Select Country--</option>
-
-                  {CountryVar.map((item) => {
-                    return (
-                      <option key={item.name} value={item.isoCode}>
-                        {item.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </MDBCol>
-            </MDBRow>
-            <MDBRow style={{ height: "20px" }}></MDBRow>
-            <MDBRow>
-              <MDBCol>
-                <label htmlFor="province_id">State:</label>
-                <select
-                  className="form-control"
-                  name="province_id"
-                  id="province_id"
-                  required
-                  value={state}
-                  onChange={(e) => setstate(e.target.value)}
-                >
-                  <option>--Select State--</option>
-
-                  {StateVar.map((item) => {
-                    return (
-                      <option key={item.isoCode} value={item.isoCode}>
-                        {item.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </MDBCol>
-              <MDBCol>
-                <label htmlFor="city_id">City:</label>
-                <select
-                  className="form-control"
-                  name="city_id"
-                  id="city_id"
-                  required
-                  value={city}
-                  onChange={(e) => setcity(e.target.value)}
-                >
-                  <option>--Select City--</option>
-
-                  {CityVar.map((item) => {
-                    return (
-                      <option key={item.latitude} value={item.name}>
-                        {item.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </MDBCol>
-            </MDBRow>
-            <MDBRow>
-              <MDBCol>
                 <label>Mobile Number</label>
                 <PhoneInput
                   country={"in"}
@@ -434,12 +290,15 @@ const Editstdprofile = () => {
               <MDBCol>
                 <label>Alternate Number</label>
                 <PhoneInput
-                  country={"us"}
+                  country={"in"}
                   value={alternateNum}
                   onChange={setalternateNum}
                 />
               </MDBCol>
             </MDBRow>
+            <MDBRow style={{ height: "20px" }}></MDBRow>
+
+            <MDBRow></MDBRow>
 
             <MDBRow style={{ height: "20px" }}></MDBRow>
             <MDBRow>
@@ -447,16 +306,13 @@ const Editstdprofile = () => {
                 <MDBCol>
                   <MDBBtn
                     type="submit"
-                    onClick={() => {
-                      set_student_profile();
-                      update_profile();
-                    }}
+                    onClick={() => { update_profile(); }}
                   >
                     Update
                   </MDBBtn>
                 </MDBCol>
                 <MDBCol>
-                <Link to='/student/stdprofile'><MDBBtn>Back</MDBBtn></Link>
+                  <Link to='/student/stdprofile'><MDBBtn>Back</MDBBtn></Link>
                 </MDBCol>
               </MDBRow>
             </MDBRow>
