@@ -8,11 +8,13 @@ import {
     MDBCardBody,
 }
     from 'mdb-react-ui-kit';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 function Address() {
+    const authorize = JSON.parse(localStorage.getItem("token"));
+    const navigate = useNavigate();
     const [peraddresses, setPeraddress] = useState([]);
     const [tempaddresses, setTempaddress] = useState([]);
-    const idd = JSON.parse(localStorage.getItem("student"))._id;
+
     useEffect(() => {
         getPerAddress();
         getTempAddress();
@@ -20,25 +22,37 @@ function Address() {
     }, []);
 
     const getPerAddress = async () => {
-        let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
-            headers: {
-                "authorization": JSON.parse(localStorage.getItem("token")),
-            },
-        });
-        result = await result.json();
-        setPeraddress(result.stdperadd);
-        localStorage.setItem("stdperaddress", JSON.stringify(result.stdperadd));
+        if (authorize) {
+            const idd = JSON.parse(localStorage.getItem("student"))._id;
+            let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+                headers: {
+                    "authorization": JSON.parse(localStorage.getItem("token")),
+                },
+            });
+            result = await result.json();
+            setPeraddress(result.stdperadd);
+            localStorage.setItem("stdperaddress", JSON.stringify(result.stdperadd));
+        }
+        else {
+            navigate("/");
+        }
     }
-    
+
     const getTempAddress = async () => {
-        let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
-            headers: {
-                "authorization": JSON.parse(localStorage.getItem("token")),
-            },
-        });
-        result = await result.json();
-        setTempaddress(result.stdtempadd);
-        localStorage.setItem("stdperaddress", JSON.stringify(result.stdtempadd));
+        if (authorize) {
+            const idd = JSON.parse(localStorage.getItem("student"))._id;
+            let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+                headers: {
+                    "authorization": JSON.parse(localStorage.getItem("token")),
+                },
+            });
+            result = await result.json();
+            setTempaddress(result.stdtempadd);
+            localStorage.setItem("stdperaddress", JSON.stringify(result.stdtempadd));
+        }
+        else {
+            navigate("/");
+        }
     }
 
     return (

@@ -46,10 +46,7 @@ const stdProfileSchema = new mongoose.Schema({
     disability: { type: String, required: true },
     bloodGroup: { type: String, required: true },
     caste: { type: String, required: true },
-    religion: { type: String, required: true },
-    nationality: { type: String, required: true },
-    state: { type: String, required: true },
-    city: { type: String, required: true },
+    religion: { type: String, required: true }
 });
 
 

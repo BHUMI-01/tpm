@@ -7,7 +7,7 @@ import {
   MDBCard,
   MDBCardBody,
 } from "mdb-react-ui-kit";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Country, State, City } from "country-state-city";
 
 function EditPeraddress() {
@@ -19,37 +19,21 @@ function EditPeraddress() {
   const [postalCode, setpostalCode] = useState("");
   const [country, setcountry] = useState("");
   const [province, setprovince] = useState("");
-
+  const authorize = JSON.parse(localStorage.getItem("token"));
+  const navigate = useNavigate();
   useEffect(() => {
-    const auth = localStorage.getItem("stdperaddress");
-    if (auth) {
-      getPerAddressDetails();
-    }
+    getPerAddressDetails();
   }, []);
 
-  const setEmpty = () => {
-    setflatNo("");
-    setarea("");
-    setlandmark("");
-    setlocality("");
-    setcity("");
-    setpostalCode("");
-    setcountry("");
-    setprovince("");
-  };
-  const idd = JSON.parse(localStorage.getItem("student"))._id;
   const getPerAddressDetails = async () => {
-    let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
-      headers: {
-        "authorization": JSON.parse(localStorage.getItem("token")),
-      },
-    });
-    result = await result.json();
-    console.log(result);
-
-    if (!result) {
-      setEmpty();
-    } else {
+    if (authorize) {
+      const idd = JSON.parse(localStorage.getItem("student"))._id;
+      let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+        headers: {
+          "authorization": JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      result = await result.json();
       setflatNo(result.stdperadd.flatNo);
       setarea(result.stdperadd.area);
       setlandmark(result.stdperadd.landmark);
@@ -59,41 +43,26 @@ function EditPeraddress() {
       setcountry(result.stdperadd.country);
       setprovince(result.stdperadd.province);
     }
+    else {
+      navigate("/");
+    }
   };
-  const set_student_peraddress = async () => {
-    const profi = JSON.stringify({
-      flatNo,
-      area,
-      landmark,
-      locality,
-      city,
-      postalCode,
-      country,
-      province,
-    });
-    localStorage.setItem("stdperaddress", profi);
-  };
-  const update_peraddress= async () => {
+  
+  const update_peraddress = async () => {
+    const idd = JSON.parse(localStorage.getItem("student"))._id;
     await fetch(`http://localhost:5000/update-data/${idd}`, {
       method: "put",
-      body: JSON.stringify({stdperadd:{
-        flatNo,
-      area,
-      landmark,
-      locality,
-      city,
-      postalCode,
-      country,
-      province,}
+      body: JSON.stringify({
+        stdperadd: { flatNo, area, landmark, locality, city, postalCode, country, 
+          province, }
       }),
       headers: {
         "Content-Type": "application/json",
         "authorization": JSON.parse(localStorage.getItem("token")),
       },
-      
     });
-    
   };
+  
   const CountryVar = Country.getAllCountries();
   const StateVar = State.getStatesOfCountry(country);
   const CityVar = City.getCitiesOfState(country, province);
@@ -113,6 +82,7 @@ function EditPeraddress() {
               EDIT PERMANENT ADDRESS
             </MDBCol>
           </MDBRow>
+
           <MDBRow style={{ height: "20px" }}></MDBRow>
           <MDBRow>
             <form>
@@ -144,7 +114,6 @@ function EditPeraddress() {
                   />
                 </MDBCol>
               </MDBRow>
-
               <MDBRow>
                 <MDBCol>
                   <label htmlFor="landmark">Landmark</label>
@@ -219,7 +188,6 @@ function EditPeraddress() {
                   </select>
                 </MDBCol>
               </MDBRow>
-
               <MDBRow>
                 <MDBCol>
                   <label htmlFor="city_id">City:</label>
@@ -257,28 +225,25 @@ function EditPeraddress() {
                   />
                 </MDBCol>
               </MDBRow>
-
               <MDBRow style={{ height: "20px" }}></MDBRow>
               <MDBRow>
-              <MDBRow>
+                <MDBRow>
                   <MDBCol>
                     <MDBBtn
                       type="submit"
-                      onClick={() => {
-                        set_student_peraddress();
-                        update_peraddress();
-                      }}
+                      onClick={() => { update_peraddress(); }}
                     >
                       Update
                     </MDBBtn>
                   </MDBCol>
                   <MDBCol>
-                  <Link to='/student/stdaddress'><MDBBtn>Back</MDBBtn></Link>
+                    <Link to='/student/stdaddress'><MDBBtn>Back</MDBBtn></Link>
                   </MDBCol>
                 </MDBRow>
               </MDBRow>
             </form>
           </MDBRow>
+        
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>

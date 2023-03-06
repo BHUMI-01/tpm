@@ -32,20 +32,17 @@ const Stdregister = () => {
         'Content-Type': 'application/json'
       }
     });
-    console.log(result);
     result = await result.json();
-    console.log(result);
-    console.log("it worked...");
     if (result.result == "user already enrolled") {
-      alert("User Already Registered"); 
+      alert("User Already Registered");
     }
-    else if(result.result == "Something is wrong!"){
-      alert("Something is wrong! Please try it again!!"); 
+    else if (result.result == "Something is wrong!") {
+      alert("Something is wrong! Please try it again!!");
     }
     else {
       localStorage.setItem("student", JSON.stringify(result.result));
       localStorage.setItem("token", JSON.stringify(result.auth));
-      navigate('/student/addstdprofile');
+      // navigate('/student/addstdprofile');
     }
   }
 
@@ -54,6 +51,8 @@ const Stdregister = () => {
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
         <MDBCardBody>
           <MDBRow>
+
+            {/* 1st half part of the register page */}
             <MDBCol
               md="10"
               lg="6"
@@ -61,7 +60,6 @@ const Stdregister = () => {
             >
               <form>
                 <h3>Sign Up</h3>
-
                 <div className="mb-3">
                   <label>First name</label>
                   <input
@@ -83,7 +81,6 @@ const Stdregister = () => {
                     onChange={(e) => setMiddleName(e.target.value)}
                   />
                 </div>
-
                 <div className="mb-3">
                   <label>Last name</label>
                   <input
@@ -96,7 +93,7 @@ const Stdregister = () => {
                   />
                 </div>
 
-                <MDBRow className="mb-3">
+                <div className="mb-3">
                   <label>Email address</label>
                   <input
                     type="email"
@@ -106,8 +103,7 @@ const Stdregister = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
-                </MDBRow>
-
+                </div>
                 <div className="mb-3">
                   <label>Password</label>
                   <input
@@ -131,23 +127,29 @@ const Stdregister = () => {
                   />
                 </div>
 
-                <div className="d-grid">
-                  <button type="submit" className="btn btn-primary"
-                    onClick={() => collectData()}>
-                    Sign Up
-                  </button>
-                </div>
-                <p className="forgot-password text-right">
-                  Already registered <a href="/stdlogin">sign in?</a>
-                </p>
+                {/* submit button of the register page */}
+              <div className="d-grid">
+                <button type="submit" className="btn btn-primary"
+                  onClick={() => collectData()}>
+                  Sign Up
+                </button>
+              </div>
+              <p className="forgot-password text-right">
+                Already registered <a href="/stdlogin">sign in?</a>
+              </p>
+              {/* 1st half part ends here */}
+
               </form>
             </MDBCol>
+
+            {/* 2nd half part of the register page */}
             <MDBCol
               md="10"
               lg="6"
               className="order-1 order-lg-2 d-flex align-items-center"
             >
               <MDBCardImage src="./training.jpeg" fluid />
+              {/* 2nd half part ends here */}
             </MDBCol>
           </MDBRow>
         </MDBCardBody>

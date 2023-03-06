@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, UNSAFE_enhanceManualRouteObjects } from 'react-router-dom';
 import Nabvar from './components/navbar/Navbar';
 import Home from "./containers/Home";
 import LoginScr from "./containers/LoginScr";
@@ -27,6 +27,7 @@ import Reviewform from './containers/Student/ReviewForm';
 
 import Admin from './containers/Admin/Admn';
 import Recruiter from './containers/Recruiter';
+import PageNot from './containers/Page';
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
 
         <Route path="/admin" element={<Admin />} />
         <Route path="/recruiter" element={<Recruiter />} />
+        
       </Routes>
     </div>
   );
