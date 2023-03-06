@@ -52,12 +52,14 @@ const stdProfileSchema = new mongoose.Schema({
     city: { type: String, required: true },
 });
 
+
 const studentData = new mongoose.Schema({
     studentId: { type: String, required: true },
     stdprofile: stdProfileSchema,
     stdperadd: stdPerAddressSchema,
     stdtempadd: stdTempAddressSchema,
     stdeducat: [stdQualifySchema],
+    stdupload: {type:Array},
 })
 
 module.exports = mongoose.model("student_data", studentData);

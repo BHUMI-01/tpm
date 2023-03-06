@@ -410,9 +410,10 @@ const Review = () => {
               QUALIFICATION
             </MDBCol>
           </MDBRow>
-          {StdQualification.map((item, i) => (
+          {StdQualification.map((item) => (
             <>
-              <MDBRow key={item.qualifyLevel}>
+            
+              <MDBRow key={item.qualifyName}>
                 <MDBCol
                   md="5"
                   lg="3"

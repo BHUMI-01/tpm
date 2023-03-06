@@ -1,4 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { Document, Page } from "react-pdf/dist/esm/entry.webpack5";
+import { pdfjs } from "react-pdf";
+
 import {
   MDBBtn,
   MDBContainer,
@@ -7,63 +10,57 @@ import {
   MDBCardBody,
   MDBCardHeader,
   MDBCol,
+  MDBInput,
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import "react-pdf/dist/esm/Page/TextLayer.css";
 
-function Student() {
-  let file = "";
-  const handleFileUpload = async (e) => {
-    const fill = e.target.files[0];
-    const base64 = await convertToBase64(fill);
-    console.log(base64);
-    // console.log(typeof(base64));
-    file = base64;
-    console.warn(file);
-  };
+function UPLOAD() {
+  const callback = useCallback();
+  pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+  const [tenthMarksheet, settenthMarksheet] = useState("");
+  const Images = [];
+
+  function covertToBase64(e) {
+    console.log(e);
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    console.log(e.target.id);
+    reader.onload = () => {
+      console.log(reader.result);
+      var Name = `${e.target.files[0].name}`;
+      Images.push({ fileType: e.target.id, fileName:Name, dataImage: reader.result });
+      console.log(Images);
+    };
+    reader.onerror = (error) => {
+      console.log("Error: ", error);
+    };
+  }
+
+  function setDocuments() {
+    localStorage.setItem("upload", JSON.stringify(Images));
+  }
+  function uploadImage() {
+    const stdupload = JSON.parse(localStorage.getItem("upload"));
+    fetch("http://localhost:5000/upload-image", {
+      method: "POST",
+      crossDomain: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        stdupload,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }
 
   const auth = JSON.parse(localStorage.getItem("stdqualify")).qualifyLevel;
   const authh = JSON.parse(localStorage.getItem("stdprofile")).disability;
   console.log(auth);
   console.log(authh);
-
-  // const uploadFile = async () => {
-  //     const studentId = JSON.parse(localStorage.getItem("student"))._id;
-  //     let result = await fetch("http://localhost:5000/upload-file", {
-  //         method: 'post',
-  //         body: JSON.stringify({
-  //             file, studentId
-  //         }),
-  //         headers: {
-  //             'Content-Type': 'application/json'
-  //         }
-  //     });
-
-  //     result = await result.json();
-  //     localStorage.setItem("upload", result);
-  //     console.warn(result.file);
-
-  // }
-
-  const uploadData = async () => {
-    const studentId = JSON.parse(localStorage.getItem("student"))._id;
-    const stdprofile = JSON.parse(localStorage.getItem("stdprofile"));
-    const stdperadd = JSON.parse(localStorage.getItem("stdperaddress"));
-    const stdtempadd = JSON.parse(localStorage.getItem("stdtempaddress"));
-    const stdeducat = JSON.parse(localStorage.getItem("stdqualify"));
-    await fetch("http://localhost:5000/add-data", {
-      method: "post",
-      body: JSON.stringify({
-        studentId,
-        stdprofile,
-        stdperadd,
-        stdtempadd,
-        stdeducat,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
 
   return (
     <MDBContainer fluid>
@@ -80,23 +77,24 @@ function Student() {
                   Upload High School Marksheet :
                 </label>
                 <input
-                  id="file"
+                  id="tenthMarksheet"
+                  accept="image/*, .pdf"
                   type="file"
-                  accept=".png, .jpg, .jpeg, .pdf"
-                  onChange={(e) => handleFileUpload(e)}
+                  onChange={covertToBase64}
                   required
                 ></input>
+
+                <button onClick={setDocuments}>Upload</button>
               </MDBCol>
               <MDBCol>
                 <label htmlFor="file" style={{ paddingBottom: "10px" }}>
                   Upload Intermediate Marksheet :
                 </label>
                 <input
-                  id="file"
+                  id="twelthMarksheet"
                   type="file"
                   accept=".png, .jpg, .jpeg, .pdf"
-                  onChange={(e) => handleFileUpload(e)}
-                  required
+                  onChange={covertToBase64}
                 ></input>
               </MDBCol>
             </MDBRow>
@@ -110,7 +108,7 @@ function Student() {
                   id="file"
                   type="file"
                   accept=".png, .jpg, .jpeg, .pdf"
-                  onChange={(e) => handleFileUpload(e)}
+                  onChange={covertToBase64}
                 ></input>
               </MDBCol>
               <MDBCol></MDBCol>
@@ -131,7 +129,6 @@ function Student() {
                       className="form-control"
                       name="Btech_marksheets"
                       id="Btech_marksheets"
-                      required
                     >
                       <option>--Select Semester--</option>
                       <option value="1st SEM"> 1st SEMESTER Marksheet</option>
@@ -159,8 +156,7 @@ function Student() {
                       id="file"
                       type="file"
                       accept=".png, .jpg, .jpeg, .pdf"
-                      onChange={(e) => handleFileUpload(e)}
-                      required
+                      onChange={covertToBase64}
                     ></input>
                   </MDBCol>
                   <MDBCol>
@@ -171,8 +167,7 @@ function Student() {
                       id="file"
                       type="file"
                       accept=".png, .jpg, .jpeg, .pdf"
-                      onChange={(e) => handleFileUpload(e)}
-                      required
+                      onChange={covertToBase64}
                     ></input>
                   </MDBCol>
                 </MDBRow>
@@ -186,7 +181,6 @@ function Student() {
                       className="form-control"
                       name="mtech_marksheets"
                       id="mtech_marksheets"
-                      required
                     >
                       <option>--Select Semester--</option>
                       <option value="1st SEM"> 1st SEMESTER Marksheet</option>
@@ -212,8 +206,7 @@ function Student() {
                       id="file"
                       type="file"
                       accept=".png, .jpg, .jpeg, .pdf"
-                      onChange={(e) => handleFileUpload(e)}
-                      required
+                      onChange={covertToBase64}
                     ></input>
                   </MDBCol>
                 </>
@@ -226,8 +219,7 @@ function Student() {
                   id="file"
                   type="file"
                   accept=".png, .jpg, .jpeg, .pdf"
-                  onChange={(e) => handleFileUpload(e)}
-                  required
+                  onChange={covertToBase64}
                 ></input>
               </MDBCol>
             </MDBRow>
@@ -238,29 +230,33 @@ function Student() {
 
           <MDBRow>
             <MDBCol>
-              <MDBBtn type="submit">Save</MDBBtn>
+              <MDBBtn type="submit" onClick={uploadImage}>
+                Save
+              </MDBBtn>
             </MDBCol>
-            <MDBCol>
+            {/* <MDBCol>
               <MDBBtn onClick={uploadData}>Submit</MDBBtn>
-            </MDBCol>
+            </MDBCol> */}
           </MDBRow>
+          {/* 
+          {allImage.map(( data) => {
+            return (
+              <Document
+              key ={data._id}
+                file={data.image}
+                options={{
+                  cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
+                  cMapPacked: true,
+                }}
+              >
+                <Page pageNumber={1} />
+              </Document>
+            );
+          })} */}
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>
   );
 }
 
-export default Student;
-
-function convertToBase64(fill) {
-  return new Promise((resolve, reject) => {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(fill);
-    fileReader.onload = () => {
-      resolve(fileReader.result);
-    };
-    fileReader.onerror = (error) => {
-      reject(error);
-    };
-  });
-}
+export default UPLOAD;

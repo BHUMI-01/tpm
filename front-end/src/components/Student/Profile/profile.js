@@ -10,17 +10,36 @@ import {
 }
     from 'mdb-react-ui-kit';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
 
 const Profile = () => {
-    const idd = JSON.parse(localStorage.getItem("student"))._id;
-    const firstN = JSON.parse(localStorage.getItem("student")).firstName;
-    const middleN = JSON.parse(localStorage.getItem("student")).middleName;
-    const lastN = JSON.parse(localStorage.getItem("student")).lastName;
+const navigate= useNavigate();
+const auth = JSON.parse(localStorage.getItem("token"));
+const idd ="";
+const firstN="";
+const lastN="";
+const middleN=""; 
     const [profiles, setProfiles] = useState([]);
     useEffect(() => {
+      
+        if(auth)
+        {
         getProfiles();
+
+        }
+        else{
+            navigate('/')
+        }
+        
     }, []);
+
+    if(auth)
+    {
+        const idd = JSON.parse(localStorage.getItem("student"))._id;
+        const firstN = JSON.parse(localStorage.getItem("student")).firstName;
+        const middleN = JSON.parse(localStorage.getItem("student")).middleName;
+        const lastN = JSON.parse(localStorage.getItem("student")).lastName;
+    }
 
     const getProfiles = async () => {
         let result = await fetch(`http://localhost:5000/add-data/${idd}`, {

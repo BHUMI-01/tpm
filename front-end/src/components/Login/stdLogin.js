@@ -32,7 +32,7 @@ const Login = () => {
     result = await result.json();
     if (result.result != "No User Found") {
       localStorage.setItem("student", JSON.stringify(result.student));
-      localStorage.setItem("student", JSON.stringify(result.auth));
+      localStorage.setItem("token", JSON.stringify(result.auth));
       navigate('/student');
     }
     else{
