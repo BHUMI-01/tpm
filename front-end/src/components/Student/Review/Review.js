@@ -47,7 +47,7 @@ const Review = () => {
   };
 
   const NextButton = () => {
-    navigate("/student");
+    navigate("/stddash");
   };
 
   return (

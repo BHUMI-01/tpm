@@ -13,7 +13,7 @@ function navbar() {
   const shoot = () => {
     if (localStorage.getItem("student")) {
       const name = JSON.parse(localStorage.getItem("student")).firstName;
-      return <li><Link to='/student'><i className="fa-solid fa-user"></i> {name}</Link></li>
+      return <li><Link to='/stddash'><i className="fa-solid fa-user"></i> {name}</Link></li>
     }
     else if (localStorage.getItem("recruiter")) {
       return <li><Link to="/recruiter">Profile</Link></li>

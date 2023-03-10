@@ -42,9 +42,10 @@ const Profile = () => {
   };
   return (
     <MDBContainer fluid>
-      <MDBCard className="text-black m-5">
+      <MDBCard className="text-black m-5" style={{ borderRadius: "0px" }}>
         <MDBCardBody>
-          <Table striped>
+          {/* old design part */}
+          {/* <Table striped>
             <thead>
               <tr>
                 <th>#</th>
@@ -129,12 +130,98 @@ const Profile = () => {
                 <td>{profiles.religion}</td>
               </tr>
             </tbody>
-          </Table>
+          </Table> */}
+
+          {/* new design part */}
+          <MDBRow>
+            <MDBCol md={6}>
+              <Table striped>
+                <tbody>
+                  <tr>
+                    <td>Name :</td>
+                    <td>{firstN} {middleN} {lastN}</td>
+                  </tr>
+                  <tr>
+                    <td>Father's Name :</td>
+                    <td>{profiles.fatherName}</td>
+                  </tr>
+                  <tr>
+                    <td>Mother's Name :</td>
+                    <td>{profiles.motherName}</td>
+                  </tr>
+                  <tr>
+                    <td>Faculty Number :</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>Enrollment Number :</td>
+                    <td>{profiles.enrollNum}</td>
+                  </tr>
+                  <tr>
+                    <td>D.O.B :</td>
+                    <td>{profiles.dob}</td>
+                  </tr>
+                  <tr>
+                    <td>Gender :</td>
+                    <td>{profiles.gender}</td>
+                  </tr>
+                  <tr>
+                    <td>Aadhaar Number :</td>
+                    <td>{profiles.aadharNum}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </MDBCol>
+            <MDBCol md={6}>
+              <Table striped>
+                <tbody>
+                  <tr>
+                    <td>Roll Number :</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>Blood Group :</td>
+                    <td>{profiles.bloodGroup}</td>
+                  </tr>
+                  <tr>
+                    <td>Disability :</td>
+                    <td>{profiles.disability}</td>
+                  </tr>
+                  <tr>
+                    <td>Caste :</td>
+                    <td>{profiles.caste}</td>
+                  </tr>
+                  <tr>
+                    <td>Religion :</td>
+                    <td>{profiles.religion}</td>
+                  </tr>
+                  <tr>
+                    <td>Mobile NUmber :</td>
+                    <td>{profiles.mobNum}</td>
+                  </tr>
+                  <tr>
+                    <td>Alternate Number :</td>
+                    <td>{profiles.alternateNum}</td>
+                  </tr>
+                  <tr>
+                    <td>Email Id: </td>
+                    <td>-</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </MDBCol>
+          </MDBRow>
+
           <MDBRow style={{ height: "20px" }}></MDBRow>
           <MDBRow>
             <MDBCol>
               <Link to="/student/editstdprofile">
                 <MDBBtn>Edit</MDBBtn>
+              </Link>
+            </MDBCol>
+            <MDBCol>
+              <Link to="/stddash">
+                <MDBBtn>Back</MDBBtn>
               </Link>
             </MDBCol>
           </MDBRow>

@@ -27,7 +27,7 @@ import Reviewform from './containers/Student/ReviewForm';
 
 import Admin from './containers/Admin/Admn';
 import Recruiter from './containers/Recruiter';
-import PageNot from './containers/Page';
+import StudentDashboard from './containers/Page';
 
 function App() {
   return (
@@ -60,6 +60,7 @@ function App() {
           <Route path="reviewform" element={<Reviewform />} />
         </Route>
 
+        <Route path="/stddash" element={<StudentDashboard />}/>
         <Route path="/admin" element={<Admin />} />
         <Route path="/recruiter" element={<Recruiter />} />
         

@@ -5,7 +5,8 @@ import {
     MDBCard,
     MDBCardBody,
     MDBTable,
-    MDBTableHead,
+    MDBRow,
+    MDBCol,
     MDBTableBody
 }
     from 'mdb-react-ui-kit';
@@ -44,13 +45,21 @@ const Qualification = () => {
                 <MDBCardBody style={{ height: '40px', width: '400px', }}>
                 </MDBCardBody>
                 <MDBCardBody>
-                    <h5>Academic Qualification List</h5>
+                    <MDBRow>
+                        <MDBCol><h5>Academic Qualification List</h5></MDBCol>
+                        <MDBCol>
+                            <Link to="/stddash">
+                                <MDBBtn>Back</MDBBtn>
+                            </Link>
+                        </MDBCol>
+                    </MDBRow>
                     <hr />
-                    <MDBTable striped>
+                    {/* <MDBTable striped>
                         <MDBTableHead>
                             <tr>
                                 <th>Qualification Level</th>
-                                <th>Name of Qualification</th>
+                                <th>School / University Name</th>
+                                <th>Area of study</th>
                                 <th>Year of Passing</th>
                                 <th>Roll No.</th>
                                 <th>Board</th>
@@ -74,11 +83,13 @@ const Qualification = () => {
                                         <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
+                                        <td>-</td>
                                     </tr>
                                     :
                                     qualifies.map((item) =>
                                         <tr key={item._id}>
                                             <td>{item.qualifyLevel}</td>
+                                            <td>-</td>
                                             <td>{item.qualifyName}</td>
                                             <td>{item.passYear}</td>
                                             <td>{item.rollNum}</td>
@@ -89,6 +100,88 @@ const Qualification = () => {
                                             <td><Link to={`/student/editstdqualify/${item._id}`}><MDBBtn>edit</MDBBtn></Link></td>
                                         </tr>
                                     )
+                            }
+                        </MDBTableBody>
+                    </MDBTable> */}
+
+                    <MDBTable striped>
+                        <MDBTableBody>
+                            {
+                                qualifies.map((item) =>
+                                    <MDBRow>
+                                        <MDBCol md={2} style={{ textAlign: 'center', paddingTop: "10%" }}>{item.qualifyLevel}</MDBCol>
+
+                                        <MDBCol md={10}>
+                                            <MDBRow>
+                                                <MDBCol>
+                                                    <MDBTable striped>
+                                                        <MDBTableBody>
+                                                            <tr>
+                                                                <td>Qualification Level :</td>
+                                                                <td>{item.qualifyLevel}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>School Name :</td>
+                                                                <td>{item.qualifyName}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Area of study :</td>
+                                                                <td>-</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Roll Number:</td>
+                                                                <td>{item.rollNum}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Pass Year :</td>
+                                                                <td>{item.passYear}</td>
+                                                            </tr>
+                                                        </MDBTableBody>
+                                                    </MDBTable>
+                                                </MDBCol>
+                                                <MDBCol>
+                                                    <MDBTable striped>
+                                                        <MDBTableBody>
+                                                            <tr>
+                                                                <td>Board Name:</td>
+                                                                <td>{item.board}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Grading System : :</td>
+                                                                <td>{item.gradeSys}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Grade:</td>
+                                                                <td>{item.grade}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Result:</td>
+                                                                <td>{item.resultStatus}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Action :</td>
+                                                                <td><Link to={`/student/editstdqualify/${item._id}`}>Edit</Link></td>
+                                                            </tr>
+                                                        </MDBTableBody>
+                                                    </MDBTable>
+                                                </MDBCol>
+                                            </MDBRow>
+                                            {/* <tr key={item._id}>
+                                                <td>{item.qualifyLevel}</td>
+                                                <td>-</td>
+                                                <td>{item.qualifyName}</td>
+                                                <td>{item.passYear}</td>
+                                                <td>{item.rollNum}</td>
+                                                <td>{item.board}</td>
+                                                <td>{item.resultStatus}</td>
+                                                <td>{item.gradeSys}</td>
+                                                <td>{item.grade}</td>
+                                                <td><Link to={`/student/editstdqualify/${item._id}`}><MDBBtn>edit</MDBBtn></Link></td>
+                                            </tr> */}
+                                        </MDBCol>
+                                        <hr />
+                                    </MDBRow>
+                                )
                             }
                         </MDBTableBody>
                     </MDBTable>

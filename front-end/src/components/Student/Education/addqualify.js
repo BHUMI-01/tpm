@@ -4,6 +4,7 @@ import {
   MDBCol,
   MDBInput,
   MDBCard,
+  MDBBtn,
 } from "mdb-react-ui-kit";
 import { useState} from "react";
 
@@ -19,16 +20,8 @@ const AddQuali = () => {
   let education = [];
 
   const set_student_qualify = async () => {
-    const profi = {
-      qualifyLevel,
-      qualifyName,
-      passYear,
-      board,
-      rollNum,
-      resultStatus,
-      gradeSys,
-      grade,
-    };
+    const profi = { qualifyLevel, qualifyName, passYear, board,
+      rollNum, resultStatus, gradeSys, grade, };
     const prev = JSON.parse(localStorage.getItem("stdqualify"));
     console.log(prev);
     if (prev) {
@@ -47,6 +40,7 @@ const AddQuali = () => {
   return (
     <>
       <hr />
+      <form>
       <MDBRow>
         <MDBCol>
           <label>Qualification Level :</label>
@@ -167,16 +161,12 @@ const AddQuali = () => {
           ></MDBInput>
         </MDBCol>
       </MDBRow>
+      </form>
       <MDBRow style={{ height: "20px" }}></MDBRow>
       <MDBRow>
         <MDBCol md={2}>
-          <MDBCard onClick={set_student_qualify} style={{
-            borderRadius: "2px",
-            textAlign: "center", padding: "3px",
-            backgroundColor: "#008000",
-            color: "whitesmoke"
-          }}>
-            Save</MDBCard>
+          <MDBBtn onClick={set_student_qualify}>
+            Save</MDBBtn>
         </MDBCol>
       </MDBRow>
       <MDBRow style={{ height: "20px" }}></MDBRow>

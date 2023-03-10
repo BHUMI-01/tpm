@@ -17,7 +17,7 @@ const Login = () => {
   useEffect(() => {
     const auth = localStorage.getItem("token");
     if (auth) {
-      navigate('/student');
+      navigate('/stddash');
     }
   })
 

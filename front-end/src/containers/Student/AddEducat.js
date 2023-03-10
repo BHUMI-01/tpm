@@ -29,6 +29,7 @@ const AddEducat = () => {
           <MDBCardBody>
           <MDBRow style={{ height: "20px" }}></MDBRow>
             <MDBRow>
+              <MDBCol><h3>Qualification Details</h3></MDBCol>
               <MDBCol>
                 <Link to="/student/addstdperaddress">
                   <MDBBtn type="button">Back</MDBBtn>
@@ -36,19 +37,17 @@ const AddEducat = () => {
               </MDBCol>
             </MDBRow>
             <MDBRow style={{ height: "20px" }}></MDBRow>
-            <form>
-              <h3>Qualification Details</h3>
-              <MDBRow style={{ height: "20px" }}></MDBRow>
+            <MDBRow>
               {show.map((item, i) => (
                 <MDBRow key={item}>
                   <AddQualify text={item} />
                   <MDBCol>
                     <Button onClick={shootdiv} text="Add Another Education" />
                   </MDBCol>
-                  <MDBRow style={{ height: "15px" }} />
+                  <MDBRow style={{ height: "40px" }}></MDBRow>
                 </MDBRow>
               ))}
-            </form>
+            </MDBRow>
             <MDBRow style={{ height: "50px" }}></MDBRow>
             <MDBRow>
               <MDBRow>

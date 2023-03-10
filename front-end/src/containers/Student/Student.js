@@ -12,10 +12,10 @@ function Student() {
     const navigate = useNavigate();
     useEffect(() => {
         if (!authorize) {
-          navigate('/');
+            navigate('/');
         }
-      }, [])
-    
+    }, [])
+
     return (
         <MDBContainer className="my-5 gradient-form">
             <MDBRow>
@@ -25,33 +25,39 @@ function Student() {
                     <MDBBtnGroup horizontal="true" style={{ padding: "10px" }}>
                         <MDBCol md={3} style={{ textAlign: "center" }}>
                             <Link to="/student/stdprofile" >
-                            <i className="fa-regular fa-circle"> Profile</i>
+                                <i className="fa-regular fa-circle"> Profile</i>
                             </Link>
                         </MDBCol>
-                        
+
                         <MDBCol md={3} style={{ textAlign: "center" }}>
                             <Link to="/student/stdaddress" >
-                            <i className="fa-regular fa-circle"> Address</i>
+                                <i className="fa-regular fa-circle"> Address</i>
                             </Link>
                         </MDBCol>
-                        
+
                         <MDBCol md={3} style={{ textAlign: "center" }}>
                             <Link to="/student/stdqualify" >
-                            <i className="fa-regular fa-circle"> Qualification</i>
+                                <i className="fa-regular fa-circle"> Qualification</i>
                             </Link>
                         </MDBCol>
-                        
+
                         <MDBCol md={3} style={{ textAlign: "center" }}>
                             <Link to="/student/uploaddoc" >
-                            <i className="fa-regular fa-circle"> Documents</i>
+                                <i className="fa-regular fa-circle"> Documents</i>
                             </Link>
                         </MDBCol>
-                        
+
                     </MDBBtnGroup>
                 </MDBRow>
 
                 <MDBRow>
-                    <Outlet />
+                    <Outlet>
+                        <MDBCol md={3} style={{ textAlign: "center" }}>
+                            <Link to="/student/stdqualify" >
+                                <i className="fa-regular fa-circle"> Qualification</i>
+                            </Link>
+                        </MDBCol>
+                    </Outlet>
                 </MDBRow>
             </MDBRow>
         </MDBContainer>
