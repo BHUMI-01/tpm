@@ -46,7 +46,7 @@ const Sidebar = () => {
             <CDBSidebarMenuItem
               icon="sticky-note"
             >
-              <Link to="/student/uploaddoc">Documents</Link>
+              <Link to="/student/editstdupload">Documents</Link>
             </CDBSidebarMenuItem>
 
             <CDBSidebarMenuItem

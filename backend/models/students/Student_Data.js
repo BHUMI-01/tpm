@@ -60,7 +60,6 @@ const studentData = new mongoose.Schema({
     stdperadd: stdPerAddressSchema,
     stdtempadd: stdTempAddressSchema,
     stdeducat: [stdQualifySchema]
-    // stdupload: {type:Array},
 })
 
 module.exports = mongoose.model("student_data", studentData);

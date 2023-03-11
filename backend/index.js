@@ -164,21 +164,33 @@ function verifyToken(req, resp, next) {
   }
 }
 
-app.post("/upload-image", async (req, res) => {
-  const { stdupload } = req.body;
+app.post("/upload-image", verifyToken,async (req, res) => {
+  const { studentId, stdupload  } = req.body;
   try {
-    await Images.create({ stdupload});
+    await Images.create({ studentId,stdupload});
     res.send({ Status: "ok" });
   } catch (error) {
     res.send({ Status: "error", data: error });
   }
 });
 
-app.get("/get-image", async (req, res) => {
-  try {
-    await Images.find({}).then((data) => {
-      res.send({ status: "ok", data: data });
-    });
-  } catch (error) {}
+app.get("/get-image/:id", verifyToken, async (req, resp) => {
+  const data = await Images.findOne({ studentId: req.params.id });
+    if (data) {
+        resp.send(data)
+    }
+    else {
+        resp.send({ result: "No User Found" })
+    }
+});
+app.put("/update-image/:id", verifyToken,async (req, resp) => {
+
+  let result = await Images.updateOne(
+  { studentId: req.params.id },
+          {
+              $set: req.body
+          }
+          )
+    resp.send(result);
 });
 app.listen(5000);

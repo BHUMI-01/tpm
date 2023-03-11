@@ -1,4 +1,4 @@
-import React , {useEffect, useState}from "react";
+import React, { useEffect, useState } from "react";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack5";
 import { pdfjs } from "react-pdf";
 
@@ -18,10 +18,10 @@ import "react-pdf/dist/esm/Page/TextLayer.css";
 function UPLOAD() {
   pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
   var Images = [];
-  var uploadImages= [];
+  var uploadImages = [];
   const [nextButton, setnextbutton] = useState(false);
   const navigate = useNavigate();
-
+  const idd = JSON.parse(localStorage.getItem("student"))._id;
   function covertToBase64(e) {
     console.log(e);
     var reader = new FileReader();
@@ -43,9 +43,9 @@ function UPLOAD() {
 
       console.log(Images);
     };
-    reader.onerror = error => {
+    reader.onerror = (error) => {
       console.log("Error: ", error);
-  };
+    };
   }
 
   function setDocuments() {
@@ -60,9 +60,11 @@ function UPLOAD() {
       crossDomain: true,
       headers: {
         "Content-Type": "application/json",
+        authorization: JSON.parse(localStorage.getItem("token")),
       },
       body: JSON.stringify({
-         stdupload:Images,
+        studentId: idd,
+        stdupload: Images,
       }),
     })
       .then((res) => res.json())
@@ -72,20 +74,25 @@ function UPLOAD() {
   useEffect(() => {
     const authorize = localStorage.getItem("token");
     if (authorize) {
-
       const auth2 = localStorage.getItem("upload");
       if (!auth2) {
-          setnextbutton(true);}
-           else {
-          setnextbutton(false);
-        }
-    }
-    else {
+        setnextbutton(true);
+      } else {
+        setnextbutton(false);
+      }
+    } else {
       navigate("/");
     }
   }, []);
   const auth = JSON.parse(localStorage.getItem("stdqualify"));
-  const Mtech = auth.find((person)=> person.qualifyLevel==="Graduation(M.Tech)")
+
+  const Mtech = auth.find(
+    (person) => person.qualifyLevel === "Graduation(M.Tech)"
+  );
+  const Btech = auth.find(
+    (person) => person.qualifyLevel === "Undergraduation(B.Tech)"
+  );
+
   const authh = JSON.parse(localStorage.getItem("stdprofile")).disability;
   console.log(auth);
   console.log(authh);
@@ -105,7 +112,7 @@ function UPLOAD() {
                   Upload High School Marksheet :
                 </label>
                 <input
-                  id="tenthMarksheet"
+                  id="High School Marksheet"
                   accept=".pdf"
                   type="file"
                   onChange={covertToBase64}
@@ -117,7 +124,7 @@ function UPLOAD() {
                   Upload Intermediate Marksheet :
                 </label>
                 <input
-                  id="twelthMarksheet"
+                  id="Intermediate Marksheet"
                   type="file"
                   accept=".pdf"
                   onChange={covertToBase64}
@@ -132,7 +139,7 @@ function UPLOAD() {
                   Upload Diploma Marksheet :
                 </label>
                 <input
-                  id="diploma"
+                  id="Diploma Marksheet"
                   type="file"
                   accept=".pdf"
                   onChange={covertToBase64}
@@ -140,84 +147,84 @@ function UPLOAD() {
               </MDBCol>
               <MDBCol></MDBCol>
             </MDBRow>
-            <hr />
+          
 
-            {Mtech.qualifyLevel != "Graduation(M.Tech)" ? (
+            {Btech ? (
               <>
                 <MDBRow style={{ height: "30px" }}>
                   <MDBCol>For Undergraduate:</MDBCol>
                 </MDBRow>
                 <MDBRow>
                   <MDBCol>
-                  <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                    <label htmlFor="file" style={{ paddingBottom: "10px" }}>
                       Upload 1st SEM B-tech Marksheet :
                     </label>
                     <input
-                      id="1st SEM"
+                      id="1st SEM B-tech Marksheet"
                       type="file"
                       accept=".pdf"
                       onChange={covertToBase64}
                       required
                     ></input>
-                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <MDBRow style={{ height: "30px" }}></MDBRow>
                     <label htmlFor="file" style={{ paddingBottom: "10px" }}>
                       Upload 2nd SEM B-tech Marksheet :
                     </label>
                     <input
-                      id="2nd SEM"
+                      id="2nd SEM B-tech Marksheet"
                       type="file"
                       accept=".pdf"
                       onChange={covertToBase64}
                       required
                     ></input>
-                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <MDBRow style={{ height: "30px" }}></MDBRow>
                     <label htmlFor="file" style={{ paddingBottom: "10px" }}>
                       Upload 3rd SEM B-tech Marksheet :
                     </label>
                     <input
-                      id="3rd SEM"
+                      id="3rd SEM B-tech Marksheet"
                       type="file"
                       accept=".pdf"
                       onChange={covertToBase64}
                       required
                     ></input>
-                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <MDBRow style={{ height: "30px" }}></MDBRow>
                     <label htmlFor="file" style={{ paddingBottom: "10px" }}>
                       Upload 4th SEM B-tech Marksheet :
                     </label>
                     <input
-                      id="4th SEM"
+                      id="4th SEM B-tech Marksheet"
                       type="file"
                       accept=".pdf"
                       onChange={covertToBase64}
                       required
                     ></input>
-                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <MDBRow style={{ height: "30px" }}></MDBRow>
                     <label htmlFor="file" style={{ paddingBottom: "10px" }}>
                       Upload 5th SEM B-tech Marksheet :
                     </label>
                     <input
-                      id="5th SEM"
+                      id="5th SEM B-tech Marksheet"
                       type="file"
                       accept=".pdf"
                       onChange={covertToBase64}
                       required
                     ></input>
-                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <MDBRow style={{ height: "30px" }}></MDBRow>
                     <label htmlFor="file" style={{ paddingBottom: "10px" }}>
                       Upload 6th SEM B-tech Marksheet :
                     </label>
                     <input
-                      id="6th SEM"
+                      id="6th SEM B-tech Marksheet"
                       type="file"
                       accept=".pdf"
                       onChange={covertToBase64}
                     ></input>
                   </MDBCol>
-               
                 </MDBRow>
               </>
-            ) : (
+            ) : null}
+            {Mtech ? (
               <>
                 <MDBRow style={{ height: "30px" }}>
                   <MDBCol>For PostGraduate:</MDBCol>
@@ -225,10 +232,10 @@ function UPLOAD() {
                 <MDBRow>
                   <MDBCol>
                     <label htmlFor="file" style={{ paddingBottom: "10px" }}>
-                      Upload Btech-Degree :  
+                      Upload Btech-Degree :
                     </label>
                     <input
-                      id="btech-degree"
+                      id="Btech-Degree"
                       type="file"
                       accept=".pdf"
                       onChange={covertToBase64}
@@ -240,7 +247,7 @@ function UPLOAD() {
                       Upload Final Btech-Marksheet :
                     </label>
                     <input
-                      id="btech-marksheet"
+                      id="Final Btech-Marksheet"
                       type="file"
                       accept=".pdf"
                       onChange={covertToBase64}
@@ -250,45 +257,45 @@ function UPLOAD() {
                 </MDBRow>
                 <MDBRow style={{ height: "20px" }}></MDBRow>
                 <MDBRow>
-                <MDBRow style={{ height: "30px"}}><MDBCol>M.Tech Marksheets</MDBCol></MDBRow>
+                  <MDBRow style={{ height: "30px" }}>
+                    <MDBCol>M.Tech Marksheets</MDBCol>
+                  </MDBRow>
                   <MDBCol>
-                  <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                    <label htmlFor="file" style={{ paddingBottom: "10px" }}>
                       Upload 1st SEM M-tech Marksheet :
                     </label>
                     <input
-                      id="1st SEM"
+                      id="1st SEM M-tech Marksheet"
                       type="file"
                       accept=".pdf"
                       onChange={covertToBase64}
                       required
                     ></input>
-                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <MDBRow style={{ height: "30px" }}></MDBRow>
                     <label htmlFor="file" style={{ paddingBottom: "10px" }}>
                       Upload 2nd SEM M-tech Marksheet :
                     </label>
                     <input
-                      id="2nd SEM"
+                      id="2nd SEM M-tech Marksheet"
                       type="file"
                       accept=".pdf"
                       onChange={covertToBase64}
                       required
                     ></input>
-                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <MDBRow style={{ height: "30px" }}></MDBRow>
                     <label htmlFor="file" style={{ paddingBottom: "10px" }}>
                       Upload 3rd SEM M-tech Marksheet :
                     </label>
                     <input
-                      id="3rd SEM"
+                      id="3rd SEM M-tech Marksheet"
                       type="file"
                       accept=".pdf"
                       onChange={covertToBase64}
-                    
                     ></input>
                   </MDBCol>
-                  
                 </MDBRow>
               </>
-            )}
+            ) : null}
 
             <MDBRow style={{ height: "20px" }}></MDBRow>
             <hr />
@@ -301,7 +308,7 @@ function UPLOAD() {
                       Upload Disability Certificate :
                     </label>
                     <input
-                      id="disabilityCert"
+                      id="Disability Certificate"
                       type="file"
                       accept=".pdf"
                       onChange={covertToBase64}
@@ -315,7 +322,7 @@ function UPLOAD() {
                   Upload Internship Certificate :
                 </label>
                 <input
-                  id="internshipCert"
+                  id="Internship Certificate"
                   type="file"
                   accept=".pdf"
                   onChange={covertToBase64}
@@ -326,26 +333,25 @@ function UPLOAD() {
             <MDBRow style={{ height: "20px" }}></MDBRow>
 
             <MDBRow style={{ height: "20px" }}></MDBRow>
-         
-          <MDBRow>
-            <MDBCol>
-              <MDBBtn type="submit" onClick={setDocuments}>
-                Save
-              </MDBBtn>
-            </MDBCol>
-            <MDBCol>
-                  <MDBBtn
-                    type="button"
-                    onClick={() => {
-                      NextButton();
-                    }}
-                    disabled={nextButton}
-                  >
-                    Next
-                  </MDBBtn>
-                </MDBCol>
-          </MDBRow>
-          
+
+            <MDBRow>
+              <MDBCol>
+                <MDBBtn type="submit" onClick={setDocuments}>
+                  Save
+                </MDBBtn>
+              </MDBCol>
+              <MDBCol>
+                <MDBBtn
+                  type="button"
+                  onClick={() => {
+                    NextButton();
+                  }}
+                  disabled={nextButton}
+                >
+                  Next
+                </MDBBtn>
+              </MDBCol>
+            </MDBRow>
           </form>
         </MDBCardBody>
       </MDBCard>

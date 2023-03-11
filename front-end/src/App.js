@@ -9,7 +9,8 @@ import RegisterScr from './containers/RegisterScr';
 import StudentRegister from './components/Register/stdregister';
 import RecruiterRegister from './components/Register/compregister';
 import StudentDash from './containers/Student/Student';
-import Uploaddoc from './containers/Student/Upload';
+import AddStdUpload from './containers/Student/AddUpload';
+import EditStdUpload from './containers/Student/EditUpload';
 import StudentProfile from './containers/Student/Profile';
 import EditStudentProfile from './containers/Student/EditProfile';
 import StudentAddress from './containers/Student/Address';
@@ -46,7 +47,8 @@ function App() {
           <Route path="stdprofile" element={<StudentProfile />} />
           <Route path="stdaddress" element={<StudentAddress />} />
           <Route path="stdqualify" element={<StudentQualify />} />
-          <Route path="uploaddoc" element={<Uploaddoc />} />
+          <Route path="addstdupload" element={<AddStdUpload />} />
+          <Route path="editstdupload" element={<EditStdUpload />} />
           <Route path="editstdprofile" element={<EditStudentProfile />} />
           <Route path="editstdperaddress" element={<EditPerStudentAddress />} />
           <Route path="editstdtempaddress" element={<EditTempAddress />} />

@@ -1,5 +1,5 @@
 import React from 'react'
-import Upoaddocument from '../../components/Student/Documents/upload';
+import Upoaddocument from '../../components/Student/Documents/addupload';
 
 function Upload() {
   return (
