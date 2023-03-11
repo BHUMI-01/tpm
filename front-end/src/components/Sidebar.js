@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
-    <div style={{ display: 'flex', height: "100%", overflow: 'scroll initial' }}>
+    <div style={{ display: 'flex', height: "90vh", overflow: 'scroll initial' }}>
       <CDBSidebar textColor="#fff" backgroundColor="#333">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
@@ -28,6 +28,27 @@ const Sidebar = () => {
               <Link to="/stddash">Dashboard</Link>
             </CDBSidebarMenuItem>
             
+            <CDBSidebarMenuItem
+              icon="sticky-note"
+            >
+              <Link to="/student/stdprofile">Profile</Link>
+            </CDBSidebarMenuItem>
+            <CDBSidebarMenuItem
+              icon="sticky-note"
+            >
+              <Link to="/student/stdaddress">Address</Link>
+            </CDBSidebarMenuItem>
+            <CDBSidebarMenuItem
+              icon="sticky-note"
+            >
+              <Link to="/student/stdqualify">Education</Link>
+            </CDBSidebarMenuItem>
+            <CDBSidebarMenuItem
+              icon="sticky-note"
+            >
+              <Link to="/student/uploaddoc">Documents</Link>
+            </CDBSidebarMenuItem>
+
             <CDBSidebarMenuItem
               icon="sticky-note"
             >

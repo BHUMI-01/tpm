@@ -151,7 +151,7 @@ const Profile = () => {
                   </tr>
                   <tr>
                     <td>Faculty Number :</td>
-                    <td>-</td>
+                    <td>{profiles.faculty}</td>
                   </tr>
                   <tr>
                     <td>Enrollment Number :</td>
@@ -169,6 +169,10 @@ const Profile = () => {
                     <td>Aadhaar Number :</td>
                     <td>{profiles.aadharNum}</td>
                   </tr>
+                  <tr>
+                    <td>Course Name :</td>
+                    <td>{profiles.course}</td>
+                  </tr>
                 </tbody>
               </Table>
             </MDBCol>
@@ -177,7 +181,7 @@ const Profile = () => {
                 <tbody>
                   <tr>
                     <td>Roll Number :</td>
-                    <td>-</td>
+                    <td>{profiles.rollNum}</td>
                   </tr>
                   <tr>
                     <td>Blood Group :</td>
@@ -204,8 +208,8 @@ const Profile = () => {
                     <td>{profiles.alternateNum}</td>
                   </tr>
                   <tr>
-                    <td>Email Id: </td>
-                    <td>-</td>
+                    <td>Department: </td>
+                    <td>{profiles.department}</td>
                   </tr>
                 </tbody>
               </Table>

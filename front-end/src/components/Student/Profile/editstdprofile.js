@@ -17,6 +17,10 @@ const Editstdprofile = () => {
   const [motherName, setmotherName] = useState("");
   const [gender, setgender] = useState("");
   const [dob, setdob] = useState("");
+  const [department, setDepartmnet] = useState("");
+  const [rollNum, setrollNum] = useState("");
+  const [course, setCourse] = useState("");
+  const [faculty, setFacultyNum] = useState("");
   const [enrollNum, setenrollNum] = useState("");
   const [mobNum, setmobNum] = useState("");
   const [alternateNum, setalternateNum] = useState("");
@@ -49,6 +53,10 @@ const Editstdprofile = () => {
       setfatherName(result.stdprofile.fatherName);
       setmotherName(result.stdprofile.motherName);
       setDisability(result.stdprofile.disability);
+      setDepartmnet(result.stdprofile.department);
+      setrollNum(result.stdprofile.rollNum);
+      setCourse(result.stdprofile.course);
+      setFacultyNum(result.stdprofile.faculty);
       setaadharNum(result.stdprofile.aadharNum);
       setalternateNum(result.stdprofile.alternateNum);
       setmobNum(result.stdprofile.mobNum);
@@ -71,7 +79,7 @@ const Editstdprofile = () => {
       body: JSON.stringify({
         stdprofile: {
           fatherName, motherName, gender, dob, enrollNum, mobNum, alternateNum, disability, aadharNum,
-          bloodGroup, caste, religion,
+          bloodGroup, caste, religion, faculty, rollNum, department, course,
         }
       }),
       headers: {
@@ -158,6 +166,45 @@ const Editstdprofile = () => {
                 ></MDBInput>
               </MDBCol>
             </MDBRow>
+
+            <MDBRow style={{ height: "20px" }}></MDBRow>
+            <MDBRow>
+              <MDBCol>
+                <label>Department: </label>
+                <MDBInput
+                  id="fname"
+                  type="text"
+                  value={department}
+                  onChange={(e) => setDepartmnet(e.target.value)}
+                  pattern="[A-Z][a-zA-Z ]+"
+                  title="For example: Computer Engineering, First letter should be capital"
+                  required
+                ></MDBInput>
+              </MDBCol>
+              <MDBCol>
+                <label>Faculty Number: </label>
+                <MDBInput
+                  id="mname"
+                  type="text"
+                  value={faculty}
+                  onChange={(e) => setFacultyNum(e.target.value)}
+                  title="For example: 19COB001, First letter should be capital"
+                  required
+                ></MDBInput>
+              </MDBCol>
+              <MDBCol>
+                <label>Roll Number: </label>
+                <MDBInput
+                  id="enumber"
+                  type="text"
+                  value={rollNum}
+                  onChange={(e) => setrollNum(e.target.value)}
+                  pattern="[A-Z]+[0-9]{4}"
+                  required
+                ></MDBInput>
+              </MDBCol>
+            </MDBRow>
+
             <MDBRow style={{ height: "20px" }}></MDBRow>
             <MDBRow>
               <MDBCol>
@@ -296,6 +343,29 @@ const Editstdprofile = () => {
                 />
               </MDBCol>
             </MDBRow>
+            
+            <MDBRow style={{ height: "20px" }}></MDBRow>
+            <MDBRow>
+              <MDBCol>
+                <label className="required" htmlFor="disability">
+                  Course Name:{" "}
+                </label>
+                <select
+                  className="form-control select2"
+                  name="course"
+                  id="course"
+                  required
+                  aria-hidden="true"
+                  value={course}
+                  onChange={(e) => setCourse(e.target.value)}
+                >
+                  <option value="">Please select</option>
+                  <option value="B.Tech">B.Tech</option>
+                  <option value="M.Tech">M.Tech</option>
+                </select>
+              </MDBCol>
+            </MDBRow>
+
             <MDBRow style={{ height: "20px" }}></MDBRow>
 
             <MDBRow></MDBRow>

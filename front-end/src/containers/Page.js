@@ -1,15 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
-  MDBRow, MDBContainer, MDBCol, MDBBtn,
+  MDBRow, MDBCol, MDBTable, MDBTableHead, MDBTableBody,
   MDBCard, MDBCardBody
 } from 'mdb-react-ui-kit';
 import Side from '../components/Sidebar';
-import Profile from '../components/Student/Profile/profile';
-import Address from '../components/Student/Address/address';
-import Education from '../components/Student/Education/qualification';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Page = () => {
+  const authorize = JSON.parse(localStorage.getItem("token"));
+  const [firstN, setFirst] = useState("");
+  const [middleN, setMiddle] = useState("");
+  const [lastN, setLast] = useState("");
+  const [email, setEmail] = useState("");
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    getData();
+  }, [])
+  const getData = async () => {
+    if (authorize) {
+      const idd = JSON.parse(localStorage.getItem("student"))._id;
+      setFirst(JSON.parse(localStorage.getItem("student")).firstName);
+      setMiddle(JSON.parse(localStorage.getItem("student")).middleName);
+      setLast(JSON.parse(localStorage.getItem("student")).lastName);
+      setEmail(JSON.parse(localStorage.getItem("student")).email);
+      let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
+        headers: {
+          authorization: JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      result = await result.json();
+      console.log(result.stdprofile);
+      setData(result.stdprofile);
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <div>
       <MDBRow>
@@ -25,18 +52,19 @@ const Page = () => {
                 </MDBCol>
                 <MDBCol md={9}>
                   <MDBRow>
-                    <h3>Name : </h3>
+                    <h3>{firstN} {middleN} {lastN}</h3>
                   </MDBRow>
                   <MDBRow style={{ height: "20px" }}></MDBRow>
                   <MDBRow>
                     <MDBCol>
-                      <h5>Faculty Number : </h5>
-                      <h5>CPI : </h5>
-                      <h5>Course Name : </h5>
+                      <h6>Faculty Number : {data.faculty}</h6>
+                      <h6>Course Name : {data.course}</h6>
+                      <h6>Department : {data.department}</h6>
+                      <h6>CPI : { }</h6>
                     </MDBCol>
                     <MDBCol>
-                      <h5><i className="fa-solid fa-envelope"></i> Email : </h5>
-                      <h5><i className="fa-solid fa-phone"></i> Contact No : </h5>
+                      <h6><i className="fa-solid fa-envelope"></i> Email : {email}</h6>
+                      <h6><i className="fa-solid fa-phone"></i> Contact No : {data.mobNum}</h6>
                     </MDBCol>
                   </MDBRow>
                 </MDBCol>
@@ -47,79 +75,30 @@ const Page = () => {
           <MDBCard className="text-black m-5">
             <MDBCardBody>
               {/* 1st row */}
-              <MDBRow>
-                <MDBCol>
-                  <MDBCard className="text-black m-5">
-                    <MDBCardBody>
-                      <Link to="/student/stdprofile"><h2>Profile</h2></Link>
-                    </MDBCardBody>
-                  </MDBCard>
-                </MDBCol>
-                <MDBCol>
-                  <MDBCard className="text-black m-5">
-                    <MDBCardBody>
-                    <Link to="/student/stdaddress"><h2>Address</h2></Link>
-                    </MDBCardBody>
-                  </MDBCard>
-                </MDBCol>
-                <MDBCol>
-                  <MDBCard className="text-black m-5">
-                    <MDBCardBody>
-                    <Link to="/student/stdqualify"><h2>Education</h2></Link>
-                    </MDBCardBody>
-                  </MDBCard>
-                </MDBCol>
-              </MDBRow>
-
-              {/* 2nd row */}
-              <MDBRow>
-                <MDBCol>
-                  <MDBCard className="text-black m-5">
-                    <MDBCardBody>
-                    <Link to="/student/stdprofile"><h2>Documents</h2></Link>
-                    </MDBCardBody>
-                  </MDBCard>
-                </MDBCol>
-                <MDBCol>
-                  <MDBCard className="text-black m-5">
-                    <MDBCardBody>
-                    <Link to="/student/stdprofile"><h2>Job Openings</h2></Link>
-                    </MDBCardBody>
-                  </MDBCard>
-                </MDBCol>
-                <MDBCol>
-                  
-                </MDBCol>
-              </MDBRow>
+              <MDBTable striped>
+                <MDBTableHead>
+                  <tr>
+                    <th>Company Name</th>
+                    <th>Postition</th>
+                    <th>Job Type</th>
+                    <th>Apply By</th>
+                    <th>Application status</th>
+                  </tr>
+                </MDBTableHead>
+                <MDBTableBody>
+                  <tr>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                </MDBTableBody>
+              </MDBTable>
             </MDBCardBody>
           </MDBCard>
 
-          {/* <MDBCard className="text-black m-5">
-            <MDBCardBody>
-              <MDBRow>
-                <h2>Profile Deatils</h2>
-                <Profile />
-              </MDBRow>
-            </MDBCardBody>
-          </MDBCard>
 
-          <MDBCard className="text-black m-5">
-            <MDBCardBody>
-              <MDBRow>
-                <h2>Address Deatils</h2>
-                <Address />
-              </MDBRow>
-            </MDBCardBody>
-          </MDBCard>
-
-          <MDBCard className="text-black m-5">
-            <MDBCardBody>
-              <MDBRow>
-                <h2>Education Deatils</h2>
-                <Education />
-              </MDBRow>
-            </MDBCardBody>
-          </MDBCard> */}
 
         </MDBCol>
       </MDBRow>
