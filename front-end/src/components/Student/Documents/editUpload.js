@@ -54,19 +54,15 @@ function UPLOAD() {
     reader.onload = () => {
       console.log(reader.result);
       var Name = `${e.target.files[0].name}`;
-      Images = uploads.filter((person) => person.fileType != e.target.id);
-      Images.push({
-        fileType: e.target.id,
-        fileName: Name,
-        dataImage: reader.result,
-      });
-      uploadImages = uploadImages.filter(
-        (person) => person.fileType != e.target.id
+      const Index = uploads.findIndex(
+        (person) => person.fileType === e.target.id
       );
-      uploadImages.push({
-        fileType: e.target.id,
-        fileName: Name,
-      });
+      console.log(Index);
+      uploads[Index].fileName = Name;
+      uploads[Index].dataImage = reader.result;
+      Images = uploads;
+      uploadImages[Index].fileName = Name;
+
       console.log(uploadImages);
       console.log(Images);
     };
@@ -84,7 +80,6 @@ function UPLOAD() {
     });
     localStorage.setItem("upload", JSON.stringify(uploadImages));
   };
-
 
   return (
     <MDBContainer fluid>
@@ -108,17 +103,17 @@ function UPLOAD() {
                   onChange={(e) => settype(e.target.value)}
                 >
                   <option>Please select</option>
-                  {uploaded?<>
-                  {uploaded.map((item) => {
-                    return (
-                      <option key={item.fileType} value={item.fileType}>
-                        {item.fileType}
-                      </option>
-                    );
-                  })}
-                  </>
-                  :null
-                }
+                  {uploaded ? (
+                    <>
+                      {uploaded.map((item) => {
+                        return (
+                          <option key={item.fileType} value={item.fileType}>
+                            {item.fileType}
+                          </option>
+                        );
+                      })}
+                    </>
+                  ) : null}
                 </select>
               </MDBCol>
               <MDBCol>
@@ -140,12 +135,12 @@ function UPLOAD() {
 
             <MDBRow>
               <MDBCol>
-                <MDBBtn type="submit" >
-                  Update
-                </MDBBtn>
+                <MDBBtn type="submit">Update</MDBBtn>
               </MDBCol>
               <MDBCol>
-                <Link to="/stddash"><MDBBtn type="button">Back</MDBBtn></Link>
+                <Link to="/stddash">
+                  <MDBBtn type="button">Back</MDBBtn>
+                </Link>
               </MDBCol>
             </MDBRow>
           </form>
