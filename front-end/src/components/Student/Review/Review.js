@@ -30,6 +30,7 @@ const Review = () => {
     const stdperadd = JSON.parse(localStorage.getItem("stdperaddress"));
     const stdtempadd = JSON.parse(localStorage.getItem("stdtempaddress"));
     const stdeducat = JSON.parse(localStorage.getItem("stdqualify"));
+    const stdupload = JSON.parse(localStorage.getItem("upload"));
     await fetch("http://localhost:5000/add-data", {
       method: "post",
       body: JSON.stringify({
@@ -38,6 +39,7 @@ const Review = () => {
         stdperadd,
         stdtempadd,
         stdeducat,
+        stdupload
       }),
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +56,7 @@ const Review = () => {
     <MDBContainer fluid>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
         <MDBCardBody>
-            <form>
+            <form onSubmit={uploadData}>
           <MDBRow>
             <MDBCol
               style={{
@@ -519,10 +521,10 @@ const Review = () => {
     
                 <MDBBtn
                   type="submit"
-                  onClick={() => {
-                    uploadData();
-                    NextButton();
-                  }}
+                  // onClick={() => {
+                  //   uploadData();
+                  //   NextButton();
+                  // }}
                     disabled={nextButton}
                 >
                   Submit

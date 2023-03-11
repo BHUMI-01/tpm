@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React , {useEffect, useState}from "react";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack5";
 import { pdfjs } from "react-pdf";
 
@@ -10,17 +10,17 @@ import {
   MDBCardBody,
   MDBCardHeader,
   MDBCol,
-  MDBInput,
 } from "mdb-react-ui-kit";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 
 function UPLOAD() {
-  const callback = useCallback();
   pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-  const [tenthMarksheet, settenthMarksheet] = useState("");
-  const Images = [];
+  var Images = [];
+  var uploadImages= [];
+  const [nextButton, setnextbutton] = useState(false);
+  const navigate = useNavigate();
 
   function covertToBase64(e) {
     console.log(e);
@@ -30,19 +30,31 @@ function UPLOAD() {
     reader.onload = () => {
       console.log(reader.result);
       var Name = `${e.target.files[0].name}`;
-      Images.push({ fileType: e.target.id, fileName:Name, dataImage: reader.result });
+      Images = Images.filter((person) => person.fileType != e.target.id);
+      uploadImages.push({
+        fileType: e.target.id,
+        fileName: Name,
+      });
+      Images.push({
+        fileType: e.target.id,
+        fileName: Name,
+        dataImage: reader.result,
+      });
+
       console.log(Images);
     };
-    reader.onerror = (error) => {
+    reader.onerror = error => {
       console.log("Error: ", error);
-    };
+  };
   }
 
   function setDocuments() {
-    localStorage.setItem("upload", JSON.stringify(Images));
+    localStorage.setItem("upload", JSON.stringify(uploadImages));
   }
+  const NextButton = () => {
+    navigate("/student/reviewform");
+  };
   function uploadImage() {
-    const stdupload = JSON.parse(localStorage.getItem("upload"));
     fetch("http://localhost:5000/upload-image", {
       method: "POST",
       crossDomain: true,
@@ -50,14 +62,30 @@ function UPLOAD() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        stdupload,
+         stdupload:Images,
       }),
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
   }
 
-  const auth = JSON.parse(localStorage.getItem("stdqualify")).qualifyLevel;
+  useEffect(() => {
+    const authorize = localStorage.getItem("token");
+    if (authorize) {
+
+      const auth2 = localStorage.getItem("upload");
+      if (!auth2) {
+          setnextbutton(true);}
+           else {
+          setnextbutton(false);
+        }
+    }
+    else {
+      navigate("/");
+    }
+  }, []);
+  const auth = JSON.parse(localStorage.getItem("stdqualify"));
+  const Mtech = auth.find((person)=> person.qualifyLevel==="Graduation(M.Tech)")
   const authh = JSON.parse(localStorage.getItem("stdprofile")).disability;
   console.log(auth);
   console.log(authh);
@@ -70,7 +98,7 @@ function UPLOAD() {
             UPLOAD DOCUMENTS
           </MDBCardHeader>
           <MDBRow style={{ height: "20px" }}></MDBRow>
-          <form>
+          <form onSubmit={uploadImage}>
             <MDBRow>
               <MDBCol>
                 <label htmlFor="file" style={{ paddingBottom: "10px" }}>
@@ -78,13 +106,11 @@ function UPLOAD() {
                 </label>
                 <input
                   id="tenthMarksheet"
-                  accept="image/*, .pdf"
+                  accept=".pdf"
                   type="file"
                   onChange={covertToBase64}
                   required
                 ></input>
-
-                <button onClick={setDocuments}>Upload</button>
               </MDBCol>
               <MDBCol>
                 <label htmlFor="file" style={{ paddingBottom: "10px" }}>
@@ -93,8 +119,9 @@ function UPLOAD() {
                 <input
                   id="twelthMarksheet"
                   type="file"
-                  accept=".png, .jpg, .jpeg, .pdf"
+                  accept=".pdf"
                   onChange={covertToBase64}
+                  required
                 ></input>
               </MDBCol>
             </MDBRow>
@@ -105,9 +132,9 @@ function UPLOAD() {
                   Upload Diploma Marksheet :
                 </label>
                 <input
-                  id="file"
+                  id="diploma"
                   type="file"
-                  accept=".png, .jpg, .jpeg, .pdf"
+                  accept=".pdf"
                   onChange={covertToBase64}
                 ></input>
               </MDBCol>
@@ -115,31 +142,79 @@ function UPLOAD() {
             </MDBRow>
             <hr />
 
-            {auth == "B.Tech" ? (
+            {Mtech.qualifyLevel != "Graduation(M.Tech)" ? (
               <>
                 <MDBRow style={{ height: "30px" }}>
                   <MDBCol>For Undergraduate:</MDBCol>
                 </MDBRow>
                 <MDBRow>
                   <MDBCol>
-                    <label htmlFor="Btech_marksheets">
-                      Btech Marksheets (Semester Wise)
+                  <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                      Upload 1st SEM B-tech Marksheet :
                     </label>
-                    <select
-                      className="form-control"
-                      name="Btech_marksheets"
-                      id="Btech_marksheets"
-                    >
-                      <option>--Select Semester--</option>
-                      <option value="1st SEM"> 1st SEMESTER Marksheet</option>
-                      <option value="2nd SEM"> 2nd SEMESTER Marksheet</option>
-                      <option value="3rd SEM"> 3rd SEMESTER Marksheet</option>
-                      <option value="4th SEM"> 4th SEMESTER Marksheet</option>
-                      <option value="5th SEM"> 5th SEMESTER Marksheet</option>
-                      <option value="6th SEM"> 6th SEMESTER Marksheet</option>
-                      <option value="7th SEM"> 7th SEMESTER Marksheet</option>
-                    </select>
+                    <input
+                      id="1st SEM"
+                      type="file"
+                      accept=".pdf"
+                      onChange={covertToBase64}
+                      required
+                    ></input>
+                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                      Upload 2nd SEM B-tech Marksheet :
+                    </label>
+                    <input
+                      id="2nd SEM"
+                      type="file"
+                      accept=".pdf"
+                      onChange={covertToBase64}
+                      required
+                    ></input>
+                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                      Upload 3rd SEM B-tech Marksheet :
+                    </label>
+                    <input
+                      id="3rd SEM"
+                      type="file"
+                      accept=".pdf"
+                      onChange={covertToBase64}
+                      required
+                    ></input>
+                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                      Upload 4th SEM B-tech Marksheet :
+                    </label>
+                    <input
+                      id="4th SEM"
+                      type="file"
+                      accept=".pdf"
+                      onChange={covertToBase64}
+                      required
+                    ></input>
+                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                      Upload 5th SEM B-tech Marksheet :
+                    </label>
+                    <input
+                      id="5th SEM"
+                      type="file"
+                      accept=".pdf"
+                      onChange={covertToBase64}
+                      required
+                    ></input>
+                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                      Upload 6th SEM B-tech Marksheet :
+                    </label>
+                    <input
+                      id="6th SEM"
+                      type="file"
+                      accept=".pdf"
+                      onChange={covertToBase64}
+                    ></input>
                   </MDBCol>
+               
                 </MDBRow>
               </>
             ) : (
@@ -150,13 +225,14 @@ function UPLOAD() {
                 <MDBRow>
                   <MDBCol>
                     <label htmlFor="file" style={{ paddingBottom: "10px" }}>
-                      Upload Btech-Degree :
+                      Upload Btech-Degree :  
                     </label>
                     <input
-                      id="file"
+                      id="btech-degree"
                       type="file"
-                      accept=".png, .jpg, .jpeg, .pdf"
+                      accept=".pdf"
                       onChange={covertToBase64}
+                      required
                     ></input>
                   </MDBCol>
                   <MDBCol>
@@ -164,30 +240,52 @@ function UPLOAD() {
                       Upload Final Btech-Marksheet :
                     </label>
                     <input
-                      id="file"
+                      id="btech-marksheet"
                       type="file"
-                      accept=".png, .jpg, .jpeg, .pdf"
+                      accept=".pdf"
                       onChange={covertToBase64}
+                      required
                     ></input>
                   </MDBCol>
                 </MDBRow>
                 <MDBRow style={{ height: "20px" }}></MDBRow>
                 <MDBRow>
+                <MDBRow style={{ height: "30px"}}><MDBCol>M.Tech Marksheets</MDBCol></MDBRow>
                   <MDBCol>
-                    <label htmlFor="mtech_marksheets">
-                      Mtech Marksheets (Semester Wise)
+                  <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                      Upload 1st SEM M-tech Marksheet :
                     </label>
-                    <select
-                      className="form-control"
-                      name="mtech_marksheets"
-                      id="mtech_marksheets"
-                    >
-                      <option>--Select Semester--</option>
-                      <option value="1st SEM"> 1st SEMESTER Marksheet</option>
-                      <option value="2nd SEM"> 2nd SEMESTER Marksheet</option>
-                      <option value="3rd SEM"> 3rd SEMESTER Marksheet</option>
-                    </select>
+                    <input
+                      id="1st SEM"
+                      type="file"
+                      accept=".pdf"
+                      onChange={covertToBase64}
+                      required
+                    ></input>
+                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                      Upload 2nd SEM M-tech Marksheet :
+                    </label>
+                    <input
+                      id="2nd SEM"
+                      type="file"
+                      accept=".pdf"
+                      onChange={covertToBase64}
+                      required
+                    ></input>
+                     <MDBRow style={{ height: "30px" }}></MDBRow>
+                    <label htmlFor="file" style={{ paddingBottom: "10px" }}>
+                      Upload 3rd SEM M-tech Marksheet :
+                    </label>
+                    <input
+                      id="3rd SEM"
+                      type="file"
+                      accept=".pdf"
+                      onChange={covertToBase64}
+                    
+                    ></input>
                   </MDBCol>
+                  
                 </MDBRow>
               </>
             )}
@@ -203,10 +301,11 @@ function UPLOAD() {
                       Upload Disability Certificate :
                     </label>
                     <input
-                      id="file"
+                      id="disabilityCert"
                       type="file"
-                      accept=".png, .jpg, .jpeg, .pdf"
+                      accept=".pdf"
                       onChange={covertToBase64}
+                      required
                     ></input>
                   </MDBCol>
                 </>
@@ -216,43 +315,38 @@ function UPLOAD() {
                   Upload Internship Certificate :
                 </label>
                 <input
-                  id="file"
+                  id="internshipCert"
                   type="file"
-                  accept=".png, .jpg, .jpeg, .pdf"
+                  accept=".pdf"
                   onChange={covertToBase64}
+                  required
                 ></input>
               </MDBCol>
             </MDBRow>
             <MDBRow style={{ height: "20px" }}></MDBRow>
 
             <MDBRow style={{ height: "20px" }}></MDBRow>
-          </form>
-
+         
           <MDBRow>
             <MDBCol>
-              <MDBBtn type="submit" onClick={uploadImage}>
+              <MDBBtn type="submit" onClick={setDocuments}>
                 Save
               </MDBBtn>
             </MDBCol>
-            {/* <MDBCol>
-              <MDBBtn onClick={uploadData}>Submit</MDBBtn>
-            </MDBCol> */}
+            <MDBCol>
+                  <MDBBtn
+                    type="button"
+                    onClick={() => {
+                      NextButton();
+                    }}
+                    disabled={nextButton}
+                  >
+                    Next
+                  </MDBBtn>
+                </MDBCol>
           </MDBRow>
-          {/* 
-          {allImage.map(( data) => {
-            return (
-              <Document
-              key ={data._id}
-                file={data.image}
-                options={{
-                  cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
-                  cMapPacked: true,
-                }}
-              >
-                <Page pageNumber={1} />
-              </Document>
-            );
-          })} */}
+          
+          </form>
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>
