@@ -78,9 +78,10 @@ function UPLOAD() {
         stdupload: Images,
       }),
     });
-    localStorage.setItem("upload", JSON.stringify(uploadImages));
   };
-
+  function setDocuments() {
+    localStorage.setItem("upload", JSON.stringify(uploadImages));
+  }
   return (
     <MDBContainer fluid>
       <MDBCard className="text-black m-5">
@@ -135,7 +136,7 @@ function UPLOAD() {
 
             <MDBRow>
               <MDBCol>
-                <MDBBtn type="submit">Update</MDBBtn>
+                <MDBBtn type="submit" onClick={setDocuments}>Update</MDBBtn>
               </MDBCol>
               <MDBCol>
                 <Link to="/stddash">

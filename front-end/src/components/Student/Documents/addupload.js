@@ -30,6 +30,18 @@ function UPLOAD() {
     reader.onload = () => {
       console.log(reader.result);
       var Name = `${e.target.files[0].name}`;
+      var neww = Images.find((person) => person.fileType === e.target.id);
+      if(neww)
+      {
+        const Index = Images.findIndex(
+          (person) => person.fileType === e.target.id
+        );
+        console.log(Index);
+        Images[Index].fileName = Name;
+        Images[Index].dataImage = reader.result;
+        uploadImages[Index].fileName = Name;
+      }
+      else{
       Images = Images.filter((person) => person.fileType != e.target.id);
       uploadImages.push({
         fileType: e.target.id,
@@ -40,6 +52,7 @@ function UPLOAD() {
         fileName: Name,
         dataImage: reader.result,
       });
+    }
 
       console.log(Images);
     };
