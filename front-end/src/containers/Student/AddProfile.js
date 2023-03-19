@@ -55,8 +55,7 @@ const Editstdprofile = () => {
           setnextbutton(false);
         }
       }
-    }
-    else {
+    } else {
       navigate("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,8 +85,22 @@ const Editstdprofile = () => {
 
   const set_student_profile = async () => {
     const profi = JSON.stringify({
-      fatherName, motherName, gender, dob, enrollNum, mobNum, faculty, rollNum, department,
-      alternateNum, disability, aadharNum, bloodGroup, caste, religion, course,
+      fatherName,
+      motherName,
+      gender,
+      dob,
+      enrollNum,
+      mobNum,
+      faculty,
+      rollNum,
+      department,
+      alternateNum,
+      disability,
+      aadharNum,
+      bloodGroup,
+      caste,
+      religion,
+      course,
     });
     localStorage.setItem("stdprofile", profi);
   };
@@ -101,7 +114,15 @@ const Editstdprofile = () => {
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
         <MDBCardBody>
           <MDBRow>
-            <MDBCol style={{ textAlign: "center", fontWeight: "bold", fontSize: "20px", }}>EDIT PROFILE </MDBCol>
+            <MDBCol
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+                fontSize: "20px",
+              }}
+            >
+              EDIT PROFILE{" "}
+            </MDBCol>
           </MDBRow>
           <hr />
           <MDBRow style={{ height: "20px" }}></MDBRow>
@@ -199,7 +220,7 @@ const Editstdprofile = () => {
                   type="text"
                   value={faculty}
                   onChange={(e) => setFacultyNum(e.target.value)}
-                  maxLength= "8"
+                  maxLength="8"
                   title="For example: 19COB001"
                   required
                 ></MDBInput>
@@ -382,32 +403,31 @@ const Editstdprofile = () => {
                 </select>
               </MDBCol>
             </MDBRow>
+            <MDBRow style={{ height: "40px" }}></MDBRow>
+            <MDBRow>
+              <MDBCol>
+                <MDBBtn
+                  type="submit"
+                  onClick={() => {
+                    set_student_profile();
+                  }}
+                >
+                  Save
+                </MDBBtn>
+              </MDBCol>
+              <MDBCol>
+                <MDBBtn
+                  type="button"
+                  onClick={() => {
+                    NextButton();
+                  }}
+                  disabled={nextButton}
+                >
+                  Next
+                </MDBBtn>
+              </MDBCol>
+            </MDBRow>
           </form>
-
-          <MDBRow style={{ height: "40px" }}></MDBRow>
-          <MDBRow>
-            <MDBCol>
-              <MDBBtn
-                type="submit"
-                onClick={() => { set_student_profile(); }}
-              >
-                Save
-              </MDBBtn>
-            </MDBCol>
-            {/* {nextButton ? ( */}
-            <MDBCol>
-              <MDBBtn
-                type="button"
-                onClick={() => {
-                  NextButton();
-                }}
-                disabled={nextButton}
-              >
-                Next
-              </MDBBtn>
-            </MDBCol>
-            {/* ) : null} */}
-          </MDBRow>
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>

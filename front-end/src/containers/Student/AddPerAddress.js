@@ -259,8 +259,7 @@ function AddPeraddress() {
                     />
                   </MDBCol>
                 </MDBRow>
-              </form>
-              <MDBRow style={{ height: "20px" }}></MDBRow>
+                <MDBRow style={{ height: "20px" }}></MDBRow>
               <MDBRow>
                 <MDBCol>
                   <MDBBtn
@@ -275,7 +274,7 @@ function AddPeraddress() {
                 {show ? (
                   <MDBCol>
                     <MDBBtn
-                      type="button"
+                      type="submit"
                       disabled={nextButton}
                       onClick={() => {
                         NextButton();
@@ -286,6 +285,8 @@ function AddPeraddress() {
                   </MDBCol>
                 ) : null}
               </MDBRow>
+              </form>
+              
 
               <MDBRow style={{ height: "20px", paddingLeft: "20px" }} />
               <MDBRow style={{ height: "40px", paddingLeft: "20px" }}>

@@ -343,8 +343,7 @@ function UPLOAD() {
                 ></input>
               </MDBCol>
             </MDBRow>
-          </form>
-          <MDBRow style={{ height: "40px" }}></MDBRow>
+            <MDBRow style={{ height: "40px" }}></MDBRow>
           <MDBRow>
             <MDBCol>
               <MDBBtn type="submit" onClick={setDocuments}>
@@ -363,6 +362,8 @@ function UPLOAD() {
               </MDBBtn>
             </MDBCol>
           </MDBRow>
+          </form>
+          
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>

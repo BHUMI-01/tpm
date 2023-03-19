@@ -170,19 +170,20 @@ const AddQuali = () => {
               id="enumber"
               type="text"
               value={grade}
-              pattern="[0-9]+"
+              pattern="[0-9]*[0-9]*.[0-9]*"
               onChange={(e) => setGrade(e.target.value)}
               required
             ></MDBInput>
           </MDBCol>
         </MDBRow>
-      </form>
-      <MDBRow style={{ height: "20px" }}></MDBRow>
-      <MDBRow>
+        <MDBRow>
         <MDBCol md={2}>
-          <MDBBtn onClick={set_student_qualify}>Save</MDBBtn>
+          <MDBBtn type="submit" onClick={set_student_qualify}>Save</MDBBtn>
         </MDBCol>
       </MDBRow>
+      </form>
+      <MDBRow style={{ height: "20px" }}></MDBRow>
+      
       <MDBRow style={{ height: "20px" }}></MDBRow>
     </>
   );
