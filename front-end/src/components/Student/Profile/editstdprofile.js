@@ -187,8 +187,9 @@ const Editstdprofile = () => {
                   id="mname"
                   type="text"
                   value={faculty}
+                  maxLength="8"
                   onChange={(e) => setFacultyNum(e.target.value)}
-                  title="For example: 19COB001, First letter should be capital"
+                  title="For example: 19COB001"
                   required
                 ></MDBInput>
               </MDBCol>
@@ -199,7 +200,9 @@ const Editstdprofile = () => {
                   type="text"
                   value={rollNum}
                   onChange={(e) => setrollNum(e.target.value)}
+                  maxLength="5"
                   pattern="[A-Z]+[0-9]{4}"
+                  title="For example: A7667, FIRST LETTER SHOULD BE CAPITAL"
                   required
                 ></MDBInput>
               </MDBCol>
@@ -226,6 +229,7 @@ const Editstdprofile = () => {
                   onChange={(e) => setenrollNum(e.target.value)}
                   maxLength="6"
                   pattern="[A-Z][A-Z]+[0-9]{4}"
+
                   required
                 ></MDBInput>
               </MDBCol>
