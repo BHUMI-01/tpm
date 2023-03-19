@@ -92,7 +92,7 @@ const Editstdprofile = () => {
   };
 
   const NextButton = () => {
-    navigate("/student/addstdperaddress");
+    navigate("/studnt/addstdperaddress");
   };
 
   return (

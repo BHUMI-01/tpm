@@ -56,6 +56,8 @@ const stdProfileSchema = new mongoose.Schema({
 
 const studentData = new mongoose.Schema({
     studentId: { type: String, required: true },
+    username: {type: String, required: true},
+    email: {type: String, required: true},
     stdprofile: stdProfileSchema,
     stdperadd: stdPerAddressSchema,
     stdtempadd: stdTempAddressSchema,

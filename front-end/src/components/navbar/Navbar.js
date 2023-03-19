@@ -16,10 +16,14 @@ function navbar() {
       return <li><Link to='/stddash'><i className="fa-solid fa-user"></i> {name}</Link></li>
     }
     else if (localStorage.getItem("recruiter")) {
-      return <li><Link to="/recruiter">Profile</Link></li>
-    }
-    else {
-      return <li><Link to="/admin">Profile</Link></li>
+      const role = JSON.parse(localStorage.getItem("recruiter")).role;
+      const name = JSON.parse(localStorage.getItem("recruiter")).username;
+      if (role == "recruiter") {
+        return <li><Link to="/recruiter"><i className="fa-solid fa-user"></i> {name}</Link></li>
+      }
+      else {
+        return <li><Link to="/admin"><i className="fa-solid fa-user"></i> {name}</Link></li>
+      }
     }
   }
 

@@ -10,12 +10,12 @@ import {
 } from "mdb-react-ui-kit";
 
 const Compregister = () => {
-  const [firstName, setFirstName] = useState("");
+  const [username, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
-    const auth = localStorage.getItem("recruiter");
+    const auth = localStorage.getItem("token");
     if (auth) {
       navigate('/')
     }
@@ -24,18 +24,22 @@ const Compregister = () => {
   const collectData = async () => {
     let result = await fetch("http://localhost:5000/comp-register", {
       method: 'post',
-      body: JSON.stringify({ firstName, email, password }),
+      body: JSON.stringify({ username, email, password }),
       headers: {
         'Content-Type': 'application/json'
       }
     });
     result = await result.json();
-    if (result.result != "user already enrolled") {
-      localStorage.setItem("recruiter", JSON.stringify(result));
-      navigate('/complogin');
+    if (result.result == "user already enrolled") {
+      alert("User Already Registered");
+    }
+    else if (result.result == "Something is wrong!") {
+      alert("Something is wrong! Please try it again!!");
     }
     else {
-      alert("User Already Registered");
+      localStorage.setItem("recruiter", JSON.stringify(result.result));
+      localStorage.setItem("token", JSON.stringify(result.auth));
+      // navigate('/student/addstdprofile');
     }
   }
 
@@ -58,7 +62,7 @@ const Compregister = () => {
                     type="text"
                     className="form-control"
                     placeholder="First name"
-                    value={firstName}
+                    value={username}
                     onChange={(e) => setFirstName(e.target.value)}
                     required
                   />

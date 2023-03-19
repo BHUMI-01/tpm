@@ -8,30 +8,24 @@ import { useNavigate } from 'react-router-dom';
 
 const Page = () => {
   const authorize = JSON.parse(localStorage.getItem("token"));
-  const [firstN, setFirst] = useState("");
-  const [middleN, setMiddle] = useState("");
-  const [lastN, setLast] = useState("");
-  const [email, setEmail] = useState("");
+  console.log("working starts...");
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     getData();
   }, [])
   const getData = async () => {
+    console.log("working...");
     if (authorize) {
       const idd = JSON.parse(localStorage.getItem("student"))._id;
-      setFirst(JSON.parse(localStorage.getItem("student")).firstName);
-      setMiddle(JSON.parse(localStorage.getItem("student")).middleName);
-      setLast(JSON.parse(localStorage.getItem("student")).lastName);
-      setEmail(JSON.parse(localStorage.getItem("student")).email);
       let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
         headers: {
           authorization: JSON.parse(localStorage.getItem("token")),
         },
       });
       result = await result.json();
-      console.log(result.stdprofile);
-      setData(result.stdprofile);
+      console.log(result);
+      setData(result);
     } else {
       navigate("/");
     }
@@ -52,19 +46,18 @@ const Page = () => {
                 </MDBCol>
                 <MDBCol md={9}>
                   <MDBRow>
-                    <h3>{firstN} {middleN} {lastN}</h3>
+                    <h3>{data.username}</h3>
                   </MDBRow>
                   <MDBRow style={{ height: "20px" }}></MDBRow>
                   <MDBRow>
                     <MDBCol>
-                      <h6>Faculty Number : {data.faculty}</h6>
-                      <h6>Course Name : {data.course}</h6>
-                      <h6>Department : {data.department}</h6>
-                      <h6>CPI : { }</h6>
+                      {/* <h6>Faculty Number : {data.stdprofile.faculty}</h6>
+                      <h6>Course Name : {data.stdprofile.course}</h6>
+                      <h6>Department : {data.stdprofile.department}</h6> */}
                     </MDBCol>
                     <MDBCol>
-                      <h6><i className="fa-solid fa-envelope"></i> Email : {email}</h6>
-                      <h6><i className="fa-solid fa-phone"></i> Contact No : {data.mobNum}</h6>
+                      <h6><i className="fa-solid fa-envelope"></i> Email : {data.email}</h6>
+                      {/* <h6><i className="fa-solid fa-phone"></i> Contact No : {data.stdprofile.mobNum}</h6> */}
                     </MDBCol>
                   </MDBRow>
                 </MDBCol>

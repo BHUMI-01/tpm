@@ -9,6 +9,7 @@ import RegisterScr from './containers/RegisterScr';
 import StudentRegister from './components/Register/stdregister';
 import RecruiterRegister from './components/Register/compregister';
 import StudentDash from './containers/Student/Student';
+import StudentDash2 from './containers/Student/Student2';
 import AddStdUpload from './containers/Student/AddUpload';
 import EditStdUpload from './containers/Student/EditUpload';
 import StudentProfile from './containers/Student/Profile';
@@ -27,6 +28,11 @@ import AddStudentEducat from './containers/Student/AddEducat';
 import Reviewform from './containers/Student/ReviewForm';
 
 import Admin from './containers/Admin/Admn';
+import ManageStd from './containers/Admin/MangStudent';
+import ManageRecruit from './containers/Admin/MangRecruiter';
+import ManageAdmin from './containers/Admin/MangAdmin';
+import Notify from './containers/Admin/Notification';
+
 import Recruiter from './containers/Recruiter';
 import StudentDashboard from './containers/Page';
 
@@ -47,25 +53,32 @@ function App() {
           <Route path="stdprofile" element={<StudentProfile />} />
           <Route path="stdaddress" element={<StudentAddress />} />
           <Route path="stdqualify" element={<StudentQualify />} />
-          <Route path="addstdupload" element={<AddStdUpload />} />
           <Route path="editstdupload" element={<EditStdUpload />} />
           <Route path="editstdprofile" element={<EditStudentProfile />} />
           <Route path="editstdperaddress" element={<EditPerStudentAddress />} />
           <Route path="editstdtempaddress" element={<EditTempAddress />} />
           <Route path="editstdqualify/:id" element={<EditStudentQualify />} />
           <Route path="addstdqualify" element={<AddStudentQualify />} />
+        </Route>
 
+        <Route path="/studnt" element={<StudentDash2 />}>
           <Route path="addstdprofile" element={<AddStudentProfile />} />
           <Route path="addstdperaddress" element={<AddPerStudentAddress />} />
           <Route path="addstdtempaddress" element={<AddTempAddress />} />
           <Route path="addstdeducat" element={<AddStudentEducat />} />
+          <Route path="addstdupload" element={<AddStdUpload />} />
           <Route path="reviewform" element={<Reviewform />} />
         </Route>
 
-        <Route path="/stddash" element={<StudentDashboard />}/>
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/stddash" element={<StudentDashboard />} />
+        <Route path="/admin" element={<Admin />}>
+          <Route path="managestd" element={<ManageStd />} />
+          <Route path="managecomp" element={<ManageRecruit />} />
+          <Route path="notification" element={<Notify />} />
+          <Route path="manageadmin" element={<ManageAdmin />} />
+        </Route>
         <Route path="/recruiter" element={<Recruiter />} />
-        
+
       </Routes>
     </div>
   );

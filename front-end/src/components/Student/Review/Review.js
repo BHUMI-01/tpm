@@ -22,11 +22,16 @@ const Review = () => {
   const stdupload = JSON.parse(localStorage.getItem("upload"));
   const navigate = useNavigate();
   const handleEdit = () => {
-    navigate("/student/addstdprofile");
+    navigate("/studnt/addstdprofile");
   };
 
   const uploadData = async () => {
     const studentId = JSON.parse(localStorage.getItem("student"))._id;
+    const firstN = JSON.parse(localStorage.getItem("student")).firstName;
+    const middleN = JSON.parse(localStorage.getItem("student")).middleName;
+    const lastN = JSON.parse(localStorage.getItem("student")).lastName;
+    const email = JSON.parse(localStorage.getItem("student")).email;
+    const username = firstN + " " + middleN + " " + lastN;
     const stdprofile = JSON.parse(localStorage.getItem("stdprofile"));
     const stdperadd = JSON.parse(localStorage.getItem("stdperaddress"));
     const stdtempadd = JSON.parse(localStorage.getItem("stdtempaddress"));
@@ -36,6 +41,8 @@ const Review = () => {
       method: "post",
       body: JSON.stringify({
         studentId,
+        username,
+        email,
         stdprofile,
         stdperadd,
         stdtempadd,
@@ -46,10 +53,6 @@ const Review = () => {
         authorization: JSON.parse(localStorage.getItem("token")),
       },
     });
-  };
-
-  const NextButton = () => {
-    navigate("/stddash");
   };
 
   return (
@@ -243,42 +246,6 @@ const Review = () => {
                 ></MDBInput>
               </MDBCol>
 
-              {/* <MDBCol>
-                <label className="required" htmlFor="country_id">
-                  Country:{" "}
-                </label>
-                <MDBInput
-                  className="form-control select2"
-                  name="country_id"
-                  id="country_id"
-                  aria-hidden="true"
-                  value={StudentProfile.nationality}
-                  disabled
-                ></MDBInput>
-              </MDBCol>
-              <MDBCol>
-                <label htmlFor="province_id">State:</label>
-                <MDBInput
-                  className="form-control"
-                  name="province_id"
-                  id="province_id"
-                  disabled
-                  value={StudentProfile.state}
-                ></MDBInput>
-              </MDBCol>
-            </MDBRow>
-            <MDBRow style={{ height: "20px" }}></MDBRow>
-            <MDBRow>
-              <MDBCol>
-                <label htmlFor="city_id">City:</label>
-                <MDBInput
-                  className="form-control"
-                  name="city_id"
-                  id="city_id"
-                  disabled
-                  value={StudentProfile.city}
-                ></MDBInput>
-              </MDBCol> */}
               <MDBCol>
                 <label>Mobile Number</label>
                 <PhoneInput value={StudentProfile.mobNum} disabled />
@@ -507,7 +474,7 @@ const Review = () => {
                 style={{
                   fontWeight: "bold",
                   fontSize: "16px",
-                  textAlign:"center"
+                  textAlign: "center"
                 }}
               >
                 UPLOADED DOCUMENTS
@@ -525,7 +492,7 @@ const Review = () => {
                   </>
                 ))}
               </MDBCol>
-              <hr/>
+              <hr />
             </MDBRow>
             <MDBRow style={{ height: "20px" }}></MDBRow>
             <MDBRow style={{ height: "40px", paddingLeft: "20px" }}>
@@ -537,21 +504,23 @@ const Review = () => {
                 label="I have read all the information carefully!"
               />
             </MDBRow>
+          </form>
+          <MDBRow>
             <MDBRow>
-              <MDBRow>
-                <MDBCol>
-                  <MDBBtn type="button" onClick={handleEdit}>
-                    Edit
-                  </MDBBtn>
-                </MDBCol>
-                <MDBCol>
-                  <MDBBtn type="submit" disabled={nextButton}>
+              <MDBCol>
+                <MDBBtn type="button" onClick={handleEdit}>
+                  Edit
+                </MDBBtn>
+              </MDBCol>
+              <MDBCol>
+                <Link to="/stddash">
+                  <MDBBtn type="submit" disabled={nextButton} onClick={uploadData}>
                     Submit
                   </MDBBtn>
-                </MDBCol>
-              </MDBRow>
+                </Link>
+              </MDBCol>
             </MDBRow>
-          </form>
+          </MDBRow>
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>

@@ -65,7 +65,7 @@ function UPLOAD() {
     localStorage.setItem("upload", JSON.stringify(uploadImages));
   }
   const NextButton = () => {
-    navigate("/student/reviewform");
+    navigate("/studnt/reviewform");
   };
   function uploadImage() {
     fetch("http://localhost:5000/upload-image", {

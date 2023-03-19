@@ -15,7 +15,7 @@ const CompLogin = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   useEffect(() => { 
-    const auth = localStorage.getItem("recruiter");
+    const auth = localStorage.getItem("token");
     if (auth) {
       navigate('/');
     }
@@ -30,12 +30,13 @@ const CompLogin = () => {
       }
     });
     result = await result.json();
-    if (result.result != "No User Found") {
-      localStorage.setItem("recruiter", JSON.stringify(result));
-      navigate('/');
-    }
-    else{
+    if (result.result) {
       alert("Please enter correct details");
+    }
+    else {
+      localStorage.setItem("recruiter", JSON.stringify(result.recruiter));
+      localStorage.setItem("token", JSON.stringify(result.auth));
+      // navigate('/student');
     }
   }
 

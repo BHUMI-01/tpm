@@ -66,7 +66,7 @@ function AddTempaddress() {
   };
 
   const NextButton = () => {
-    navigate("/student/addstdeducat");
+    navigate("/studnt/addstdeducat");
   };
   const CountryVar = Country.getAllCountries();
   const StateVar = State.getStatesOfCountry(country);

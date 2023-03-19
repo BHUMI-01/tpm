@@ -20,7 +20,7 @@ const Stdregister = () => {
   useEffect(() => {
     const auth = localStorage.getItem("token");
     if (auth) {
-      navigate('/student/addstdprofile');
+      navigate('/studnt/addstdprofile');
     }
   }, [])
 

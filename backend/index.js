@@ -7,6 +7,7 @@ const jwtKey = "i am lovish";
 require("./db/config");
 const Student = require("./models/students/Student");
 const Recruiter = require("./models/recruiters/Recruiter");
+const Admin = require("./models/Admin/Admin");
 const Student_Data = require("./models/students/Student_Data");
 const { valid } = require("joi");
 
@@ -79,32 +80,47 @@ app.post("/login", async (req, resp) => {
 //company register and login - register
 app.post("/comp-register", async (req, resp) => {
   if (req.body.password && req.body.email) {
-    let comp = await Recruiter.findOne(req.body);
+    let comp = await Admin.findOne(req.body);
 
     if (comp) {
-      resp.send("user already enrolled");
+      resp.send({ result: "user already enrolled" });
     } else {
-      let comp = new Recruiter(req.body);
+      let comp = new Admin(req.body);
       let result = await comp.save();
       result = result.toObject();
       delete result.password;
-      resp.send(result);
+      Jwt.sign({ result }, jwtKey, { expiresIn: "7h" }, (err, token) => {
+        if (err) {
+          resp.send({ result: "Something is wrong!" });
+        }
+        resp.send({ result, auth: token });
+      });
     }
   } else {
-    let student = new Recruiter(req.body);
-    let result = await student.save();
+    let comp = new Admin(req.body);
+    let result = await comp.save();
     result = result.toObject();
     delete result.password;
-    resp.send(result);
+    Jwt.sign({ result }, jwtKey, { expiresIn: "7h" }, (err, token) => {
+      if (err) {
+        resp.send({ result: "Something is wrong!" });
+      }
+      resp.send({ result, auth: token });
+    });
   }
 });
 
 //company register and login - login
 app.post("/comp-login", async (req, resp) => {
   if (req.body.password && req.body.email) {
-    let student = await Recruiter.findOne(req.body).select("-password");
-    if (student) {
-      resp.send(student);
+    let recruiter = await Admin.findOne(req.body).select("-password");
+    if (recruiter) {
+      Jwt.sign({ recruiter }, jwtKey, { expiresIn: "7h" }, (err, token) => {
+        if (err) {
+          resp.send({ result: "Something is wrong!" });
+        }
+        resp.send({ recruiter, auth: token });
+      });
     } else {
       resp.send({ result: "No User Found" });
     }
@@ -164,10 +180,10 @@ function verifyToken(req, resp, next) {
   }
 }
 
-app.post("/upload-image", verifyToken,async (req, res) => {
-  const { studentId, stdupload  } = req.body;
+app.post("/upload-image", verifyToken, async (req, res) => {
+  const { studentId, stdupload } = req.body;
   try {
-    await Images.create({ studentId,stdupload});
+    await Images.create({ studentId, stdupload });
     res.send({ Status: "ok" });
   } catch (error) {
     res.send({ Status: "error", data: error });
@@ -176,21 +192,52 @@ app.post("/upload-image", verifyToken,async (req, res) => {
 
 app.get("/get-image/:id", verifyToken, async (req, resp) => {
   const data = await Images.findOne({ studentId: req.params.id });
-    if (data) {
-        resp.send(data)
-    }
-    else {
-        resp.send({ result: "No User Found" })
-    }
+  if (data) {
+    resp.send(data)
+  }
+  else {
+    resp.send({ result: "No User Found" })
+  }
 });
-app.put("/update-image/:id", verifyToken,async (req, resp) => {
+app.put("/update-image/:id", verifyToken, async (req, resp) => {
 
   let result = await Images.updateOne(
-  { studentId: req.params.id },
-          {
-              $set: req.body
-          }
-          )
-    resp.send(result);
+    { studentId: req.params.id },
+    {
+      $set: req.body
+    }
+  )
+  resp.send(result);
 });
+
+app.get("/get-admins", verifyToken, async (req, resp) => {
+  const data = await Admin.find({role: "admin"});
+  if (data) {
+    resp.send(data)
+  }
+  else {
+    resp.send({ result: "No User Found" })
+  }
+});
+
+app.get("/get-recruit", verifyToken, async (req, resp) => {
+  const data = await Admin.find({role: "recruiter"});
+  if (data) {
+    resp.send(data)
+  }
+  else {
+    resp.send({ result: "No User Found" })
+  }
+});
+
+app.get("/get-student", verifyToken, async (req, resp) => {
+  const data = await Student.find();
+  if (data) {
+    resp.send(data)
+  }
+  else {
+    resp.send({ result: "No User Found" })
+  }
+});
+
 app.listen(5000);
