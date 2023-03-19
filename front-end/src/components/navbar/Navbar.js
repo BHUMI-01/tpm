@@ -6,26 +6,11 @@ import {
 } from 'react-router-dom';
 
 function navbar() {
-  const auth = localStorage.getItem("student");
-  const authh = localStorage.getItem("recruiter");
+  const auth = JSON.parse(localStorage.getItem("student"));
+  const authh = JSON.parse(localStorage.getItem("recruiter"));
   const navigate = useNavigate;
 
-  const shoot = () => {
-    if (localStorage.getItem("student")) {
-      const name = JSON.parse(localStorage.getItem("student")).firstName;
-      return <li><Link to='/stddash'><i className="fa-solid fa-user"></i> {name}</Link></li>
-    }
-    else if (localStorage.getItem("recruiter")) {
-      const role = JSON.parse(localStorage.getItem("recruiter")).role;
-      const name = JSON.parse(localStorage.getItem("recruiter")).username;
-      if (role == "recruiter") {
-        return <li><Link to="/recruiter"><i className="fa-solid fa-user"></i> {name}</Link></li>
-      }
-      else {
-        return <li><Link to="/admin"><i className="fa-solid fa-user"></i> {name}</Link></li>
-      }
-    }
-  }
+
 
   const logout = () => {
     localStorage.clear();
@@ -45,7 +30,9 @@ function navbar() {
                 <label htmlFor="checkbox_toggle" className="hamburger">&#9776;</label>
                 <div className="menu">
                   <li><Link to="/">Home</Link></li>
-                  {shoot()}
+                  {auth? <li><Link to='/stddash'><i className="fa-solid fa-user"></i> {auth.firstName}</Link></li>:null}
+                  {authh? (authh.role ? <li><Link to="/recruiter"><i className="fa-solid fa-user"></i> {authh.username}</Link></li>:<li><Link to="/admin"><i className="fa-solid fa-user"></i> {authh.username}</Link></li>):
+                   null}
                   <li><Link onClick={() => logout()} to="/register">Logout</Link></li>
                 </div>
               </ul>

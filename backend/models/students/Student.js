@@ -7,7 +7,6 @@ const studentSchema = new mongoose.Schema({
   firstName: { type: String, required: [true, "Please tell your First Name"] },
   middleName: { type: String, required: false },
   lastName: { type: String, required: [true, "Please tell your Last Name"] },
-  status: { type: String, required: false },
   email: {
     type: String,
     required: [true, "Please tell your Email"],

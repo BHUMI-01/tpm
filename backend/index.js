@@ -23,7 +23,6 @@ app.use(cors());
 //student register and login - register
 app.post("/register", async (req, resp) => {
   try {
-    if (req.body.password && req.body.email) {
       let student = await Student.findOne(req.body);
 
       if (student) {
@@ -40,18 +39,7 @@ app.post("/register", async (req, resp) => {
           resp.send({ result, auth: token });
         });
       }
-    } else {
-      let student = new Student(req.body);
-      let result = await student.save();
-      result = result.toObject();
-      delete result.password;
-      Jwt.sign({ result }, jwtKey, { expiresIn: "7h" }, (err, token) => {
-        if (err) {
-          resp.send({ result: "Something is wrong!" });
-        }
-        resp.send({ result, auth: token });
-      });
-    }
+    
   } catch (err) {
     console.log(err);
     resp.send({ result: "Something is wrong!" });
