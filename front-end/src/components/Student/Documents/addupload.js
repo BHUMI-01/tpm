@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Document, Page } from "react-pdf/dist/esm/entry.webpack5";
+// import { Document, Page } from "react-pdf/dist/esm/entry.webpack5";
 import { pdfjs } from "react-pdf";
 
 import {
@@ -11,7 +11,7 @@ import {
   MDBCardHeader,
   MDBCol,
 } from "mdb-react-ui-kit";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 
@@ -31,8 +31,7 @@ function UPLOAD() {
       console.log(reader.result);
       var Name = `${e.target.files[0].name}`;
       var neww = Images.find((person) => person.fileType === e.target.id);
-      if(neww)
-      {
+      if (neww) {
         const Index = Images.findIndex(
           (person) => person.fileType === e.target.id
         );
@@ -41,18 +40,18 @@ function UPLOAD() {
         Images[Index].dataImage = reader.result;
         uploadImages[Index].fileName = Name;
       }
-      else{
-      Images = Images.filter((person) => person.fileType != e.target.id);
-      uploadImages.push({
-        fileType: e.target.id,
-        fileName: Name,
-      });
-      Images.push({
-        fileType: e.target.id,
-        fileName: Name,
-        dataImage: reader.result,
-      });
-    }
+      else {
+        Images = Images.filter((person) => person.fileType !== e.target.id);
+        uploadImages.push({
+          fileType: e.target.id,
+          fileName: Name,
+        });
+        Images.push({
+          fileType: e.target.id,
+          fileName: Name,
+          dataImage: reader.result,
+        });
+      }
 
       console.log(Images);
     };
@@ -65,7 +64,7 @@ function UPLOAD() {
     localStorage.setItem("upload", JSON.stringify(uploadImages));
   }
   const NextButton = () => {
-    navigate("/studnt/reviewform");
+    navigate("/onetimeform/reviewform");
   };
   function uploadImage() {
     fetch("http://localhost:5000/upload-image", {
@@ -96,6 +95,7 @@ function UPLOAD() {
     } else {
       navigate("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const auth = JSON.parse(localStorage.getItem("stdqualify"));
 
@@ -160,7 +160,7 @@ function UPLOAD() {
               </MDBCol>
               <MDBCol></MDBCol>
             </MDBRow>
-          
+
 
             {Btech ? (
               <>
@@ -314,7 +314,7 @@ function UPLOAD() {
             <hr />
             <MDBRow>
               {" "}
-              {authh == "Yes" ? (
+              {authh === "Yes" ? (
                 <>
                   <MDBCol>
                     <label htmlFor="file" style={{ paddingBottom: "10px" }}>
@@ -343,29 +343,26 @@ function UPLOAD() {
                 ></input>
               </MDBCol>
             </MDBRow>
-            <MDBRow style={{ height: "20px" }}></MDBRow>
-
-            <MDBRow style={{ height: "20px" }}></MDBRow>
-
-            <MDBRow>
-              <MDBCol>
-                <MDBBtn type="submit" onClick={setDocuments}>
-                  Save
-                </MDBBtn>
-              </MDBCol>
-              <MDBCol>
-                <MDBBtn
-                  type="button"
-                  onClick={() => {
-                    NextButton();
-                  }}
-                  disabled={nextButton}
-                >
-                  Next
-                </MDBBtn>
-              </MDBCol>
-            </MDBRow>
           </form>
+          <MDBRow style={{ height: "40px" }}></MDBRow>
+          <MDBRow>
+            <MDBCol>
+              <MDBBtn type="submit" onClick={setDocuments}>
+                Save
+              </MDBBtn>
+            </MDBCol>
+            <MDBCol>
+              <MDBBtn
+                type="button"
+                onClick={() => {
+                  NextButton();
+                }}
+                disabled={nextButton}
+              >
+                Next
+              </MDBBtn>
+            </MDBCol>
+          </MDBRow>
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Document, Page } from "react-pdf/dist/esm/entry.webpack5";
+// import { Document, Page } from "react-pdf/dist/esm/entry.webpack5";
 import { pdfjs } from "react-pdf";
 
 import {
@@ -32,6 +32,7 @@ function UPLOAD() {
     } else {
       navigate("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const get_documents = async () => {

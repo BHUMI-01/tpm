@@ -41,31 +41,38 @@ const MangAdmin = () => {
   function Items({ currentItems }) {
     return (
       <>
-        <MDBTable striped>
-          <MDBTableHead>
-            <th style={{ fontWeight: "bold" }}>Admin Name</th>
-            <th style={{ fontWeight: "bold" }}>Email</th>
-            <th style={{ fontWeight: "bold" }}>Created At</th>
-            <th style={{ fontWeight: "bold" }}>Edit</th>
-            <th style={{ fontWeight: "bold" }}>Remove</th>
-          </MDBTableHead>
-          <MDBTableBody>
-            {currentItems &&
-              currentItems.map((item) => (
-                <tr key={item._id}>
-                  <td>{item.username}</td>
-                  <td>{item.email}</td>
-                  <td>{item.created_at}</td>
-                  <td>
-                    <MDBBtn><i className="fa-solid fa-pen-to-square"></i> </MDBBtn>
-                  </td>
-                  <td>
-                    <MDBBtn><i className="fa-solid fa-trash"></i></MDBBtn>
-                  </td>
-                </tr>
-              ))}
-          </MDBTableBody>
-        </MDBTable>
+        <MDBContainer>
+          <MDBRow>
+            <Link to="/admin/addadmin"><MDBBtn>ADD ADMIN</MDBBtn></Link>
+          </MDBRow>
+          <MDBRow>
+            <MDBTable striped>
+              <MDBTableHead>
+                <th style={{ fontWeight: "bold" }}>Admin Name</th>
+                <th style={{ fontWeight: "bold" }}>Email</th>
+                <th style={{ fontWeight: "bold" }}>Created At</th>
+                <th style={{ fontWeight: "bold" }}>Edit</th>
+                <th style={{ fontWeight: "bold" }}>Remove</th>
+              </MDBTableHead>
+              <MDBTableBody>
+                {currentItems &&
+                  currentItems.map((item) => (
+                    <tr key={item._id}>
+                      <td>{item.username}</td>
+                      <td>{item.email}</td>
+                      <td>{item.created_at}</td>
+                      <td>
+                        <MDBBtn><i className="fa-solid fa-pen-to-square"></i> </MDBBtn>
+                      </td>
+                      <td>
+                        <MDBBtn><i className="fa-solid fa-trash"></i></MDBBtn>
+                      </td>
+                    </tr>
+                  ))}
+              </MDBTableBody>
+            </MDBTable>
+          </MDBRow>
+        </MDBContainer>
       </>
     );
   }

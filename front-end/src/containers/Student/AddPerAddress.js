@@ -41,9 +41,10 @@ function AddPeraddress() {
         setnextbutton(false);
       }
     }
-    if (auth == author) {
+    if (auth === author) {
       setShow(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getPerAddressDetails = async () => {
@@ -79,7 +80,7 @@ function AddPeraddress() {
   };
 
   const NextButton = () => {
-    navigate("/studnt/addstdeducat");
+    navigate("/onetimeform/addstdeducat");
   };
 
   const CountryVar = Country.getAllCountries();
@@ -258,50 +259,47 @@ function AddPeraddress() {
                     />
                   </MDBCol>
                 </MDBRow>
-
-                <MDBRow style={{ height: "20px" }}></MDBRow>
-                <MDBRow>
+              </form>
+              <MDBRow style={{ height: "20px" }}></MDBRow>
+              <MDBRow>
+                <MDBCol>
+                  <MDBBtn
+                    type="submit"
+                    onClick={() => {
+                      set_student_address();
+                    }}
+                  >
+                    Save
+                  </MDBBtn>
+                </MDBCol>
+                {show ? (
                   <MDBCol>
                     <MDBBtn
-                      type="submit"
+                      type="button"
+                      disabled={nextButton}
                       onClick={() => {
-                        set_student_address();
+                        NextButton();
                       }}
                     >
-                      Save
+                      Next
                     </MDBBtn>
                   </MDBCol>
-                  {show ? (
-                    <MDBCol>
-                      <MDBBtn
-                        type="button"
-                        disabled={nextButton}
-                        onClick={() => {
-                          NextButton();
-                        }}
-                      >
-                        Next
-                      </MDBBtn>
-                    </MDBCol>
-                  ) : null}
-                </MDBRow>
+                ) : null}
+              </MDBRow>
 
-                <MDBRow
-                  style={{ height: "20px", paddingLeft: "20px" }}
-                ></MDBRow>
-                <MDBRow style={{ height: "40px", paddingLeft: "20px" }}>
-                  <MDBRadio
-                    name="flexRadioDefault"
-                    value={show}
-                    checked={show}
-                    onClick={() => setShow(!show)}
-                    onChange={() => {}}
-                    style={{ fontsize: "16px", fontweight: "bold" }}
-                    id="flexRadioDefault1"
-                    label="SAME AS CORRESSPONDING ADDRESS"
-                  />
-                </MDBRow>
-              </form>
+              <MDBRow style={{ height: "20px", paddingLeft: "20px" }} />
+              <MDBRow style={{ height: "40px", paddingLeft: "20px" }}>
+                <MDBRadio
+                  name="flexRadioDefault"
+                  value={show}
+                  checked={show}
+                  onClick={() => setShow(!show)}
+                  onChange={() => { }}
+                  style={{ fontsize: "16px", fontweight: "bold" }}
+                  id="flexRadioDefault1"
+                  label="SAME AS CORRESSPONDING ADDRESS"
+                />
+              </MDBRow>
             </MDBRow>
             {show ? null : <AddTempaddress />}
           </MDBCardBody>

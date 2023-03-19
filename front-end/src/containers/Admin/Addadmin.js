@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import {
   MDBContainer,
   MDBRow,
@@ -9,18 +8,11 @@ import {
   MDBCardImage,
 } from "mdb-react-ui-kit";
 
-const Compregister = () => {
+const Addadmin = () => {
   const [username, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  useEffect(() => {
-    const auth = localStorage.getItem("token");
-    if (auth) {
-      navigate('/')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  })
+  
 
   const collectData = async () => {
     let result = await fetch("http://localhost:5000/comp-register", {
@@ -118,4 +110,4 @@ const Compregister = () => {
   );
 }
 
-export default Compregister;
+export default Addadmin;

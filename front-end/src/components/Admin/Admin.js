@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import {
-    MDBContainer,
     MDBRow,
     MDBCol,
     MDBBtnGroup,
@@ -16,6 +15,7 @@ function Admin() {
         if (!authorize) {
             navigate('/');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -25,7 +25,7 @@ function Admin() {
                     <MDBCardBody>
                         <h2 className='text-center bg-success text-bg-dark p-2'>Admin PANEL</h2>
                         <MDBRow>
-                            <h2 style={{ height: "40px" }}></h2>
+                            <MDBRow style={{ height: "40px" }}/>
                             <MDBBtnGroup horizontal="true" style={{ padding: "10px" }}>
                                 <MDBCol md={3} style={{ textAlign: "center" }}>
                                     <Link to="/admin/manageadmin"><i className="fa-regular fa-circle"> Manage Admins</i></Link>

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import {
-    MDBContainer,
     MDBRow,
     MDBCol,
     MDBBtnGroup,
@@ -16,6 +15,7 @@ function Student2() {
         if (!authorize) {
             navigate('/');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const colordiv1 = () => {
         if(localStorage.getItem("stdprofile")){
@@ -57,7 +57,7 @@ function Student2() {
                     <MDBCardBody>
                         <h2 className='text-center bg-success text-bg-dark p-2'>Student PANEL</h2>
                         <MDBRow>
-                            <h2 style={{ height: "40px" }}></h2>
+                            <MDBRow style={{ height: "40px" }}></MDBRow>
                             <MDBBtnGroup horizontal="true" style={{ padding: "10px" }}>
                                 <MDBCol md={3} style={{ textAlign: "center" }}>
                                     <i className="fa-regular fa-circle"> Profile</i>

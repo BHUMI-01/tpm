@@ -17,9 +17,10 @@ const Login = () => {
   useEffect(() => {
     const auth = localStorage.getItem("token");
     if (auth) {
-      navigate('/stddash');
+      navigate('/dashboard');
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handlelogin = async () => {
     let result = await fetch("http://localhost:5000/login", {

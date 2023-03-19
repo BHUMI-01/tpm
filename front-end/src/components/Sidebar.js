@@ -25,7 +25,7 @@ const Sidebar = () => {
             <CDBSidebarMenuItem
               icon="th-large"
             >
-              <Link to="/stddash">Dashboard</Link>
+              <Link to="/dashboard">Dashboard</Link>
             </CDBSidebarMenuItem>
             
             <CDBSidebarMenuItem

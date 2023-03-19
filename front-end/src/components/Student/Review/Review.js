@@ -22,7 +22,7 @@ const Review = () => {
   const stdupload = JSON.parse(localStorage.getItem("upload"));
   const navigate = useNavigate();
   const handleEdit = () => {
-    navigate("/studnt/addstdprofile");
+    navigate("/onetimeform/addstdprofile");
   };
 
   const uploadData = async () => {
@@ -513,7 +513,7 @@ const Review = () => {
                 </MDBBtn>
               </MDBCol>
               <MDBCol>
-                <Link to="/stddash">
+                <Link to="/dashboard">
                   <MDBBtn type="submit" disabled={nextButton} onClick={uploadData}>
                     Submit
                   </MDBBtn>

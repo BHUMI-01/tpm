@@ -20,7 +20,7 @@ const AddEducat = () => {
     setShow([...show, "Sample"]);
   };
   const NextButton = () => {
-    navigate("/studnt/addstdupload");
+    navigate("/onetimeform/addstdupload");
   };
   return (
     <>

@@ -20,8 +20,9 @@ const Stdregister = () => {
   useEffect(() => {
     const auth = localStorage.getItem("token");
     if (auth) {
-      navigate('/studnt/addstdprofile');
+      navigate('/onetimeform/addstdprofile');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const collectData = async () => {
@@ -33,10 +34,10 @@ const Stdregister = () => {
       }
     });
     result = await result.json();
-    if (result.result == "user already enrolled") {
+    if (result.result === "user already enrolled") {
       alert("User Already Registered");
     }
-    else if (result.result == "Something is wrong!") {
+    else if (result.result === "Something is wrong!") {
       alert("Something is wrong! Please try it again!!");
     }
     else {

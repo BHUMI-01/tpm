@@ -4,7 +4,7 @@ import {
   MDBRow,
   MDBCol,
 } from "mdb-react-ui-kit";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Country, State, City } from "country-state-city";
 
 function AddTempaddress() {
@@ -34,6 +34,7 @@ function AddTempaddress() {
         setnextbutton(false);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getTempAddressDetails = async () => {
@@ -66,7 +67,7 @@ function AddTempaddress() {
   };
 
   const NextButton = () => {
-    navigate("/studnt/addstdeducat");
+    navigate("/onetimeform/addstdeducat");
   };
   const CountryVar = Country.getAllCountries();
   const StateVar = State.getStatesOfCountry(country);

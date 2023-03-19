@@ -29,6 +29,7 @@ import Reviewform from './containers/Student/ReviewForm';
 
 import Admin from './containers/Admin/Admn';
 import ManageStd from './containers/Admin/MangStudent';
+import AddAdmin from './containers/Admin/Addadmin';
 import ManageRecruit from './containers/Admin/MangRecruiter';
 import ManageAdmin from './containers/Admin/MangAdmin';
 import Notify from './containers/Admin/Notification';
@@ -61,7 +62,7 @@ function App() {
           <Route path="addstdqualify" element={<AddStudentQualify />} />
         </Route>
 
-        <Route path="/studnt" element={<StudentDash2 />}>
+        <Route path="/onetimeform" element={<StudentDash2 />}>
           <Route path="addstdprofile" element={<AddStudentProfile />} />
           <Route path="addstdperaddress" element={<AddPerStudentAddress />} />
           <Route path="addstdtempaddress" element={<AddTempAddress />} />
@@ -70,12 +71,13 @@ function App() {
           <Route path="reviewform" element={<Reviewform />} />
         </Route>
 
-        <Route path="/stddash" element={<StudentDashboard />} />
+        <Route path="/dashboard" element={<StudentDashboard />} />
         <Route path="/admin" element={<Admin />}>
           <Route path="managestd" element={<ManageStd />} />
           <Route path="managecomp" element={<ManageRecruit />} />
           <Route path="notification" element={<Notify />} />
           <Route path="manageadmin" element={<ManageAdmin />} />
+          <Route path="addadmin" element={<AddAdmin />} />
         </Route>
         <Route path="/recruiter" element={<Recruiter />} />
 

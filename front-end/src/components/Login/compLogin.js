@@ -19,7 +19,8 @@ const CompLogin = () => {
     if (auth) {
       navigate('/');
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handlelogin = async () => {
     let result = await fetch("http://localhost:5000/comp-login", {

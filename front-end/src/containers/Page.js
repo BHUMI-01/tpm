@@ -13,9 +13,9 @@ const Page = () => {
   const navigate = useNavigate();
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const getData = async () => {
-    console.log("working...");
     if (authorize) {
       const idd = JSON.parse(localStorage.getItem("student"))._id;
       let result = await fetch(`http://localhost:5000/add-data/${idd}`, {
@@ -24,7 +24,6 @@ const Page = () => {
         },
       });
       result = await result.json();
-      console.log(result);
       setData(result);
     } else {
       navigate("/");
@@ -42,7 +41,7 @@ const Page = () => {
             <MDBCardBody>
               <MDBRow>
                 <MDBCol md={3}>
-                  <img src='./AMU.png' alt='image' style={{ borderRadius: "25px solid", height: "200px" }} />
+                  <img src='./AMU.png' alt='img' style={{ borderRadius: "25px solid", height: "200px" }} />
                 </MDBCol>
                 <MDBCol md={9}>
                   <MDBRow>

@@ -4,11 +4,8 @@ import {
   MDBContainer,
   MDBRow,
   MDBCard,
-  MDBTable,
-  MDBTableBody,
   MDBCardBody,
   MDBCol,
-  MDBTableHead,
   MDBInput
 } from "mdb-react-ui-kit";
 import { useEffect, useState } from "react";
@@ -23,6 +20,7 @@ const MangStudent = () => {
   const [searchkey, setKey] = useState("");
   useEffect(() => {
     getProfiles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getProfiles = async () => {
@@ -52,7 +50,7 @@ const MangStudent = () => {
                 <MDBCardBody>
                   <MDBRow style={{ padding: "20px" }}>
                     <MDBCol md={2}>
-                      <img src="" alt="picture" style={{ height: "auto", width: "auto" }} />
+                      <img src="" alt="pic" style={{ height: "auto", width: "auto" }} />
                     </MDBCol>
                     <MDBCol md={8}>
                       <h6>Name: {item.username}</h6>
