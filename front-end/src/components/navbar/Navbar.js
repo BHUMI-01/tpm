@@ -30,7 +30,7 @@ function navbar() {
                 <label htmlFor="checkbox_toggle" className="hamburger">&#9776;</label>
                 <div className="menu">
                   <li><Link to="/">Home</Link></li>
-                  {auth ? <li><Link to='/stddash'><i className="fa-solid fa-user"></i> {auth.firstName}</Link></li> : null}
+                  {auth ? <li><Link to='/dashboard'><i className="fa-solid fa-user"></i> {auth.firstName}</Link></li> : null}
                   {authh ? (authh.role === "recruiter" ?
                     <li><Link to="/recruiter"><i className="fa-solid fa-user"></i> {authh.username}</Link></li>
                     :
