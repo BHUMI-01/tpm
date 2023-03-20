@@ -9,6 +9,7 @@ const Student = require("./models/students/Student");
 const Recruiter = require("./models/recruiters/Recruiter");
 const Admin = require("./models/Admin/Admin");
 const Student_Data = require("./models/students/Student_Data");
+const Jobs = require("./models/Notification/JobPost");
 const { valid } = require("joi");
 
 const Images = require("./models/students/imageupload");
@@ -23,23 +24,22 @@ app.use(cors());
 //student register and login - register
 app.post("/register", async (req, resp) => {
   try {
-      let student = await Student.findOne(req.body);
+    let student = await Student.findOne(req.body);
 
-      if (student) {
-        resp.send({ result: "user already enrolled" });
-      } else {
-        let student = new Student(req.body);
-        let result = await student.save();
-        result = result.toObject();
-        delete result.password;
-        Jwt.sign({ result }, jwtKey, { expiresIn: "7h" }, (err, token) => {
-          if (err) {
-            resp.send({ result: "Something is wrong!" });
-          }
-          resp.send({ result, auth: token });
-        });
-      }
-    
+    if (student) {
+      resp.send({ result: "user already enrolled" });
+    } else {
+      let student = new Student(req.body);
+      let result = await student.save();
+      result = result.toObject();
+      delete result.password;
+      Jwt.sign({ result }, jwtKey, { expiresIn: "7h" }, (err, token) => {
+        if (err) {
+          resp.send({ result: "Something is wrong!" });
+        }
+        resp.send({ result, auth: token });
+      });
+    }
   } catch (err) {
     console.log(err);
     resp.send({ result: "Something is wrong!" });
@@ -181,51 +181,93 @@ app.post("/upload-image", verifyToken, async (req, res) => {
 app.get("/get-image/:id", verifyToken, async (req, resp) => {
   const data = await Images.findOne({ studentId: req.params.id });
   if (data) {
-    resp.send(data)
-  }
-  else {
-    resp.send({ result: "No User Found" })
+    resp.send(data);
+  } else {
+    resp.send({ result: "No User Found" });
   }
 });
 app.put("/update-image/:id", verifyToken, async (req, resp) => {
-
   let result = await Images.updateOne(
     { studentId: req.params.id },
     {
-      $set: req.body
+      $set: req.body,
     }
-  )
+  );
   resp.send(result);
 });
 
 app.get("/get-admins", verifyToken, async (req, resp) => {
-  const data = await Admin.find({role: "admin"});
+  const data = await Admin.find({ role: "admin" });
   if (data) {
-    resp.send(data)
-  }
-  else {
-    resp.send({ result: "No User Found" })
+    resp.send(data);
+  } else {
+    resp.send({ result: "No User Found" });
   }
 });
 
 app.get("/get-recruit", verifyToken, async (req, resp) => {
-  const data = await Admin.find({role: "recruiter"});
+  const data = await Admin.find({ role: "recruiter" });
   if (data) {
-    resp.send(data)
-  }
-  else {
-    resp.send({ result: "No User Found" })
+    resp.send(data);
+  } else {
+    resp.send({ result: "No User Found" });
   }
 });
 
 app.get("/get-student", verifyToken, async (req, resp) => {
   const data = await Student.find();
   if (data) {
-    resp.send(data)
+    resp.send(data);
+  } else {
+    resp.send({ result: "No User Found" });
   }
-  else {
-    resp.send({ result: "No User Found" })
+});
+
+//APIS FOR JOB SCHEMA
+
+app.post("/upload-job", verifyToken, async (req, resp) => {
+  const {
+    companyName,
+    position,
+    lastApplyDate,
+    requirements,
+    stipend,
+    supportiveDocs,
+    description,
+  } = req.body;
+  try {
+    await Jobs.create({
+      companyName,
+      position,
+      lastApplyDate,
+      requirements,
+      stipend,
+      supportiveDocs,
+      description,
+    });
+    resp.send({ Status: "ok" });
+  } catch (error) {
+    resp.send({ Status: "error", data: error });
   }
+});
+
+app.get("/get-job", verifyToken, async (req, resp) => {
+  const data = await Jobs.find();
+  if (data) {
+    resp.send(data);
+  } else {
+    resp.send({ result: "No Job Found" });
+  }
+});
+
+app.put("/update-job/:id", verifyToken, async (req, resp) => {
+  let result = await Jobs.updateOne(
+    { _id: req.params.id },
+    {
+      $set: req.body,
+    }
+  );
+  resp.send(result);
 });
 
 app.listen(5000);
