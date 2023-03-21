@@ -3,27 +3,36 @@ import {
   MDBBtn,
   MDBContainer,
   MDBRow,
-  MDBCard,
-  MDBTable,
-  MDBTableBody,
-  MDBCardBody,
   MDBCol,
-  MDBTableHead,
+  MDBCard,
+  MDBCardBody
 } from "mdb-react-ui-kit";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import ReactPaginate from "react-paginate";
+import { Link } from "react-router-dom";
 
 const Notification = () => {
   return (
     <MDBContainer>
-      <MDBRow style={{ height: "20px" }}></MDBRow>
       <MDBRow>
-        <Link to="/admin/addJob">
-          <MDBBtn>ADD Job</MDBBtn>
-        </Link>
-      </MDBRow>
+        <MDBCol md={6}>
+          <MDBCard className='text-black m-5' style={{ borderRadius: '0px' }}>
+            <MDBCardBody style={{ textAlign: "center" }}>
+              <Link to="/admin/addJob">
+                <MDBBtn>Jobs</MDBBtn>
+              </Link>
+            </MDBCardBody>
+          </MDBCard>
+        </MDBCol>
 
+        <MDBCol md={6}>
+          <MDBCard className='text-black m-5' style={{ borderRadius: '0px' }}>
+            <MDBCardBody style={{ textAlign: "center" }}>
+              <Link to="/admin/addEvent">
+                <MDBBtn>Events</MDBBtn>
+              </Link>
+            </MDBCardBody>
+          </MDBCard>
+        </MDBCol>
+      </MDBRow>
     </MDBContainer>
   );
 };

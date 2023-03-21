@@ -34,6 +34,7 @@ import ManageRecruit from './containers/Admin/MangRecruiter';
 import ManageAdmin from './containers/Admin/MangAdmin';
 import Notify from './containers/Admin/Notification';
 import AddJob from './containers/Admin/Addjob';
+import AddEvent from './containers/Admin/AddEventPost';
 
 import Recruiter from './containers/Recruiter';
 import StudentDashboard from './containers/Page';
@@ -80,6 +81,7 @@ function App() {
           <Route path="manageadmin" element={<ManageAdmin />} />
           <Route path="addadmin" element={<AddAdmin />} />
           <Route path="addJob" element={<AddJob />} />
+          <Route path="addEvent" element={<AddEvent />} />
         </Route>
         <Route path="/recruiter" element={<Recruiter />} />
 

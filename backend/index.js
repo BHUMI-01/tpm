@@ -6,7 +6,7 @@ const Jwt = require("jsonwebtoken");
 const jwtKey = "i am lovish";
 require("./db/config");
 const Student = require("./models/students/Student");
-const Recruiter = require("./models/recruiters/Recruiter");
+const EventPost = require("./models/Notification/EventPost");
 const Admin = require("./models/Admin/Admin");
 const Student_Data = require("./models/students/Student_Data");
 const Jobs = require("./models/Notification/JobPost");
@@ -268,6 +268,24 @@ app.put("/update-job/:id", verifyToken, async (req, resp) => {
     }
   );
   resp.send(result);
+});
+
+// api for the event post 
+// post request api
+app.post("/add-event-post", async (req, resp) => {
+  let posts = new EventPost(req.body);
+  let result = await posts.save();
+  resp.send(result);
+});
+//get request api
+app.get("/get-event-post", async (req, resp) => {
+  const posts = await EventPost.find();
+  if (posts) {
+    resp.send(posts)
+  }
+  else {
+    resp.send({ result: "No Events Found!" })
+  }
 });
 
 app.listen(5000);
