@@ -7,6 +7,7 @@ import {
   MDBInput,
   MDBCardBody,
   MDBCol,
+  MDBTextArea
 } from "mdb-react-ui-kit";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -146,16 +147,7 @@ const AddJob = () => {
                   onChange={(e) => setstipend(e.target.value)}
                 ></MDBInput>
               </MDBCol>
-              <MDBCol>
-                <label>Description: </label>
-                <MDBInput
-                  id="description"
-                  required
-                  type="text"
-                  value={description}
-                  onChange={(e) => setdescription(e.target.value)}
-                ></MDBInput>
-              </MDBCol>
+              
             </MDBRow>
 
             <MDBRow style={{ height: "20px" }}></MDBRow>
@@ -174,13 +166,25 @@ const AddJob = () => {
             <MDBRow>
               <MDBCol>
                 <label>Requirements: </label>
-                <MDBInput
+                <MDBTextArea
                   id="description"
                   required
                   type="text"
                   value={requirements}
+                  rows={4}
                   onChange={(e) => setrequirements(e.target.value)}
-                ></MDBInput>
+                ></MDBTextArea>
+              </MDBCol>
+              <MDBCol>
+                <label>Description: </label>
+                <MDBTextArea
+                  id="description"
+                  required
+                  type="text"
+                  rows={4}
+                  value={description}
+                  onChange={(e) => setdescription(e.target.value)}
+                ></MDBTextArea>
               </MDBCol>
             </MDBRow>
             <MDBRow style={{ height: "20px" }}></MDBRow>
