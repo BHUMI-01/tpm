@@ -47,7 +47,7 @@ const adminSchema = new mongoose.Schema({
   
 //   newAdmin.save((err, admin) => {
 //     if (err) {
-//       console.log(err);
+//       console.log(err);hhhhhhhhhhhhhhhh
 //     } else {
 //       console.log('Admin created:', admin);
 //     }
