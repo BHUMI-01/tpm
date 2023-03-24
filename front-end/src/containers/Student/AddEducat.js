@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Button } from "../../components/Student/Education/Button";
 import { Link, useNavigate } from "react-router-dom";
 import AddQualify from "../../components/Student/Education/addqualify";
-
+//GTG
 const AddEducat = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(["Sample"]);
